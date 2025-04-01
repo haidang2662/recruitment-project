@@ -1,0 +1,59 @@
+spring:
+  datasource:
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password: ""
+#    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://localhost:3306/recruitment-project?createDatabaseIfNotExist=true
+    username: root
+    password: "123456"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+#        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+        show_sql: true
+#  h2:
+#    console:
+#      enabled: true
+#      path: /h2-console
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: danglehuu.utc
+    password: "gcee bauu sayv ychy"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+application:
+  security:
+    jwt:
+      secretKey: de6aaeabadeccc598160172044da9c566242ae3bde6aaeabadeccc598160172044da9c566242ae3b
+      tokenValidityMilliseconds: 86400000 # 1 ngay
+    refreshToken:
+      secretKey: e3f0acd51fe8f38b145c82074ac46abf3395db7ad3eb1a96166d31c35409b14fe7725d18bd177d860caaceb17decdc5a704c0ecc91a8e40ac4b5168e9a0af10e
+      tokenValidityMilliseconds: 1800000
+
+  account:
+    admin:
+      username: admin
+      password: admin123
+    activation:
+      activationUrl: http://localhost:8080/accounts/{id}/activations
+      expiredDurationInMilliseconds: 1800000 # 30 phut
+      maxResendTimes: 3
+    passwordForgotten:
+      url: http://localhost:8080/accounts/{id}/password_forgotten
+      expiredDurationInMilliseconds: 1800000 # 30 phut
+#      maxResendTimes: 3
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Interview Management')}"/>
+
+<body>
+
+<div class="page-wrapper dashboard ">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <header th:replace="~{fragments/common/sidebar :: sidebar}"/>
+    <!-- End User Sidebar -->
+
+    <!-- Dashboard -->
+    <section class="user-dashboard">
+        <div class="dashboard-outer">
+            <div class="upper-title-box">
+                <h3>Interview management</h3>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-content py-4">
+                                <form id="search-interview-form">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label fw-500">Candidcate name</label>
+                                                <input type="text" class="form-control" id="name"
+                                                       placeholder="Enter candidate name"
+                                                       name="candidateName">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="jobTitle" class="form-label fw-500">Job title</label>
+                                                <input type="text" class="form-control" id="jobTitle"
+                                                       placeholder="Enter job title"
+                                                       name="jobTitle">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="mb-3">
+                                                    <label for="interviewDateFrom" class="form-label fw-500">Interview
+                                                        date
+                                                        from</label>
+                                                    <input type="date" class="form-control" id="interviewDateFrom"
+                                                           placeholder="Enter interview date from"
+                                                           name="interviewDateFrom">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="interviewDateTo" class="form-label fw-500">Interview date
+                                                    to</label>
+                                                <input type="date" class="form-control" id="interviewDateTo"
+                                                       placeholder="Enter interview date to"
+                                                       name="interviewDateTo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="interviewType" class="form-label fw-500">Interview type</label>
+                                                <select id="interviewType" name="interviewType" class="form-select">
+                                                    <option value="">--Please select an interview type--</option>
+                                                    <option value="ONLINE">Online</option>
+                                                    <option value="OFFLINE">Offline</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="status" class="form-label fw-500">Interview status</label>
+                                                <select id="status" name="status" class="form-select">
+                                                    <option value="">--Please select a status--</option>
+                                                    <option value="CREATED">Created</option>
+                                                    <option value="PASSED">Passed</option>
+                                                    <option value="FAILED">Failed</option>
+                                                    <option value="CANDIDATE_ABSENCE">Candidate absence</option>
+                                                    <option value="CANCELLED">Cancelled by candidate</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary me-4 px-4" id="search-interview-btn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true" id="spinner-search"></span>
+                                        Search
+                                    </button>
+
+                                    <button type="button" class="btn btn-secondary px-4" id="reset-search-interview-btn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true" id="spinner-reset"></span>
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Ls widget -->
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-content pt-5">
+                                <div class="table-outer">
+                                    <table class="table table-bordered table-striped table-hover" id="interview-table">
+                                        <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Candidate name</th>
+                                            <th>Job title</th>
+                                            <th>Email sent at</th>
+                                            <th>Interview at</th>
+                                            <th>Type</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="widget-title pt-0">
+                                <div class="row w-100 align-items-center" id="interview-paging">
+                                    <div class="col total-record">
+                                    </div>
+                                    <div class="col">
+                                        <ul class="pagination justify-content-end" style="margin:20px 0">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Dashboard -->
+
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/company/interview/interviews.js"></script>
+</body>
+
+</html>

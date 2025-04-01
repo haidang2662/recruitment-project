@@ -1,0 +1,115 @@
+<div class="row" th:fragment="company-profile" id="company-profile-block">
+    <div class="col-lg-12">
+        <!-- Ls widget -->
+        <div class="ls-widget">
+            <div class="tabs-box">
+                <div class="widget-title">
+                    <h4>My Profile</h4>
+                </div>
+
+                <div class="widget-content">
+
+                    <div class="uploading-outer d-flex justify-content-center candidate-avatar">
+                        <figure>
+                            <img src="" class="img-company-avatar" alt="" style="cursor: pointer; height: 120px; width: 200px;">
+                            <div class="uploadButton">
+                                <input class="uploadButton-input" type="file" name="avatar"
+                                       accept="image/*" id="avatar-company-input"/>
+                                <label class="uploadButton-button ripple-effect change-avatar-btn" for="avatar-company-input">Browse Avatar</label>
+                                <span class="uploadButton-file-name"></span>
+                            </div>
+                            <div class="text">Max file size is 1MB</div>
+                            <p id="avatar-company-error" class="error"></p>
+                        </figure>
+                    </div>
+
+                    <div class="uploading-outer d-flex justify-content-center candidate-avatar">
+                        <figure>
+                            <img src="" class="img-company-cover-avatar" alt="" style="cursor: pointer; height: 120px; width: 200px;">
+                            <div class="uploadButton">
+                                <input class="uploadButton-input" type="file" name="cover-avatar"
+                                       accept="image/*" id="avatar-cover-input"/>
+                                <label class="uploadButton-button ripple-effect change-avatar-btn" for="avatar-cover-input">Browse cover</label>
+                                <span class="uploadButton-file-name"></span>
+                            </div>
+                            <div class="text">Max file size is 1MB</div>
+                            <p id="avatar-cover-error" class="error"></p>
+                        </figure>
+                    </div>
+
+                    <form class="default-form" id="company-info-form">
+                        <div class="row">
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Company name</label>
+                                <input type="text" name="name" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Alias</label>
+                                <input type="text" name="alias" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Phone</label>
+                                <input type="text" name="phone" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Found at</label>
+                                <input type="date" name="foundAt" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Tax code</label>
+                                <input type="text" name="taxCode" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Head quarter address</label>
+                                <input type="text" name="headQuarterAddress" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Employee quantity</label>
+                                <input type="number" name="employeeQuantity" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Website</label>
+                                <input type="text" name="website" placeholder="">
+                            </div>
+
+                            <!-- About Company -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>About Company</label>
+                                <textarea name="description" placeholder=""></textarea>
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Rating</label>
+                                <input type="number" name="rating" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12 d-flex">
+                                <button type="button" class="theme-btn btn-style-one account-info-saving-btn">
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="spinner-update"></span>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Upload CV')}"/>
+
+
+<body data-anm=".anm" class="d-flex flex-column min-vh-100">
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Main Header-->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!--End Main Header -->
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 d-flex justify-content-center align-items-center py-5">
+        <div class="container">
+            <div class="row justify-content-center my-5 py-5">
+                <div class="col">
+
+                    <div class="uploading-outer flex-column gap-5">
+                        <div class="uploadButton">
+                            <input class="uploadButton-input" type="file" name="cv" id="cv"
+                                   accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf"
+                            />
+                            <label class="uploadButton-button ripple-effect" for="cv">Browse CV</label>
+                        </div>
+                        <span class="uploadButton-file-name text-primary fw-600"></span>
+                        <div class="text">Max file size is 10MB. Suitable files are .pdf, .doc, .docx</div>
+                        <p id="cv-error" class="error mb-4 text-danger fw-600"></p>
+                        <a href="#" class="btn btn-primary btn-lg upload-cv-btn px-5 disabled">Upload</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<!-- Main Footer -->
+<footer th:replace="~{fragments/common/footer :: my-footer}"/>
+
+<!-- End Main Footer -->
+
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace=" ~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/candidate/cv/cv-uploading.js"></script>
+
+</body>
+
+</html>

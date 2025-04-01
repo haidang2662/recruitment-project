@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='List CV')}"/>
+
+
+<body data-anm=".anm" class="d-flex flex-column min-vh-100">
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Main Header-->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!--End Main Header -->
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 d-flex justify-content-center align-items-center py-5">
+        <div class="container">
+            <div class="row justify-content-center my-5">
+                <div class="col">
+
+                    <div class="dashboard-outer">
+                        <div class="upper-title-box">
+                            <h3>Manage CV</h3>
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col">
+                                <table class="default-table manage-job-table" id="cv-table">
+                                    <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Title</th>
+                                        <th>Created at</th>
+                                        <th>Main?</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col" id="cv-paging">
+                                <div class="col total-record">
+                                </div>
+                                <div class="col">
+                                    <ul class="pagination justify-content-end" style="margin:20px 0">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+<!-- Main Footer -->
+<footer th:replace="~{fragments/common/footer :: my-footer}"/>
+
+<!-- End Main Footer -->
+
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace=" ~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/candidate/cv/cv-list.js"></script>
+
+</body>
+
+</html>

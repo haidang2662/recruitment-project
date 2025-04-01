@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Candidate details')}"/>
+
+<body>
+
+<div class="page-wrapper dashboard">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <header th:replace="~{fragments/common/sidebar :: sidebar}"/>
+    <!-- End User Sidebar -->
+
+    <!-- Job Detail Section -->
+    <section class="job-detail-section" style="margin-left: -3.5rem">
+        <div class="job-detail-outer p-0">
+            <div class="auto-container">
+                <div class="row">
+                    <div class="content-column col">
+                        <div class="job-block-outer">
+                            <!-- Job Block -->
+                            <div class="job-block-seven style-two">
+                                <div class="inner-box col">
+                                    <div class="job-title d-flex align-items-center">
+                                        <h4 class="me-2 mb-0">Candidate details</h4>
+                                    </div>
+                                    <div class="interview-buttons d-flex">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Candidate -->
+                        <div class="ls-widget">
+                            <div class="tabs-box">
+                                <div class="job-overview-two pt-4">
+                                    <div class="row">
+                                        <div class="col pb-3">
+                                            <h2>Candidate information</h2>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <i class="icon icon-calendar"></i>
+                                            <h5>Name</h5>
+                                            <span id="name"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon flaticon-phone-receiver" style="color: #0d6efd; margin-left: 5px;"></i>
+                                            <h5>Phone</h5>
+                                            <span id="phone"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon flaticon-briefcase" style="margin-left: 5px;"></i>
+                                            <h5>Skills</h5>
+                                            <span id="skills"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-clock"></i>
+                                            <h5>Year of experience</h5>
+                                            <span id="yearOfExperience"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-location"></i>
+                                            <h5>Address</h5>
+                                            <span id="address"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon flaticon-briefcase"></i>
+                                            <h5>Current job position</h5>
+                                            <span id="currentJobPosition"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-clock" style="margin-left: -5px;"></i>
+                                            <h5>Date of birth</h5>
+                                            <span id="dob"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-user-2"></i>
+                                            <h5>Email</h5>
+                                            <span id="email"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-rate"></i>
+                                            <h5>Salary</h5>
+                                            <span id="salary"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-clock"></i>
+                                            <h5>Working time type</h5>
+                                            <span id="expectedWorkingTimeType"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon flaticon-briefcase"></i>
+                                            <h5>Working type</h5>
+                                            <span id="expectedWorkingType"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-user-2"></i>
+                                            <h5>Gender</h5>
+                                            <span id="gender"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-degree"></i>
+                                            <h5>Literacy</h5>
+                                            <span id="literacy"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-location"></i>
+                                            <h5>Graduated at</h5>
+                                            <span id="graduatedAt"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Job -->
+                        <div class="ls-widget">
+                            <div class="tabs-box">
+                                <div class="job-overview-two pt-4 candidate-application-block">
+                                    <div class="row">
+                                        <div class="col pb-3">
+                                            <h2>Applied jobs</h2>
+                                        </div>
+                                    </div>
+                                    <table class="table table-bordered table-striped table-hover"
+                                           id="application-table">
+                                        <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Job name</th>
+                                            <th>Candidate name</th>
+                                            <th>Application date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <div class="row w-100 align-items-center" id="application-paging">
+                                        <div class="col total-record">
+                                        </div>
+                                        <div class="col">
+                                            <ul class="pagination justify-content-end" style="margin:20px 0">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Job Detail Section -->
+
+    <!-- Footer -->
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+    <!-- End Footer -->
+
+</div><!-- End Page Wrapper -->
+
+<thblock th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/company/candidate/candidate-details.js"></script>
+</body>
+
+</html>

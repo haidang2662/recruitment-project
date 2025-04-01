@@ -1,0 +1,125 @@
+<!-- Main Header-->
+<header class="main-header" th:fragment="my-header">
+    <div class="container-fluid">
+        <!-- Main box -->
+        <div class="main-box">
+            <!--Nav Outer -->
+            <div class="nav-outer">
+                <div class="logo-box">
+                    <div class="logo"><a href="/"><img src="/images/logo.svg" alt="" title=""></a></div>
+                </div>
+
+                <nav class="nav main-menu">
+                    <ul class="navigation" id="navbar">
+                        <li class="dropdown" id="job-header">
+                            <span>Jobs</span>
+                            <div class="mega-menu">
+                                <div class="mega-menu-bar row pt-0">
+                                    <div class="">
+                                        <ul>
+                                            <li><a href="/jobs" class="text-decoration-none text-dark">Find
+                                                jobs</a></li>
+                                            <li><a href="/jobs/application" class="text-decoration-none text-dark">Applied
+                                                Jobs</a></li>
+                                            <li><a href="/jobs/favourite" class="text-decoration-none text-dark">Favourited
+                                                Jobs</a></li>
+                                            <li><a href="/companies"
+                                                   class="text-decoration-none text-dark">Companies</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="dropdown has-mega-menu" id="has-mega-menu">
+                            <span>CV</span>
+                            <div class="mega-menu">
+                                <div class="mega-menu-bar row pt-0">
+                                    <div class="">
+                                        <ul>
+                                            <li><a href="job-list-v1.html" class="text-decoration-none text-dark">Creat
+                                                CV</a></li>
+                                            <li><a href="/cv/upload" class="text-decoration-none text-dark">Upload
+                                                CV</a></li>
+                                            <li><a href="/cv" class="text-decoration-none text-dark">CV
+                                                Management</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <!-- Only for Mobile View -->
+                        <li class="mm-add-listing">
+                            <a href="add-listing.html" class="theme-btn btn-style-one">Job Post</a>
+                            <span>
+                    <span class="contact-info">
+                      <span class="phone-num"><span>Call us</span><a href="tel:1234567890">123 456 7890</a></span>
+                      <span class="address">329 Queensberry Street, North Melbourne VIC <br>3051, Australia.</span>
+                      <a href="mailto:support@superio.com" class="email">support@superio.com</a>
+                    </span>
+                    <span class="social-links">
+                      <a href="#"><span class="fab fa-facebook-f"></span></a>
+                      <a href="#"><span class="fab fa-twitter"></span></a>
+                      <a href="#"><span class="fab fa-instagram"></span></a>
+                      <a href="#"><span class="fab fa-linkedin-in"></span></a>
+                    </span>
+                  </span>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- Main Menu End-->
+            </div>
+
+            <div class="outer-box">
+                <!-- Login/Register -->
+                <div class="btn-box">
+                    <a href="/login" class="theme-btn btn-style-one" id="btn-login">Login</a>
+                    <a href="/companies/jobs/job-posting" class="theme-btn btn-style-one"
+                       id="header-job-posting-btn">Job Post</a>
+                </div>
+
+                <button class="menu-btn d-none" id="notification-btn">
+                    <span class="icon la la-bell"></span>
+                </button>
+
+                <!-- Dashboard Option -->
+                <div class="dropdown dashboard-option d-none" id="header-account-info">
+                    <a class="dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="" alt="avatar" class="thumb" id="avatar-image-header">
+                        <span class="name"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/accounts/profile"><i class="la la-user-alt"></i>View Profile</a></li>
+                        <li><a href="/accounts/change-password"><i class="la la-lock"></i>Change Password</a></li>
+                        <li><a id="log-out-btn"><i class="la la-sign-out"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="logo"><a href="index.html"><img src="/images/logo.svg" alt="" title=""></a></div>
+
+        <!--Nav Box-->
+        <div class="nav-outer clearfix">
+
+            <div class="outer-box">
+                <!-- Login/Register -->
+                <div class="login-box">
+                    <a href="fragments/login-popup.html" class="call-modal"><span class="icon-user"></span></a>
+                </div>
+
+                <a href="#nav-mobile" class="mobile-nav-toggler navbar-trigger"><span
+                        class="flaticon-menu-1"></span></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="nav-mobile"></div>
+</header>
+<!--End Main Header -->

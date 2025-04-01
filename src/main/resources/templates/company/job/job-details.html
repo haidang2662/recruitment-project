@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Job detail')}"/>
+
+<body>
+
+<div class="page-wrapper dashboard">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <header th:replace="~{fragments/common/sidebar :: sidebar}"/>
+    <!-- End User Sidebar -->
+
+    <!-- Job Detail Section -->
+    <section class="job-detail-section" style="margin-left: -3.5rem">
+        <div class="job-detail-outer p-0">
+            <div class="auto-container">
+                <div class="row">
+                    <div class="content-column col">
+                        <div class="job-block-outer">
+                            <!-- Job Block -->
+                            <div class="job-block-seven style-two">
+                                <div class="inner-box">
+                                    <div class="job-title d-flex align-items-center">
+                                        <h4 id="name" class="me-2 mb-0"></h4>
+                                        <span class="badge rounded-pill bg-danger" id="job-urgent">Urgent</span>
+                                    </div>
+                                    <div class="job-buttons">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thẻ bao job-overview-two -->
+                        <div class="ls-widget">
+                            <div class="tabs-box">
+                                <div class="job-overview-two">
+                                    <ul>
+                                        <li>
+                                            <i class="icon icon-calendar"></i>
+                                            <h5>Position</h5>
+                                            <span id="position"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-expiry"></i>
+                                            <h5>Expiration date</h5>
+                                            <span id="expiredDate"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-location"></i>
+                                            <h5>Working Address</h5>
+                                            <span id="workingAddress"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-user-2"></i>
+                                            <h5>Recruiting Quantity</h5>
+                                            <span id="recruitingQuantity"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-clock"></i>
+                                            <h5>Working Time Type</h5>
+                                            <span id="workingTimeType"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-clock"></i>
+                                            <h5>Working Type</h5>
+                                            <span id="workingType"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-rate"></i>
+                                            <h5>Experience</h5>
+                                            <span id="yearOfExperience"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-salary"></i>
+                                            <h5>Salary</h5>
+                                            <span id="salary"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon flaticon-briefcase" style="margin-left: 8px;"></i>
+                                            <h5>Literacy</h5>
+                                            <span id="literacy"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-user-2"></i>
+                                            <h5>Level</h5>
+                                            <span id="level"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-calendar"></i>
+                                            <h5>Job Status</h5>
+                                            <span id="status"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-calendar"></i>
+                                            <h5>Job Created At</h5>
+                                            <span id="createdAt"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-calendar"></i>
+                                            <h5>Job Category</h5>
+                                            <span id="category"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-location"></i>
+                                            <h5>Working City</h5>
+                                            <span id="workingCity"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Thẻ bao job-detail -->
+                        <div class="ls-widget">
+                            <div class="tabs-box">
+                                <div class="job-detail p-4">
+                                    <h4>Job Description</h4>
+                                    <p id="description"></p>
+
+                                    <h4>Skills</h4>
+                                    <p id="skills"></p>
+
+                                    <h4>Requirement</h4>
+                                    <p id="requirement"></p>
+
+                                    <h4>Benefit</h4>
+                                    <p id="benefit"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Job Detail Section -->
+
+    <!-- Footer -->
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+    <!-- End Footer -->
+
+</div><!-- End Page Wrapper -->
+
+<thblock th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/company/job/job-details.js"></script>
+</body>
+
+</html>

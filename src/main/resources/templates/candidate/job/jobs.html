@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Search Job')}"/>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Listing Section -->
+    <section class="ls-section style-two">
+        <div class="filters-backdrop"></div>
+
+        <div class="row no-gutters">
+            <!-- Filters Column -->
+            <div class="filters-column col-xl-3 col-lg-4 col-md-12 col-sm-12">
+                <div class="inner-column">
+                    <div class="filters-outer">
+                        <form id="search-job-form">
+                            <button type="button" class="theme-btn close-filters">X</button>
+
+                            <!-- Filter Block -->
+                            <div class="filter-block">
+                                <h4>Job name</h4>
+                                <div class="form-group">
+                                    <input type="text" name="name" placeholder="Job title"/>
+                                    <span class="icon flaticon-search-3"></span>
+                                </div>
+                            </div>
+
+                            <!-- Filter Block -->
+                            <div class="filter-block">
+                                <h4>Location</h4>
+                                <div class="form-group">
+                                    <select id="location" name="locationIds" data-placeholder="Locations"
+                                            class="chosen-select multiple" multiple tabindex="4">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Filter Block -->
+                            <div class="filter-block">
+                                <h4>Category</h4>
+                                <div class="form-group">
+                                    <select id="job-categories" class="chosen-select" name="categoryId"
+                                            data-placeholder="Job category">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-outer">
+                                <h4>Working type</h4>
+                                <ul class="checkboxes square">
+                                    <li>
+                                        <input id="workingType-ONLINE" type="checkbox" name="workingType-ONLINE">
+                                        <label for="workingType-ONLINE">Online</label>
+                                    </li>
+                                    <li>
+                                        <input id="workingType-OFFLINE" type="checkbox" name="workingType-OFFLINE">
+                                        <label for="workingType-OFFLINE">Offline</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="checkbox-outer">
+                                <h4>Working time type</h4>
+                                <ul class="checkboxes square">
+                                    <li>
+                                        <input id="workingTimeType-FULL_TIME" type="checkbox"
+                                               name="workingTimeType-FULL_TIME">
+                                        <label for="workingTimeType-FULL_TIME">Full time</label>
+                                    </li>
+                                    <li>
+                                        <input id="workingTimeType-PART_TIME" type="checkbox"
+                                               name="workingTimeType-PART_TIME">
+                                        <label for="workingTimeType-PART_TIME">Part time</label>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="checkbox-outer">
+                                <h4>Years of experience</h4>
+                                <div class="radio-outer margin-top-10">
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-1" value="all">
+                                        <label for="radio-1">All</label>
+                                    </div>
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-2" value="not_required">
+                                        <label for="radio-2">Not required</label>
+                                    </div>
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-3" value="less_than_1">
+                                        <label for="radio-3">< 1 year</label>
+                                    </div>
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-4" value="1">
+                                        <label for="radio-4">1 year</label>
+                                    </div>
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-5" value="2">
+                                        <label for="radio-5">2 years</label>
+                                    </div>
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-6" value="3">
+                                        <label for="radio-6">3 years</label>
+                                    </div>
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-7" value="4">
+                                        <label for="radio-7">4 years</label>
+                                    </div>
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-8" value="5">
+                                        <label for="radio-8">5 years</label>
+                                    </div>
+                                    <div class="radio-box">
+                                        <input type="radio" name="yearOfExperience" id="radio-9" value="greater_than_5">
+                                        <label for="radio-9">> 5 years</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Filter Block -->
+                            <div class="filter-block">
+                                <h4>Salary from</h4>
+                                <div class="form-group">
+                                    <input type="number" name="salaryFrom" placeholder="Salary from"/>
+                                    <span class="icon flaticon-search-3"></span>
+                                </div>
+                            </div>
+
+                            <!-- Filter Block -->
+                            <div class="filter-block">
+                                <h4>Salary to</h4>
+                                <div class="form-group">
+                                    <input type="number" name="salaryTo" placeholder="Salary to"/>
+                                    <span class="icon flaticon-search-3"></span>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Column -->
+            <div class="content-column col-xl-9 col-lg-8 col-md-12 col-sm-12">
+                <div class="ls-outer">
+                    <button type="button" class="theme-btn btn-style-two toggle-filters">Show Filters</button>
+
+                    <div class="row" id="candidate-jobs">
+
+                    </div>
+
+                    <div class="row w-100 align-items-center" id="job-paging">
+                        <div class="col total-record">
+                        </div>
+                        <div class="col">
+                            <ul class="pagination justify-content-end" style="margin:20px 0">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ls Footer -->
+                <div class="ls-footer">
+                    <div class="copyright-text">© 2021 Superio. All Right Reserved.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Listing Page Section -->
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/candidate/job/jobs.js"></script>
+</body>
+
+</html>

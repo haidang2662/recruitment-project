@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Search Company')}"/>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Listing Section -->
+    <section class="ls-section style-two">
+        <div class="filters-backdrop"></div>
+
+        <div class="row no-gutters">
+
+            <!-- Content Column -->
+            <div class="content-column col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="ls-outer">
+                    <button type="button" class="theme-btn btn-style-two toggle-filters">Show Filters</button>
+
+                    <div class="row" id="candidate-companies">
+
+                    </div>
+
+                    <div class="row w-100 align-items-center" id="company-paging">
+                        <div class="col total-record">
+                        </div>
+                        <div class="col">
+                            <ul class="pagination justify-content-end" style="margin:20px 0">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ls Footer -->
+                <div class="ls-footer">
+                    <div class="copyright-text">© 2021 Superio. All Right Reserved.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Listing Page Section -->
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/candidate/company/companies.js"></script>
+</body>
+
+</html>

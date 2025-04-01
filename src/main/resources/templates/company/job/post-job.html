@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Post New Job')}"/>
+<body data-anm=".anm" class="bg-light">
+
+<div class="page-wrapper dashboard">
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <header th:replace="~{fragments/common/sidebar :: sidebar}"/>
+
+    <section class="user-dashboard">
+        <div class="dashboard-outer">
+            <div class="upper-title-box">
+                <h3>My Profile!</h3>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Ls widget -->
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-title">
+                                <h4 id="form-title">Post Job</h4>
+                            </div>
+
+                            <div class="widget-content">
+                                <form class="default-form" id="post-job-form">
+                                    <div class="row">
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Job title<span class="text-danger fw-bold">*</span></label>
+                                            <input type="text" name="name" placeholder=""/>
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Position<span class="text-danger fw-bold">*</span></label>
+                                            <input type="text" name="position" placeholder="">
+                                        </div>
+
+                                        <!-- Form Group -->
+                                        <div class="form-group col-lg-6 col-md-12 location">
+                                            <label>Working City<span class="text-danger fw-bold">*</span></label>
+                                            <!--                                        <input type="text" name="field_name" placeholder="City or postcode">-->
+                                            <select id="location" name="locations" data-placeholder="Locations" class="chosen-select multiple" multiple tabindex="4">
+                                            </select>
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Year of experience from<span class="text-danger fw-bold">*</span></label>
+                                            <input type="number" name="yearOfExperienceFrom" placeholder="">
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Year of experience to</label>
+                                            <input type="number" name="yearOfExperienceTo" placeholder="">
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Working type<span class="text-danger fw-bold">*</span></label>
+                                            <select class="chosen-select" name="workingType">
+                                                <option value="ONLINE">Online</option>
+                                                <option value="OFFLINE">Offline</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Working time type<span class="text-danger fw-bold">*</span></label>
+                                            <select class="chosen-select" name="workingTimeType">
+                                                <option value="PART_TIME">Part time</option>
+                                                <option value="FULL_TIME">Full time</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Working address<span class="text-danger fw-bold">*</span></label>
+                                            <input type="text" name="workingAddress" placeholder="">
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Literacy<span class="text-danger fw-bold">*</span></label>
+                                            <select class="chosen-select" name="literacy">
+                                                <option value="PROFESSOR">Professor</option>
+                                                <option value="DOCTOR">Doctor</option>
+                                                <option value="MASTER">Master</option>
+                                                <option value="UNIVERSITY">University</option>
+                                                <option value="COLLEGE">College</option>
+                                                <option value="HIGH_SCHOOL">High school</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Job level<span class="text-danger fw-bold">*</span></label>
+                                            <select class="chosen-select" name="level">
+                                                <option value="INTERN">INTERN</option>
+                                                <option value="FRESHER">FRESHER</option>
+                                                <option value="JUNIOR">JUNIOR</option>
+                                                <option value="SENIOR">SENIOR</option>
+                                                <option value="MASTER">MASTER</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Recruiting quantity<span class="text-danger fw-bold">*</span></label>
+                                            <input type="number" name="recruitingQuantity" placeholder="">
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Expired Date<span class="text-danger fw-bold">*</span></label>
+                                            <input type="date" name="expiredDate" placeholder="">
+                                        </div>
+
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Job Category<span class="text-danger fw-bold">*</span></label>
+                                            <select id="job-categories" class="chosen-select" name="category">
+                                            </select>
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Salary from<span class="text-danger fw-bold">*</span></label>
+                                            <input type="number" name="salaryFrom" placeholder="">
+                                        </div>
+
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Salary to<span class="text-danger fw-bold">*</span></label>
+                                            <input type="number" name="salaryTo" placeholder="">
+                                        </div>
+
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Urgent?</label>
+                                            <input type="checkbox" name="urgent" placeholder="" style="width: 15px;height: 15px;">
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label>Skills<span class="text-danger fw-bold">*</span>
+
+                                            </label>
+                                            <textarea name="skills" placeholder=""></textarea>
+                                        </div>
+
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label>Benefit<span class="text-danger fw-bold">*</span></label>
+                                            <textarea name="benefit" placeholder=""></textarea>
+                                        </div>
+
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label>Requirement<span class="text-danger fw-bold">*</span></label>
+                                            <textarea name="requirement" placeholder=""></textarea>
+                                        </div>
+
+                                        <!-- About Company -->
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label>Job description<span class="text-danger fw-bold">*</span></label>
+                                            <textarea name="description" placeholder=""></textarea>
+                                        </div>
+                                        <div class="form-group col-lg-12 col-md-12 d-flex">
+                                            <button type="button" class="theme-btn btn-style-one" id="save-job-btn">
+                                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="job-saving-spinner"></span>
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+
+</div><!-- End Page Wrapper -->
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/company/job/post-job.js"></script>
+
+</body>
+</html>
+
+
+
+

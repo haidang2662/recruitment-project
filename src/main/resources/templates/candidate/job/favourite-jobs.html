@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='List Favourite Job')}"/>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Listing Section -->
+    <section class="ls-section style-two">
+        <div class="filters-backdrop"></div>
+
+        <div class="row no-gutters">
+
+            <!-- Content Column -->
+            <div class="content-column col">
+                <div class="ls-outer pt-0">
+                    <h3 class="text-center mb-4">Favourite Job</h3>
+
+                    <div class="row mx-5 px-5 mb-5 pb-3">
+                        <div class="col mx-5 px-5">
+                            <form class="mx-5 px-5 text-center">
+                                <div class="mb-3 mt-3">
+                                    <input type="text" class="form-control" id="name" placeholder="Enter job name" name="name">
+                                </div>
+                                <button type="button" class="btn btn-primary favorite-job-search-btn px-4">Search</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row mx-5 px-3" id="candidate-jobs">
+                    </div>
+
+                    <div class="row w-100 align-items-center" id="job-paging">
+                        <div class="col total-record">
+                        </div>
+                        <div class="col">
+                            <ul class="pagination justify-content-end" style="margin:20px 0">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ls Footer -->
+                <div class="ls-footer">
+                    <div class="copyright-text">© 2021 Superio. All Right Reserved.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Listing Page Section -->
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/candidate/job/favourite-jobs.js"></script>
+</body>
+
+</html>

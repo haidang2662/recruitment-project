@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Job Application')}"/>
+
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Job Detail Section -->
+    <section class="job-application-section">
+        <div class="job-application-outer">
+            <div class="auto-container">
+                <div class="row mx-5 px-5">
+                    <div class="content-column mx-5 px-5">
+                        <h2 class="mb-4 mt-5">Apply for <span class="job-name text-success fw-bold"></span></h2>
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="btn text-secondary fw-500" data-bs-toggle="collapse" href="#collapseOne">
+                                        Choose a CV
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-bs-parent="#accordion">
+                                    <div class="card-body cv-list">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed btn text-secondary fw-500" data-bs-toggle="collapse"
+                                       href="#collapseTwo">
+                                        Upload your CV
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+                                    <div class="card-body">
+                                        <div class="uploading-outer d-flex justify-content-center candidate-avatar">
+                                            <figure>
+                                                <div class="uploadButton">
+                                                    <input class="uploadButton-input" type="file" name="cv" id="cv"
+                                                           accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf"
+                                                    />
+                                                    <label class="uploadButton-button ripple-effect" for="cv">Browse
+                                                        CV</label>
+                                                </div>
+                                                <span class="uploadButton-file-name text-primary fw-600 d-block mt-4 text-center"></span>
+                                                <div class="text mt-2">Max file size is 10MB. Suitable files are .pdf,
+                                                    .doc, .docx
+                                                </div>
+                                                <p id="avatar-error" class="error"></p>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col">
+                                    <label for="description" class="fw-semibold fs-5 mb-2">Short Description</label>
+                                    <textarea id="description" name="description" class="form-control w-100" rows="6"
+                                              placeholder="Write about yourself"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary apply-btn px-5 apply-btn">Apply
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Job Detail Section -->
+
+
+    <!-- Main Footer -->
+    <footer th:replace="~{fragments/common/footer :: my-footer}"/>
+    <!-- End Main Footer -->
+
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/candidate/job/application-job.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Home')}"/>
+
+
+<body data-anm=".anm">
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Main Header-->
+    <header th:replace="~{fragments/common/header :: my-header}" />
+    <!--End Main Header -->
+
+
+    <!-- Banner Section-->
+    <section class="banner-section-eight">
+        <div class="image-outer">
+            <figure class="image"><img src="images/resource/banner-img-9.png" alt=""></figure>
+        </div>
+        <div class="auto-container">
+            <div class="row">
+                <div class="content-column col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="title-box wow fadeInUp" data-wow-delay="500ms">
+                            <h3>Find Job</h3>
+                            <div class="text">Jobs & Job search. Find jobs in global. Executive jobs & work.
+                                Employment
+                            </div>
+                        </div>
+
+                        <!-- Job Search Form -->
+                        <div class="job-search-form wow fadeInUp" data-wow-delay="1000ms" style="z-index: 2">
+                            <form id="search-job-candidate-form">
+                                <div class="row">
+                                    <div class="form-group col-lg-4 col-md-12 col-sm-12">
+                                        <span class="icon flaticon-search-1"></span>
+                                        <input type="text" name="name"
+                                               placeholder="Job title, keywords, or company">
+                                    </div>
+                                    <!-- Form Group -->
+                                    <div class="form-group col-lg-3 col-md-12 col-sm-12 location">
+                                        <span class="icon flaticon-map-locator"></span>
+<!--                                        <input type="text" name="field_name" placeholder="City or postcode">-->
+                                        <select id="location" name="locations" data-placeholder="Locations" class="chosen-select multiple" multiple tabindex="4">
+                                        </select>
+                                    </div>
+
+                                    <!-- Form Group -->
+                                    <div class="form-group col-lg-3 col-md-12 col-sm-12 category">
+                                        <span class="icon flaticon-briefcase"></span>
+                                        <select id="job-categories" class="chosen-select" name="categoryId" data-placeholder="Job category">
+                                        </select>
+                                    </div>
+
+                                    <!-- Form Group -->
+                                    <div class="form-group col-lg-2 col-md-12 col-sm-12 btn-box">
+                                        <button type="button" class="theme-btn btn-style-one" id="search-job-btn"><span class="btn-title">Find Jobs</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Job Search Form -->
+
+                        <div class="bottom-box wow fadeInUp" data-wow-delay="1500ms">
+                            <div class="count-employers">
+                                <span class="title">10k+ Candidates</span>
+                                <img src="images/resource/multi-peoples.png" alt="">
+                            </div>
+                            <a href="/cv/upload" class="upload-cv" id="upload-cv"><span class="icon flaticon-file"></span> Upload your CV</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Section-->
+
+    <!--Clients Section-->
+    <section class="clients-section-two alternate">
+        <div class="auto-container">
+            <div class="sec-title text-center">
+                <h2>Top Companies Hiring at Superio Now</h2>
+                <div class="text">Lorem ipsum dolor sit amet elit, sed do eiusmod tempor</div>
+            </div>
+            <div class="sponsors-outer wow fadeInUp">
+                <!--Sponsors Carousel-->
+                <ul class="sponsors-carousel owl-carousel owl-theme">
+                    <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/clients/1-1.png" alt=""></a></figure>
+                    </li>
+                    <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/clients/1-2.png" alt=""></a></figure>
+                    </li>
+                    <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/clients/1-3.png" alt=""></a></figure>
+                    </li>
+                    <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/clients/1-4.png" alt=""></a></figure>
+                    </li>
+                    <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/clients/1-5.png" alt=""></a></figure>
+                    </li>
+                    <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/clients/1-6.png" alt=""></a></figure>
+                    </li>
+                    <li class="slide-item">
+                        <figure class="image-box"><a href="#"><img src="images/clients/1-7.png" alt=""></a></figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- End Clients Section-->
+
+    <!-- Company Section -->
+    <section th:replace="~{fragments/company/company-section-home :: #company-section}"></section>
+
+
+    <!-- Job Section -->
+    <section class="job-section-four alternate">
+        <div class="auto-container">
+            <div class="sec-title text-center">
+                <h2>Featured Jobs</h2>
+                <div class="text">Know your worth and find the job that qualify your life</div>
+            </div>
+
+            <div class="row wow fadeInUp">
+                <!-- Job Block -->
+                <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <ul class="job-other-info">
+                            <li class="time">Full Time</li>
+                            <li class="privacy">Private</li>
+                            <li class="required">Urgent</li>
+                        </ul>
+                        <span class="company-logo"><img src="images/resource/company-logo/3-1.png" alt=""></span>
+                        <span class="company-name">Catalyst</span>
+                        <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                        <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                    </div>
+                </div>
+
+                <!-- Job Block -->
+                <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <ul class="job-other-info">
+                            <li class="time">Full Time</li>
+                        </ul>
+                        <span class="company-logo"><img src="images/resource/company-logo/3-2.png" alt=""></span>
+                        <span class="company-name">Catalyst</span>
+                        <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                        <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                    </div>
+                </div>
+
+                <!-- Job Block -->
+                <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <ul class="job-other-info">
+                            <li class="time">Full Time</li>
+                        </ul>
+                        <span class="company-logo"><img src="images/resource/company-logo/3-3.png" alt=""></span>
+                        <span class="company-name">Upwork</span>
+                        <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                        <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                    </div>
+                </div>
+
+                <!-- Job Block -->
+                <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <ul class="job-other-info">
+                            <li class="time">Full Time</li>
+                        </ul>
+                        <span class="company-logo"><img src="images/resource/company-logo/3-4.png" alt=""></span>
+                        <span class="company-name">invision</span>
+                        <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                        <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                    </div>
+                </div>
+
+                <!-- Job Block -->
+                <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <ul class="job-other-info">
+                            <li class="time">Full Time</li>
+                        </ul>
+                        <span class="company-logo"><img src="images/resource/company-logo/3-5.png" alt=""></span>
+                        <span class="company-name">Medium</span>
+                        <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                        <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                    </div>
+                </div>
+
+                <!-- Job Block -->
+                <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <ul class="job-other-info">
+                            <li class="time">Full Time</li>
+                        </ul>
+                        <span class="company-logo"><img src="images/resource/company-logo/3-6.png" alt=""></span>
+                        <span class="company-name">Figma</span>
+                        <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                        <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                    </div>
+                </div>
+
+                <!-- Job Block -->
+                <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <ul class="job-other-info">
+                            <li class="time">Full Time</li>
+                        </ul>
+                        <span class="company-logo"><img src="images/resource/company-logo/3-7.png" alt=""></span>
+                        <span class="company-name">Skype</span>
+                        <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                        <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                    </div>
+                </div>
+
+                <!-- Job Block -->
+                <div class="job-block-four col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="inner-box">
+                        <ul class="job-other-info">
+                            <li class="time">Full Time</li>
+                        </ul>
+                        <span class="company-logo"><img src="images/resource/company-logo/3-8.png" alt=""></span>
+                        <span class="company-name">Sropbox</span>
+                        <h4><a href="#">Software Engineer (Android), Libraries</a></h4>
+                        <div class="location"><span class="icon flaticon-map-locator"></span> London, UK</div>
+                    </div>
+                </div>
+            </div>
+
+<!--            <div class="btn-box">-->
+<!--                <a href="#" class="theme-btn btn-style-one">Load More Listing</a>-->
+<!--            </div>-->
+        </div>
+    </section>
+    <!-- End Job Section -->
+
+    <!-- Candidate Section -->
+    <section th:replace="~{fragments/candidate/home/candidate-section :: #candidate-section}"></section>
+    <!-- End Candidate Section -->
+
+    <!-- Top Companies -->
+    <section class="top-companies">
+        <div class="auto-container">
+            <div class="sec-title-outer">
+                <div class="sec-title">
+                    <h2>Top Company Registered</h2>
+                    <div class="text">Some of the companies we've helped recruit excellent applicants over the years.
+                    </div>
+                </div>
+                <a href="#" class="link">Browse All <span class="icon fa fa-angle-right"></span></a>
+            </div>
+
+            <div class="row wow fadeInUp">
+                <!-- Company Block -->
+                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="content">
+                            <figure class="image"><img src="images/resource/company-1.png" alt=""></figure>
+                            <h4 class="name">Udemy</h4>
+                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
+                        </div>
+                        <a href="#" class="theme-btn btn-style-three">15 Open Position</a>
+                    </div>
+                </div>
+
+                <!-- Company Block -->
+                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="content">
+                            <figure class="image"><img src="images/resource/company-2.png" alt=""></figure>
+                            <h4 class="name">Stripe</h4>
+                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
+                        </div>
+                        <a href="#" class="theme-btn btn-style-three">22 Open Position</a>
+                    </div>
+                </div>
+
+                <!-- Company Block -->
+                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="content">
+                            <figure class="image"><img src="images/resource/company-3.png" alt=""></figure>
+                            <h4 class="name">Dropbox</h4>
+                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
+                        </div>
+                        <a href="#" class="theme-btn btn-style-three">22 Open Position</a>
+                    </div>
+                </div>
+
+                <!-- Company Block -->
+                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="content">
+                            <figure class="image"><img src="images/resource/company-4.png" alt=""></figure>
+                            <h4 class="name">Figma</h4>
+                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
+                        </div>
+                        <a href="#" class="theme-btn btn-style-three">22 Open Position</a>
+                    </div>
+                </div>
+
+                <!-- Company Block -->
+                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="content">
+                            <figure class="image"><img src="images/resource/company-5.png" alt=""></figure>
+                            <h4 class="name">Upwork</h4>
+                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
+                        </div>
+                        <a href="#" class="theme-btn btn-style-three">15 Open Position</a>
+                    </div>
+                </div>
+
+                <!-- Company Block -->
+                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="content">
+                            <figure class="image"><img src="images/resource/company-6.png" alt=""></figure>
+                            <h4 class="name">invision</h4>
+                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
+                        </div>
+                        <a href="#" class="theme-btn btn-style-three">22 Open Position</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- End Top Companies -->
+
+    <!-- Main Footer -->
+    <footer th:replace="~{fragments/common/footer :: my-footer}" />
+    <!-- End Main Footer -->
+
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}" />
+<script src="/js/custom/index.js"></script>
+
+</body>
+
+</html>

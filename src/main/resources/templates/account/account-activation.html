@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Account Activation')}" />
+<body data-anm=".anm" class="bg-light">
+
+<div class="page-wrapper">
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}" />
+    <!-- End Main Header -->
+
+
+
+    <section class="banner-section-eight">
+        <div class="image-outer">
+            <figure class="image"><img src="/images/resource/banner-img-9.png" alt=""></figure>
+        </div>
+        <div class="auto-container" style="min-height: 100vh;">
+            <div class="row">
+                <div class="content-column col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                    <div class="inner-column">
+                        <div class="text-center p-4 bg-white rounded shadow">
+                            <p id="success-activation" class="text-success fs-4 fw-bold">
+                                Congratulations, you have successfully activated your account
+                            </p>
+                            <p id="fail-activation" class="text-danger fs-4 fw-bold" style="display: none;">
+                                Account activation failed, please check again
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Main Footer -->
+    <footer th:replace="~{fragments/common/footer :: my-footer}" />
+    <!-- End Main Footer -->
+
+</div><!-- End Page Wrapper -->
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}" />
+<script src="/js/custom/account/account-activation.js"></script>
+</body>
+</html>
+
+
+
+

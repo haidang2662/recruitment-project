@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Job Application - Successfully')}"/>
+
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Job Detail Section -->
+    <section class="job-application-section">
+        <div class="job-application-outer">
+            <div class="auto-container">
+                <div class="row mx-5 px-5">
+                    <div class="content-column mx-5 px-5 text-center">
+                        <h2 class="mb-4 mt-5 text-success">Congratulation</h2>
+                        <h2 class="mb-4 mt-5">Apply for '<span class="job-name text-success fw-bold"></span>' successfully!!!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Job Detail Section -->
+
+
+    <!-- Main Footer -->
+    <footer th:replace="~{fragments/common/footer :: my-footer}"/>
+    <!-- End Main Footer -->
+
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    $(".job-name").text(urlParams.get('name'));
+</script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+.main-menu .navigation > li > .mega-menu {
+    width: 250px !important;
+}
+
+.job-search-form {
+    min-width: 80vw !important;
+}
+
+.job-search-form .chosen-container-multi {
+    padding-left: 15px;
+}
+
+.favorite-job {
+    background-color: #1967d2 !important;
+}
+
+.favorite-job i {
+    color: #fff !important;
+}
+
+.job-application-section .card {
+    height: unset !important;
+    border-radius: 0 !important;
+}
+
+.job-application-section .card .card-header a,
+.job-application-section .card .card-header a:active {
+    border: none !important;
+}
+
+.job-application-section .card .card-header a[aria-expanded="true"] {
+    color: #0a53be !important;
+}
+
+
+#post-interview-form input[name='interviewAt'] {
+    position: relative;
+    width: 100%;
+    display: block;
+    height: 60px;
+    line-height: 30px;
+    padding: 15px 20px;
+    font-size: 15px;
+    color: #696969;
+    background: #F0F5F7;
+    border: 1px solid #F0F5F7;
+    box-sizing: border-box;
+    border-radius: 8px;
+    transition: all 300ms ease;
+}
+
+.candidate-application-block #application-paging li {
+    position: unset !important;
+    flex: none !important;;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-bottom: 0 !important;
+}

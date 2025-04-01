@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Job Management')}"/>
+
+
+<body>
+
+  <div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Job Detail Section -->
+    <section class="job-detail-section">
+      <div class="job-detail-outer">
+        <div class="auto-container">
+          <div class="row">
+            <div class="content-column col-lg-8 col-md-12 col-sm-12">
+              <div class="job-block-outer">
+                <!-- Job Block -->
+                <div class="job-block-seven style-two">
+                  <div class="inner-box">
+                    <div class="job-title d-flex align-items-center">
+                      <h4 id="name" class="me-2 mb-0"></h4>
+                      <span class="badge rounded-pill bg-danger" id="job-urgent">Urgent</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thẻ bao job-overview-two -->
+              <div class="ls-widget">
+                <div class="tabs-box">
+                  <div class="job-overview-two">
+                    <ul>
+                      <li>
+                        <i class="icon icon-calendar"></i>
+                        <h5>Position</h5>
+                        <span id="position"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-expiry"></i>
+                        <h5>Expiration date</h5>
+                        <span id="expiredDate"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-location"></i>
+                        <h5>Working Address</h5>
+                        <span id="workingAddress"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-user-2"></i>
+                        <h5>Recruiting Quantity</h5>
+                        <span id="recruitingQuantity"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-clock"></i>
+                        <h5>Working Time Type</h5>
+                        <span id="workingTimeType"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-clock"></i>
+                        <h5>Working Type</h5>
+                        <span id="workingType"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-rate"></i>
+                        <h5>Experience</h5>
+                        <span id="yearOfExperience"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-salary"></i>
+                        <h5>Salary</h5>
+                        <span id="salary"></span>
+                      </li>
+                      <li>
+                        <i class="icon flaticon-briefcase"></i>
+                        <h5>Literacy</h5>
+                        <span id="literacy"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-user-2"></i>
+                        <h5>Level</h5>
+                        <span id="level"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-calendar"></i>
+                        <h5>Job Created At</h5>
+                        <span id="createdAt"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-calendar"></i>
+                        <h5>Job Category</h5>
+                        <span id="category"></span>
+                      </li>
+                      <li>
+                        <i class="icon icon-location"></i>
+                        <h5>Working City</h5>
+                        <span id="workingCity"></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Thẻ bao job-detail -->
+              <div class="ls-widget">
+                <div class="tabs-box">
+                  <div class="job-detail p-4">
+                    <h4>Job Description</h4>
+                    <p id="description"></p>
+
+                    <h4>Skills</h4>
+                    <p id="skills"></p>
+
+                    <h4>Requirement</h4>
+                    <p id="requirement"></p>
+
+                    <h4>Benefit</h4>
+                    <p id="benefit"></p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="sidebar-column col-lg-4 col-md-12 col-sm-12">
+              <aside class="sidebar">
+                <div class="btn-box">
+                  <a href="#" class="apply-btn theme-btn btn-style-one">Apply For Job</a>
+                  <a href="#" class="cancel-application-btn theme-btn btn-style-one bg-danger d-none">Cancel application</a>
+                  <button class="bookmark-btn favorite-btn"><i class="fa-regular fa-heart" style="color: #696969"></i></button>
+                </div>
+
+                <div class="sidebar-widget company-widget">
+                  <div class="widget-content">
+                    <div class="company-title">
+                      <div class="company-logo"><img src="" alt="" class="rounded rounded-circle"></div>
+                      <h5 class="company-name">InVision</h5>
+                      <a href="#" class="profile-link">View company profile</a>
+                    </div>
+
+                    <ul class="company-info">
+                      <li class="company-size">Company size: <span>501-1,000</span></li>
+                      <li class="company-created-at">Founded in: <span>2011</span></li>
+                      <li class="phone">Phone: <span>123 456 7890</span></li>
+                      <li class="email">Email: <span>info@joio.com</span></li>
+                      <li class="location">Location: <span>London, UK</span></li>
+                    </ul>
+                    <div class="btn-box company-website"><a href="#" class="theme-btn btn-style-three">www.invisionapp.com</a></div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Job Detail Section -->
+
+
+    <!-- Main Footer -->
+    <footer th:replace="~{fragments/common/footer :: my-footer}"/>
+    <!-- End Main Footer -->
+
+
+  </div><!-- End Page Wrapper -->
+
+
+  <th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+  <script src="/js/custom/candidate/job/job-details.js"></script>
+</body>
+
+</html>

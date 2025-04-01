@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Application detail')}"/>
+
+<body>
+
+<div class="page-wrapper dashboard">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <header th:replace="~{fragments/common/sidebar :: sidebar}"/>
+    <!-- End User Sidebar -->
+
+    <!-- Job Detail Section -->
+    <section class="job-detail-section" style="margin-left: -3.5rem">
+        <div class="job-detail-outer p-0">
+            <div class="auto-container">
+                <div class="row">
+                    <div class="content-column col">
+                        <div class="job-block-outer">
+                            <!-- Job Block -->
+                            <div class="job-block-seven style-two">
+                                <div class="inner-box col">
+                                    <div class="job-title d-flex align-items-center">
+                                        <h4 class="me-2 mb-0">Application details</h4>
+                                        <span class="badge rounded-pill bg-success" id="application-status"></span>
+                                    </div>
+                                    <div class="application-buttons d-flex">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Candidate -->
+                        <div class="ls-widget">
+                            <div class="tabs-box">
+                                <div class="job-overview-two pt-4">
+                                    <div class="row">
+                                        <div class="col pb-3">
+                                            <h2>Candidate information</h2>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <i class="icon icon-calendar"></i>
+                                            <h5>Name</h5>
+                                            <a href="" id="jobCandidateLink"><span id="name"></span></a>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-location"></i>
+                                            <h5>Phone</h5>
+                                            <span id="phone"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-expiry"></i>
+                                            <h5>Date of birth</h5>
+                                            <span id="dob"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-user-2"></i>
+                                            <h5>Gender</h5>
+                                            <span id="gender"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-rate"></i>
+                                            <h5>Experience</h5>
+                                            <span id="yearOfExperience"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon flaticon-briefcase"></i>
+                                            <h5>Literacy</h5>
+                                            <span id="literacy"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-location"></i>
+                                            <h5>Graduated at</h5>
+                                            <span id="graduatedAt"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interview -->
+                        <div class="ls-widget" id="interview-block">
+                            <div class="tabs-box">
+                                <div class="job-overview-two pt-4">
+                                    <div class="row">
+                                        <div class="col pb-3 d-flex align-items-center gap-2">
+                                            <h2>Interview information</h2>
+                                            <a href="" id="interviewLink"><i class="fa-solid fa-eye mt-2"></i></a>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <i class="icon icon-expiry"></i>
+                                            <h5>Invitation email sent at</h5>
+                                            <span id="invitationEmailSentAt"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-expiry"></i>
+                                            <h5>Interview at</h5>
+                                            <span id="interviewAt"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-calendar"></i>
+                                            <h5>Status</h5>
+                                            <span id="interviewStatus"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-user-2"></i>
+                                            <h5>Interview type</h5>
+                                            <span id="interviewType"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-location"></i>
+                                            <h5>Interview Address</h5>
+                                            <span id="interviewAddress"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon flaticon-briefcase"></i>
+                                            <h5>Note</h5>
+                                            <span id="note"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Job -->
+                        <div class="ls-widget">
+                            <div class="tabs-box">
+                                <div class="job-overview-two pt-4">
+                                    <div class="row">
+                                        <div class="col pb-3">
+                                            <h2>Job information</h2>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <i class="icon icon-expiry"></i>
+                                            <h5>Job name</h5>
+                                            <a href="" id="jobNameLink"><span id="jobName"></span></a>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-salary"></i>
+                                            <h5>Salary</h5>
+                                            <span id="salary"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-calendar"></i>
+                                            <h5>Working type</h5>
+                                            <span id="workingType"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-user-2"></i>
+                                            <h5>Working time type</h5>
+                                            <span id="workingTimeType"></span>
+                                        </li>
+                                        <li>
+                                            <i class="icon icon-location"></i>
+                                            <h5>Position</h5>
+                                            <span id="position"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Job Detail Section -->
+
+    <!-- Footer -->
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+    <!-- End Footer -->
+
+</div><!-- End Page Wrapper -->
+
+<thblock th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/company/application/application-details.js"></script>
+</body>
+
+</html>

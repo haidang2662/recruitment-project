@@ -1,0 +1,143 @@
+<div class="row" th:fragment="candidate-profile" id="candidate-profile-block">
+    <div class="col-lg-12">
+        <!-- Ls widget -->
+        <div class="ls-widget">
+            <div class="tabs-box">
+                <div class="widget-title">
+                    <h4>My Profile</h4>
+                </div>
+
+                <div class="widget-content">
+
+                    <div class="uploading-outer d-flex justify-content-center candidate-avatar">
+                        <figure>
+                            <img src="" class="img-avatar" alt="" style="cursor: pointer; height: 120px; width: 200px;">
+                            <div class="uploadButton">
+                                <input class="uploadButton-input" type="file" name="avatar"
+                                       accept="image/*" id="avatar-input"/>
+                                <label class="uploadButton-button ripple-effect change-avatar-btn" for="avatar-input">Browse Avatar</label>
+                                <span class="uploadButton-file-name"></span>
+                            </div>
+                            <div class="text">Max file size is 1MB</div>
+                            <p id="avatar-error" class="error"></p>
+                        </figure>
+                    </div>
+
+                    <form class="default-form" id="candidate-info-form">
+                        <div class="row">
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Full Name</label>
+                                <input type="text" name="name" placeholder="">
+                            </div>
+
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Date of birth</label>
+                                <input type="date" name="dob"/>
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Gender</label>
+                                <select class="chosen-select" name="gender">
+                                    <option value="MALE">Male</option>
+                                    <option value="FEMALE">Female</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Current position</label>
+                                <input type="text" name="currentJobPosition" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Phone</label>
+                                <input type="text" name="phone" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Address</label>
+                                <input type="text" name="address" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Skills</label>
+                                <input type="text" name="skills" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Year of experience</label>
+                                <input type="number" name="yearOfExperience" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Literacy</label>
+                                <select class="chosen-select" name="literacy">
+                                    <option value="PROFESSOR">Professor</option>
+                                    <option value="DOCTOR">Doctor</option>
+                                    <option value="MASTER">Master</option>
+                                    <option value="UNIVERSITY">University</option>
+                                    <option value="COLLEGE">College</option>
+                                    <option value="HIGH_SCHOOL">High school</option>
+                                </select>
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Graduated at</label>
+                                <input type="text" name="graduatedAt" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Expected Salary from</label>
+                                <input type="number" name="expectedSalaryFrom" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Expected Salary to</label>
+                                <input type="number" name="expectedSalaryTo" placeholder="">
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Working time type</label>
+                                <select class="chosen-select" name="expectedWorkingTimeType">
+                                    <option value="PART_TIME">Part time</option>
+                                    <option value="FULL_TIME">Full time</option>
+                                </select>
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <label>Expected working type</label>
+                                <select class="chosen-select" name="expectedWorkingType">
+                                    <option value="ONLINE">Online</option>
+                                    <option value="OFFLINE">Offline</option>
+                                </select>
+                            </div>
+
+                            <!-- Input -->
+                            <div class="form-group col-lg-6 col-md-12">
+                                <button type="button" class="theme-btn btn-style-one account-info-saving-btn">
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="spinner-update"></span>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

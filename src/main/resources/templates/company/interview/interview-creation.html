@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Creat New Interview')}"/>
+<body data-anm=".anm" class="bg-light">
+
+<div class="page-wrapper dashboard">
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <header th:replace="~{fragments/common/sidebar :: sidebar}"/>
+
+    <section class="user-dashboard">
+        <div class="dashboard-outer">
+            <div class="upper-title-box">
+                <h3>My Profile!</h3>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Ls widget -->
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-title">
+                                <h4 id="form-title">Create Interview</h4>
+                            </div>
+
+                            <div class="widget-content">
+                                <form class="default-form" id="post-interview-form">
+                                    <div class="row">
+                                        <!-- Input -->
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label>Interview Time<span class="text-danger fw-bold">*</span></label>
+                                            <input type="datetime-local" name="interviewAt" placeholder=""  class="form-control" >
+                                        </div>
+
+                                        <div class="form-group col-lg-6 col-md-12 location">
+                                            <label>Interview Type<span class="text-danger fw-bold">*</span></label>
+                                            <select id="interviewType" name="interviewType" data-placeholder="" class="form-control" tabindex="4">
+                                                <option value="ONLINE">Online</option>
+                                                <option value="OFFLINE">Offline</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Input -->
+                                        <div class="form-group col-12">
+                                            <label>Interview Address</label>
+                                            <input type="text" name="interviewAddress" placeholder="" class="form-control" id="interviewAddress">
+                                            <label id="interviewAddress-error-custom" class="d-none" for="interviewAddress">Offline interview will require an address</label>
+                                        </div>
+
+
+                                        <div class="form-group col-lg-12 col-md-12 d-flex">
+                                            <button type="button" class="theme-btn btn-style-one" id="save-interview-btn">
+                                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="interview-saving-spinner"></span>
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+
+</div><!-- End Page Wrapper -->
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/company/interview/interview-creation.js"></script>
+
+</body>
+</html>
+
+
+
+

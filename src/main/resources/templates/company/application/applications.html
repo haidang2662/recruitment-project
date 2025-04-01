@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Application Management')}"/>
+
+<body>
+
+<div class="page-wrapper dashboard ">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <header th:replace="~{fragments/common/sidebar :: sidebar}"/>
+    <!-- End User Sidebar -->
+
+    <!-- Dashboard -->
+    <section class="user-dashboard">
+        <div class="dashboard-outer">
+            <div class="upper-title-box">
+                <h3>Application management</h3>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-content py-4">
+                                <form id="search-application-form">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="jobName" class="form-label fw-500">Job name</label>
+                                                <input type="text" class="form-control" id="jobName"
+                                                       placeholder="Enter title job"
+                                                       name="jobName">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="candidateName" class="form-label fw-500">Candidate name</label>
+                                                <input type="text" class="form-control" id="candidateName"
+                                                       placeholder="Enter title job"
+                                                       name="candidateName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3 ">
+                                                <label for="status" class="form-label fw-500">Application status</label>
+                                                <select id="status" name="status" class="form-select">
+                                                    <option value="">--Please select a status--</option>
+                                                    <option value="APPLIED">Applied</option>
+                                                    <option value="CANCELLED">Cancelled</option>
+                                                    <option value="APPLICATION_ACCEPTED">Application accepted</option>
+                                                    <option value="APPLICATION_REJECTED">Application rejected</option>
+                                                    <option value="WAIT_FOR_INTERVIEW">Wait for interview</option>
+                                                    <option value="CANDIDATE_ACCEPTED">Candidate accepted</option>
+                                                    <option value="CANDIDATE_REJECTED">Candidate rejected</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary me-4 px-4" id="search-application-btn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true" id="spinner-search"></span>
+                                        Search
+                                    </button>
+
+                                    <button type="button" class="btn btn-secondary px-4" id="reset-search-application-btn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true" id="spinner-reset"></span>
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Ls widget -->
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-content pt-5">
+                                <div class="table-outer">
+                                    <table class="table table-bordered table-striped table-hover" id="application-table">
+                                        <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Job name</th>
+                                            <th>Candidate name</th>
+                                            <th>Application date</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+                            <div class="widget-title pt-0">
+                                <div class="row w-100 align-items-center" id="application-paging">
+                                    <div class="col total-record">
+                                    </div>
+                                    <div class="col">
+                                        <ul class="pagination justify-content-end" style="margin:20px 0">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Dashboard -->
+
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/company/application/applications.js"></script>
+</body>
+
+</html>

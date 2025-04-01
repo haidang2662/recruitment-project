@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Account Profile')}" />
+<body data-anm=".anm" class="bg-light">
+
+<div class="page-wrapper dashboard">
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}" />
+    <!-- End Main Header -->
+
+    <header th:replace="~{fragments/common/sidebar :: sidebar}" />
+
+    <section class="user-dashboard">
+        <div class="dashboard-outer">
+            <div class="upper-title-box">
+                <h3>My Profile!</h3>
+            </div>
+
+            <th:block th:replace="~{fragments/company/profile :: company-profile}" />
+
+            <th:block th:replace="~{fragments/candidate/profile :: candidate-profile}" />
+        </div>
+    </section>
+
+    <!-- Main Footer -->
+    <footer th:replace="~{fragments/common/footer :: my-footer}" />
+    <!-- End Main Footer -->
+
+</div><!-- End Page Wrapper -->
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}" />
+<script src="/js/custom/account/profile.js"></script>
+
+</body>
+</html>
+
+
+
+

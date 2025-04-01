@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Candidate Management')}"/>
+
+<body>
+
+<div class="page-wrapper dashboard ">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Header Span -->
+    <span class="header-span"></span>
+
+    <!-- Main Header -->
+    <header th:replace="~{fragments/common/header :: my-header}"/>
+    <!-- End Main Header -->
+
+    <!-- Sidebar Backdrop -->
+    <div class="sidebar-backdrop"></div>
+
+    <!-- User Sidebar -->
+    <header th:replace="~{fragments/common/sidebar :: sidebar}"/>
+    <!-- End User Sidebar -->
+
+    <!-- Dashboard -->
+    <section class="user-dashboard">
+        <div class="dashboard-outer">
+            <div class="upper-title-box">
+                <h3>Candidate management</h3>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-content py-4">
+                                <form id="search-interview-form">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label fw-500">Candidate name</label>
+                                                <input type="text" class="form-control" id="name"
+                                                       placeholder="Enter candidate name"
+                                                       name="name">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="phone" class="form-label fw-500">Phone</label>
+                                                <input type="text" class="form-control" id="phone"
+                                                       placeholder="Enter phone"
+                                                       name="phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="gender" class="form-label fw-500">Gender</label>
+                                                <select id="gender" name="gender" class="form-select">
+                                                    <option value="">--Please select Gender--</option>
+                                                    <option value="MALE">Male</option>
+                                                    <option value="FEMALE">Female</option>
+                                                    <option value="OTHER">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="literacy" class="form-label fw-500">Literacy</label>
+                                                <select id="literacy" name="literacy" class="form-select">
+                                                    <option value="">--Please select a literacy--</option>
+                                                    <option value="PROFESSOR">Professor</option>
+                                                    <option value="DOCTOR">Doctor</option>
+                                                    <option value="MASTER">Master</option>
+                                                    <option value="UNIVERSITY">University</option>
+                                                    <option value="COLLEGE">College</option>
+                                                    <option value="HIGH_SCHOOL">High school</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="skills" class="form-label fw-500">Candidate skills</label>
+                                                <input type="text" class="form-control" id="skills"
+                                                       placeholder="Enter candidate skills"
+                                                       name="skills">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="expectedWorkingTimeType" class="form-label fw-500">Working time type</label>
+                                                <select id="expectedWorkingTimeType" name="expectedWorkingTimeType" class="form-select">
+                                                    <option value="">--Please select Gender--</option>
+                                                    <option value="PART_TIME">Part time</option>
+                                                    <option value="FULL_TIME">Full time</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="expectedWorkingType" class="form-label fw-500">Working type</label>
+                                                <select id="expectedWorkingType" name="expectedWorkingType" class="form-select">
+                                                    <option value="">--Please select working type--</option>
+                                                    <option value="ONLINE">Online</option>
+                                                    <option value="OFFLINE">Offline</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary me-4 px-4" id="search-interview-btn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true" id="spinner-search"></span>
+                                        Search
+                                    </button>
+
+                                    <button type="button" class="btn btn-secondary px-4" id="reset-search-interview-btn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true" id="spinner-reset"></span>
+                                        Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Ls widget -->
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-content pt-5">
+                                <div class="table-outer">
+                                    <table class="table table-bordered table-striped table-hover" id="candidate-table">
+                                        <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Candidate name</th>
+                                            <th>Phone</th>
+                                            <th>Gender</th>
+                                            <th>Literacy</th>
+                                            <th>Total applied job</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="widget-title pt-0">
+                                <div class="row w-100 align-items-center" id="candidate-paging">
+                                    <div class="col total-record">
+                                    </div>
+                                    <div class="col">
+                                        <ul class="pagination justify-content-end" style="margin:20px 0">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Dashboard -->
+
+    <!-- Copyright -->
+    <div class="copyright-text">
+        <p>© 2021 Superio. All Right Reserved.</p>
+    </div>
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/company/candidate/candidates.js"></script>
+</body>
+
+</html>

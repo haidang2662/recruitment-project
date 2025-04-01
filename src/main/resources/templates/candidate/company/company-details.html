@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Company Details')}"/>
+
+
+<body>
+
+<div class="page-wrapper">
+
+  <!-- Preloader -->
+  <div class="preloader"></div>
+
+  <!-- Header Span -->
+  <span class="header-span"></span>
+
+  <!-- Main Header -->
+  <header th:replace="~{fragments/common/header :: my-header}"/>
+  <!-- End Main Header -->
+
+  <!-- Job Detail Section -->
+  <section class="job-detail-section">
+    <div class="job-detail-outer">
+      <div class="auto-container">
+        <div class="row">
+          <div class="content-column col-lg-12 col-md-12 col-sm-12">
+            <div class="job-block-outer">
+              <!-- Job Block -->
+              <div class="job-block-seven style-two">
+                <div class="inner-box">
+                  <div class="job-title d-flex align-items-center">
+                    <h4 id="name" class="me-2 mb-0"></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thẻ bao job-overview-two -->
+            <div class="ls-widget">
+              <div class="tabs-box">
+                <div class="job-overview-two">
+                  <ul>
+                    <li>
+                      <i class="icon flaticon-briefcase"></i>
+                      <h5>Alias</h5>
+                      <span id="alias"></span>
+                    </li>
+                    <li>
+                      <i class="icon flaticon-phone-receiver" style="color: #0d6efd;"></i>
+                      <h5>Phone</h5>
+                      <span id="phone"></span>
+                    </li>
+                    <li>
+                      <i class="icon icon-expiry"></i>
+                      <h5>Found at</h5>
+                      <span id="foundAt"></span>
+                    </li>
+                    <li>
+                      <i class="icon icon-calendar"></i>
+                      <h5>Tax code</h5>
+                      <span id="taxCode"></span>
+                    </li>
+                    <li>
+                      <i class="icon icon-location" style="margin-left: -5px;"></i>
+                      <h5>Head quarter address</h5>
+                      <span id="headQuarterAddress"></span>
+                    </li>
+                    <li>
+                      <i class="icon icon-user-2"></i>
+                      <h5>Employee quantity</h5>
+                      <span id="employeeQuantity"></span>
+                    </li>
+                    <li>
+                      <i class="icon icon-rate"></i>
+                      <h5>Website</h5>
+                      <a id="website" href="#" target="_blank" style="display: inline-block;"></a>
+                    </li>
+                    <li>
+                      <i class="icon icon-calendar"></i>
+                      <h5>Rating</h5>
+                      <span id="rating"></span>
+                    </li>
+                    <li>
+                      <i class="icon flaticon-email-3" style="color: #0d6efd; font-weight: bold; font-size: 18px"></i>
+                      <h5>Email</h5>
+                      <span id="email"></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thẻ bao job-detail -->
+            <div class="ls-widget">
+              <div class="tabs-box">
+                <div class="job-detail p-4">
+                  <h4>Company Description</h4>
+                  <p id="description"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Job Detail Section -->
+
+
+  <!-- Main Footer -->
+  <footer th:replace="~{fragments/common/footer :: my-footer}"/>
+  <!-- End Main Footer -->
+
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/candidate/company/company-details.js"></script>
+</body>
+
+</html>
