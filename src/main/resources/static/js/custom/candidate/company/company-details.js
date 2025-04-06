@@ -44,57 +44,9 @@ function renderCompanyDetails(company) {
     $("#headQuarterAddress").text(company.headQuarterAddress);
     $("#employeeQuantity").text(company.employeeQuantity);
     $("#website").text(company.website);
+    $("#website").attr("href", company.website);
     $("#rating").text(company.rating);
     $("#email").text(company.email);
 
-}
 
-function decodeJobWorkingTimeType(workingTimeType) {
-    switch (workingTimeType) {
-        case "FULL_TIME":
-            return "Full time";
-        case "PART_TIME":
-            return "Part time";
-    }
-}
-
-function decodeJobWorkingType(workingType) {
-    switch (workingType) {
-        case "OFFLINE":
-            return "Offline";
-        case "ONLINE":
-            return "Online";
-    }
-}
-
-function decodeJobLiteracy(literacy) {
-    switch (literacy) {
-        case "PROFESSOR":
-            return "Professor";
-        case "DOCTOR":
-            return "Doctor";
-        case "MASTER":
-            return "Master";
-        case "UNIVERSITY":
-            return "University";
-        case "COLLEGE":
-            return "College";
-        case "HIGH_SCHOOL":
-            return "High School";
-    }
-}
-
-function decodeJobLevel(level) {
-    switch (level) {
-        case "INTERN":
-            return "Intern";
-        case "JUNIOR":
-            return "Junior";
-        case "FRESHER":
-            return "Fresher";
-        case "SENIOR":
-            return "Senior";
-        case "MASTER":
-            return "Master";
-    }
 }

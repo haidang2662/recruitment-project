@@ -25,6 +25,7 @@ public class CompanyCustomRepository extends BaseRepository {
                 "    from companies c\n" +
                 "    join accounts a on c.account_id = a.id\n" +
                 "    where 1 = 1\n" +
+                "   {{search_condition}}\n" +
                 "), count_data as(\n" +
                 "    select count(*) totalRecord\n" +
                 "    from raw_data\n" +
@@ -35,9 +36,16 @@ public class CompanyCustomRepository extends BaseRepository {
                 "limit :p_page_size\n" +
                 "offset :p_offset";
 
+        Map<String, Object> parameters = new HashMap<>();
+        String searchCondition = "";
+        if (request.getName() != null && !request.getName().isBlank()) {
+            parameters.put("p_name", "%" + request.getName().toLowerCase() + "%");
+            searchCondition += "and lower(c.name) like :p_name\n";
+        }
+        query = query.replace("{{search_condition}}", searchCondition);
+
         query = query.replace("{{order_random}}", request.isRandom() ? "ORDER BY RAND()" : "order by name");
 
-        Map<String, Object> parameters = new HashMap<>();
         parameters.put("p_page_size", request.getPageSize());
         parameters.put("p_offset", request.getPageSize() * request.getPageIndex());
         return getNamedParameterJdbcTemplate().query(query, parameters, new BeanPropertyRowMapper<>(SearchCompanyDto.class));

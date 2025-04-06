@@ -13,11 +13,4 @@ public class CompanyController {
         return "/company/dashboard";
     }
 
-    @GetMapping
-    public String searchCompanies()  {
-        return "/candidate/company/companies";
-    }
-
-    @GetMapping("/{id}")
-    public String getCompanyDetails()  { return "/candidate/company/company-details"; }
 }

@@ -32,6 +32,8 @@ public class Company extends BaseEntity {
     String website;
     String avatarUrl;
     String coverImageUrl;
+
+    @Column(length = 5000)
     String description;
     Double rating;
 

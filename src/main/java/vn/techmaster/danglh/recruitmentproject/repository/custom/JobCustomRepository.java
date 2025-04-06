@@ -80,9 +80,9 @@ public class JobCustomRepository extends BaseRepository {
         if (request.getSalaryFrom() != null) {
             parameters.put("p_salary_from", request.getSalaryFrom());
             parameters.put("p_salary_to", request.getSalaryTo());
-            searchCondition += "and (j.salary_from = :p_salary_from or j.salary_to = :p_salary_from or (j.salary_from < :p_salary_from and j.salary_to > :p_salary_from))" +
+            searchCondition += "and ((j.salary_from = :p_salary_from or j.salary_to = :p_salary_from or (j.salary_from < :p_salary_from and j.salary_to > :p_salary_from))" +
                     "or (j.salary_from = :p_salary_to or j.salary_to = :p_salary_to or (j.salary_from < :p_salary_to and j.salary_to > :p_salary_to))" +
-                    "or (:p_salary_from < j.salary_from and :p_salary_to > j.salary_to)\n";
+                    "or (:p_salary_from < j.salary_from and :p_salary_to > j.salary_to))\n";
         }
         // ý tưởng để giải quyết vấn đề salary from và salary to là dùng or thay and để nối điều kiện giữa 2 bên
 //        if (request.getSalaryTo() != null) {

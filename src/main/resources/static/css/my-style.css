@@ -56,3 +56,17 @@
     padding-right: 0 !important;
     margin-bottom: 0 !important;
 }
+
+.inner-box .company-info {
+    display: flex;
+    flex-wrap: nowrap; /* Ngăn không cho các phần tử xuống dòng */
+    overflow: hidden;  /* Ẩn phần văn bản tràn ra ngoài */
+    white-space: nowrap; /* Ngăn không cho nội dung xuống dòng */
+}
+
+.inner-box .company-info li {
+    flex-shrink: 0; /* Đảm bảo các mục không bị co lại */
+    margin-right: 10px; /* Khoảng cách giữa các mục */
+    text-overflow: ellipsis; /* Thêm dấu ba chấm nếu văn bản quá dài */
+    overflow: hidden; /* Ẩn phần thừa nếu văn bản quá dài */
+}

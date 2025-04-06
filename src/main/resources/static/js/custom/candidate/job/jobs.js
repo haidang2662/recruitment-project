@@ -6,6 +6,22 @@ $(document).ready(async function () {
     let pageIndex = 0;
     let pageSize = 20;
 
+
+    $("#salaryFrom, #salaryTo").on("input", function () {
+        let value = $(this).val();
+
+        if (value !== "") {
+            if (!isNaN(value)) {
+                const positiveValue = Math.abs(value);
+
+                $(this).val(positiveValue);
+            }
+        } else {
+            $(this).val("");
+        }
+    });
+
+
     const candidateJobSearchObj = loadSearchCondition();
     await getJobs(candidateJobSearchObj);
 
@@ -383,7 +399,6 @@ function validateSalaryRange() {
     const salaryFrom = hasSalaryFrom ? parseFloat(salaryFromStr) : null;
     const salaryTo = hasSalaryTo ? parseFloat(salaryToStr) : null;
 
-    // Nếu Salary To có nhưng Salary From không có => báo lỗi
     if (!hasSalaryFrom) {
         showToast("Please fill 'Salary from'", ERROR_TOAST);
         return false;

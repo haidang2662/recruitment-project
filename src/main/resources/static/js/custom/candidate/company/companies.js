@@ -4,13 +4,13 @@ $(document).ready(async function () {
     let totalRecord;
     let paging;
     let pageIndex = 0;
-    let pageSize = 10;
+    let pageSize = 4;
 
     await getCompanies();
 
     // call ajax search job va render du lieu (Co phan trang)
     // sẽ call đúng vào API search job của company luôn (thêm điều kiện để phân biệt company và candidate)
-    async function getCompanies() {
+    async function getCompanies(request) {
         // Disable nút search và hiển thị spinner
         $("input").prop("disabled", true);
         $("select").prop("disabled", true);
@@ -29,7 +29,8 @@ $(document).ready(async function () {
             data: {
                 pageIndex: pageIndex,
                 pageSize: pageSize,
-                random: false
+                random: false,
+                ...request
             },
             contentType: "application/json; charset=utf-8",
             success: function (data) {
@@ -60,8 +61,6 @@ $(document).ready(async function () {
             return;
         }
 
-        const account = JSON.parse(localStorage.getItem("account"));
-        console.log(account)
         const companies = data.data;
         console.log(companies)
         totalPage = data.totalPage;
@@ -81,29 +80,34 @@ $(document).ready(async function () {
         for (let i = 0; i < companies.length; i++) {
             const company = companies[i];
             const avatar = company?.avatarUrl ? `/api/v1/files/avatar/${company.avatarUrl}` : DEFAULT_AVATAR_URL;
+
             let companyBlock = `<div class="job-block col-lg-6 col-md-12 col-sm-12">
                             <div class="inner-box">
                                 <div class="content">
                                     <span class="company-logo"><img src='${avatar}' alt="" class="rounded rounded-circle" style="max-width:unset!important;width: 55px;height: 55px;"></span>
-                                    <h4><a href="/companies/${company.id}">${company.name}</a></h4>
-                                    <ul class="job-info">
-                                        <li><span class="icon flaticon-user"></span> ${company.employeeQuantity}</li>
-                                        <li><span class="icon flaticon-briefcase"></span> ${new Date(company.foundAt).getFullYear()}</li>
-                                        <li><span class="icon flaticon-phone"></span> ${company.phone}</li>
-                                        <li><span class="icon flaticon-email"></span> ${company.email}</li>
+                                <h4>
+                                    <a href="/public/companies/${company.id}" class="company-name">${company.name}</a>
+                                    <span class="fa-solid fa-square-up-right company-arrow" style="cursor: pointer; margin-left: 10px;"></span>
+                                </h4>
+                                    <ul class="row">
+                                        <li class="col"><span class="icon flaticon-user"></span> ${company.employeeQuantity}</li>
+                                        <li class="col"><span class="icon flaticon-briefcase text-dark"></span> ${new Date(company.foundAt).getFullYear()}</li>
                                     </ul>
-                                    <ul class="job-other-info">
+                                    <ul class="row">
+                                        <li class="col"><span class="icon flaticon-phone"></span> ${company.phone}</li>
+                                        <li class="col"><span class="icon flaticon-email"></span> ${company.email}</li>
+                                    </ul>
+                                    <ul class="company-other-info">
                                         <li class="privacy"><span class="icon flaticon-map-locator"></span> ${company.headQuarterAddress}</li>
-                                        <li class="time">
-                                            <span class="icon flaticon-web-programming"></span>
-                                            <a href="${company.website}" target="_blank" rel="noopener noreferrer">${company.website}</a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>`;
 
             tableContent.append(companyBlock);
+            $(".company-arrow").last().click(function () {
+                window.location.href = company.website; // Chuyển hướng đến trang web của công ty
+            });
 
         }
 
@@ -120,16 +124,24 @@ $(document).ready(async function () {
 
         totalRecordHtml.append("<span><span class='fw-bold'>Total records</span>: " + totalRecord + "</span>")
 
+        // Ấn vào các nút page là con số cụ thể vd : 2 , 3 , 4
+        $(".page-item").off("click").click(async function (event) {
+            const newPageIndex = $(event.currentTarget).attr("page");
+            if (!newPageIndex || isNaN(newPageIndex)) {
+                return;
+            }
+            pageIndex = parseInt(newPageIndex);
+            await getCompanies();
+        });
+
         $(".go-to-first-page").click(async function () {
             pageIndex = 0;
-            const filterValues = getFilterValues();  // Lấy lại các điều kiện tìm kiếm hiện tại
-            await getCompanies(filterValues);
+            await getCompanies();
         });
 
         $(".go-to-last-page").click(async function () {
             pageIndex = totalPage - 1;
-            const filterValues = getFilterValues();  // Lấy lại các điều kiện tìm kiếm hiện tại
-            await getCompanies(filterValues);
+            await getCompanies();
         });
 
         $(".previous-page").click(async function () {
@@ -137,8 +149,7 @@ $(document).ready(async function () {
                 return;
             }
             pageIndex = pageIndex - 1;
-            const filterValues = getFilterValues();  // Lấy lại các điều kiện tìm kiếm hiện tại
-            await getCompanies(filterValues);
+            await getCompanies();
         });
 
         $(".next-page").click(async function () {
@@ -146,34 +157,31 @@ $(document).ready(async function () {
                 return;
             }
             pageIndex = pageIndex + 1;
-            const filterValues = getFilterValues();  // Lấy lại các điều kiện tìm kiếm hiện tại
-            await getCompanies(filterValues);
+            await getCompanies();
         });
     }
 
+    $("#search-company-btn").click(async function () {
+
+        // Lấy dữ liệu từ form
+        const formData = $("#search-company-form").serializeArray();
+        let searchCompany = {};
+        for (let i = 0; i < formData.length; i++) {
+            searchCompany[formData[i].name] = formData[i].value;
+        }
+
+        pageIndex = 0;
+        await getCompanies(searchCompany);
+
+    });
+
+
+    $("#reset-search-company-btn").click(async function () {
+        // Reset form
+        $("#search-company-form").trigger("reset");
+
+        // Lấy lại dữ liệu
+        await getCompanies({});
+    });
+
 });
-
-function decodeJobWorkingTimeType(workingTimeType) {
-    switch (workingTimeType) {
-        case "FULL_TIME":
-            return "Full time";
-        case "PART_TIME":
-            return "Part time";
-        default:
-            return "Full time";
-    }
-}
-
-function decodeJobWorkingType(workingType) {
-    switch (workingType) {
-        case "OFFLINE":
-            return "Offline";
-        case "ONLINE":
-            return "Online";
-        default:
-            return "Offline";
-    }
-}
-
-
-

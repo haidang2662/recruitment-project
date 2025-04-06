@@ -12,7 +12,7 @@
     <div class="preloader"></div>
 
     <!-- Main Header-->
-    <header th:replace="~{fragments/common/header :: my-header}" />
+    <header th:replace="~{fragments/common/header :: my-header}"/>
     <!--End Main Header -->
 
 
@@ -44,21 +44,24 @@
                                     <!-- Form Group -->
                                     <div class="form-group col-lg-3 col-md-12 col-sm-12 location">
                                         <span class="icon flaticon-map-locator"></span>
-<!--                                        <input type="text" name="field_name" placeholder="City or postcode">-->
-                                        <select id="location" name="locations" data-placeholder="Locations" class="chosen-select multiple" multiple tabindex="4">
+                                        <!--                                        <input type="text" name="field_name" placeholder="City or postcode">-->
+                                        <select id="location" name="locations" data-placeholder="Locations"
+                                                class="chosen-select multiple" multiple tabindex="4">
                                         </select>
                                     </div>
 
                                     <!-- Form Group -->
                                     <div class="form-group col-lg-3 col-md-12 col-sm-12 category">
                                         <span class="icon flaticon-briefcase"></span>
-                                        <select id="job-categories" class="chosen-select" name="categoryId" data-placeholder="Job category">
+                                        <select id="job-categories" class="chosen-select" name="categoryId"
+                                                data-placeholder="Job category">
                                         </select>
                                     </div>
 
                                     <!-- Form Group -->
                                     <div class="form-group col-lg-2 col-md-12 col-sm-12 btn-box">
-                                        <button type="button" class="theme-btn btn-style-one" id="search-job-btn"><span class="btn-title">Find Jobs</span>
+                                        <button type="button" class="theme-btn btn-style-one" id="search-job-btn"><span
+                                                class="btn-title">Find Jobs</span>
                                         </button>
                                     </div>
                                 </div>
@@ -71,7 +74,8 @@
                                 <span class="title">10k+ Candidates</span>
                                 <img src="images/resource/multi-peoples.png" alt="">
                             </div>
-                            <a href="/cv/upload" class="upload-cv" id="upload-cv"><span class="icon flaticon-file"></span> Upload your CV</a>
+                            <a href="/cv/upload" class="upload-cv" id="upload-cv"><span
+                                    class="icon flaticon-file"></span> Upload your CV</a>
                         </div>
                     </div>
                 </div>
@@ -237,9 +241,9 @@
                 </div>
             </div>
 
-<!--            <div class="btn-box">-->
-<!--                <a href="#" class="theme-btn btn-style-one">Load More Listing</a>-->
-<!--            </div>-->
+            <!--            <div class="btn-box">-->
+            <!--                <a href="#" class="theme-btn btn-style-one">Load More Listing</a>-->
+            <!--            </div>-->
         </div>
     </section>
     <!-- End Job Section -->
@@ -257,79 +261,20 @@
                     <div class="text">Some of the companies we've helped recruit excellent applicants over the years.
                     </div>
                 </div>
-                <a href="#" class="link">Browse All <span class="icon fa fa-angle-right"></span></a>
+                <a href="http://localhost:8080/companies" class="link">Browse All <span class="icon fa fa-angle-right"></span></a>
             </div>
 
             <div class="row wow fadeInUp">
                 <!-- Company Block -->
-                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
-                    <div class="inner-box">
-                        <div class="content">
-                            <figure class="image"><img src="images/resource/company-1.png" alt=""></figure>
-                            <h4 class="name">Udemy</h4>
-                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
-                        </div>
-                        <a href="#" class="theme-btn btn-style-three">15 Open Position</a>
-                    </div>
-                </div>
+                <div class="company-block-two col-lg-12 col-md-12 col-sm-12">
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-content pt-5">
+                                <div class="row" id="companies">
 
-                <!-- Company Block -->
-                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
-                    <div class="inner-box">
-                        <div class="content">
-                            <figure class="image"><img src="images/resource/company-2.png" alt=""></figure>
-                            <h4 class="name">Stripe</h4>
-                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
+                                </div>
+                            </div>
                         </div>
-                        <a href="#" class="theme-btn btn-style-three">22 Open Position</a>
-                    </div>
-                </div>
-
-                <!-- Company Block -->
-                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
-                    <div class="inner-box">
-                        <div class="content">
-                            <figure class="image"><img src="images/resource/company-3.png" alt=""></figure>
-                            <h4 class="name">Dropbox</h4>
-                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
-                        </div>
-                        <a href="#" class="theme-btn btn-style-three">22 Open Position</a>
-                    </div>
-                </div>
-
-                <!-- Company Block -->
-                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
-                    <div class="inner-box">
-                        <div class="content">
-                            <figure class="image"><img src="images/resource/company-4.png" alt=""></figure>
-                            <h4 class="name">Figma</h4>
-                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
-                        </div>
-                        <a href="#" class="theme-btn btn-style-three">22 Open Position</a>
-                    </div>
-                </div>
-
-                <!-- Company Block -->
-                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
-                    <div class="inner-box">
-                        <div class="content">
-                            <figure class="image"><img src="images/resource/company-5.png" alt=""></figure>
-                            <h4 class="name">Upwork</h4>
-                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
-                        </div>
-                        <a href="#" class="theme-btn btn-style-three">15 Open Position</a>
-                    </div>
-                </div>
-
-                <!-- Company Block -->
-                <div class="company-block-two col-lg-6 col-md-12 col-sm-12">
-                    <div class="inner-box">
-                        <div class="content">
-                            <figure class="image"><img src="images/resource/company-6.png" alt=""></figure>
-                            <h4 class="name">invision</h4>
-                            <div class="location"><i class="flaticon-map-locator"></i> London, UK</div>
-                        </div>
-                        <a href="#" class="theme-btn btn-style-three">22 Open Position</a>
                     </div>
                 </div>
 
@@ -339,14 +284,14 @@
     <!-- End Top Companies -->
 
     <!-- Main Footer -->
-    <footer th:replace="~{fragments/common/footer :: my-footer}" />
+    <footer th:replace="~{fragments/common/footer :: my-footer}"/>
     <!-- End Main Footer -->
 
 
 </div><!-- End Page Wrapper -->
 
 
-<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}" />
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
 <script src="/js/custom/index.js"></script>
 
 </body>

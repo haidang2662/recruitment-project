@@ -186,7 +186,7 @@ $(document).ready(async function () {
 
         totalRecordHtml.append("<span><span class='fw-bold'>Total records</span>: " + totalRecord + "</span>")
 
-        // Xóa sự kiện cũ trước khi thêm sự kiện mới
+        // Ấn vào các nút page là con số cụ thể vd : 2 , 3 , 4
         $(".page-item").off("click").click(async function (event) {
             const newPageIndex = $(event.currentTarget).attr("page");
             if (!newPageIndex || isNaN(newPageIndex)) {

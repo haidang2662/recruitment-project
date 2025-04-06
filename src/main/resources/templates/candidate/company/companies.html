@@ -28,8 +28,53 @@
                 <div class="ls-outer">
                     <button type="button" class="theme-btn btn-style-two toggle-filters">Show Filters</button>
 
-                    <div class="row" id="candidate-companies">
+                    <div class="row">
+                        <div class="col">
+                            <div class="ls-widget">
+                                <div class="tabs-box">
+                                    <div class="widget-content py-4">
+                                        <form id="search-company-form">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="mb-3 text-center">
+                                                        <h3 for="name" class="form-label fw-500">Company Name</h3>
+                                                        <input type="text" class="form-control" id="name"
+                                                               placeholder="Enter company name"
+                                                               name="name">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="d-flex justify-content-center">
+                                            <button type="button" class="btn btn-primary me-4 px-4"
+                                                    id="search-company-btn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true" id="spinner-search"></span>
+                                                Search
+                                            </button>
 
+                                            <button type="button" class="btn btn-secondary px-4"
+                                                    id="reset-search-company-btn">
+                                        <span class="spinner-border spinner-border-sm d-none" role="status"
+                                              aria-hidden="true" id="spinner-reset"></span>
+                                                Reset
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ls widget -->
+                    <div class="ls-widget">
+                        <div class="tabs-box">
+                            <div class="widget-content pt-5">
+                                <div class="row" id="candidate-companies">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row w-100 align-items-center" id="company-paging">
