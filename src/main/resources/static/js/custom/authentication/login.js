@@ -103,3 +103,38 @@ $(document).ready(function () {
     });
 
 });
+
+function handleCredentialResponse(response) {
+    $("#login-btn").prop("disabled", true);
+    $("#spinner").toggleClass('d-none');
+
+    $.ajax({
+        url: "/api/v1/authentications/login/oauth2",
+        type: "POST",
+        data: JSON.stringify({
+            tenant: "GOOGLE",
+            credential: response.credential
+        }),
+        contentType: "application/json; charset=utf-8",
+        success: async function (data) {
+            localStorage.setItem("accessToken", data?.jwt);
+            localStorage.setItem("refreshToken", data?.refreshToken);
+
+            // lấy thông tin chi tiết account
+            const accountInfo = await getAccountDetail(data?.id);
+            localStorage.setItem("account", JSON.stringify(accountInfo));
+
+            if (accountInfo.role === CANDIDATE_ROLE) {
+                location.href = "/";
+            } else if (accountInfo.role === COMPANY_ROLE) {
+                location.href = `/companies/dashboard`;
+            }
+        },
+        error: function (err) {
+            handleResponseError(err, "Login failed");
+        }
+    });
+
+    $("#login-btn").prop("disabled", false);
+    $("#spinner").toggleClass('d-none');
+}

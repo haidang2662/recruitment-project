@@ -22,7 +22,8 @@ public class GlobalExceptionHandler {
             UnprocessableEntityException.class,
             IllegalArgumentException.class,
             InvalidFileExtensionException.class,
-            ExistedJobApplicationException.class
+            ExistedJobApplicationException.class,
+            CustomAuthenticationException.class
     })
     public ResponseEntity<ErrorResponse> handleValidationExceptions(Exception ex) {
         ErrorResponse errorResponse = ErrorResponse.builder()
@@ -52,6 +53,11 @@ public class GlobalExceptionHandler {
         ) {
             errorResponse.setCode(String.valueOf(HttpStatus.UNPROCESSABLE_ENTITY.value()));
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(errorResponse);
+        } else if (
+                ex instanceof CustomAuthenticationException
+        ) {
+            errorResponse.setCode(String.valueOf(HttpStatus.UNAUTHORIZED.value()));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
 
         log.error(ex.getMessage(), ex);

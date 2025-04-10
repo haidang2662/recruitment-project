@@ -43,6 +43,9 @@ application:
     refreshToken:
       secretKey: e3f0acd51fe8f38b145c82074ac46abf3395db7ad3eb1a96166d31c35409b14fe7725d18bd177d860caaceb17decdc5a704c0ecc91a8e40ac4b5168e9a0af10e
       tokenValidityMilliseconds: 1800000
+    oauth2:
+      google:
+        client-id: 839148955879-g9eols25hpqj2tpol60bl4qk4n762efu.apps.googleusercontent.com
 
   account:
     admin:

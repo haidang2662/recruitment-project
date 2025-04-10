@@ -1,9 +1,11 @@
 package vn.techmaster.danglh.recruitmentproject.resource;
 
+import vn.techmaster.danglh.recruitmentproject.exception.CustomAuthenticationException;
 import vn.techmaster.danglh.recruitmentproject.exception.ExistedAccountException;
 import vn.techmaster.danglh.recruitmentproject.exception.InvalidRefreshTokenException;
 import vn.techmaster.danglh.recruitmentproject.exception.ObjectNotFoundException;
 import vn.techmaster.danglh.recruitmentproject.model.request.LoginRequest;
+import vn.techmaster.danglh.recruitmentproject.model.request.OAuth2LoginRequest;
 import vn.techmaster.danglh.recruitmentproject.model.request.RefreshTokenRequest;
 import vn.techmaster.danglh.recruitmentproject.model.request.RegistrationRequest;
 import vn.techmaster.danglh.recruitmentproject.model.response.JwtResponse;
@@ -30,6 +32,11 @@ public class AuthenticationResource {
     @PostMapping("/login")
     public JwtResponse authenticateUser(@Valid @RequestBody LoginRequest request) throws ObjectNotFoundException {
         return authenticateService.authenticate(request);
+    }
+
+    @PostMapping("/login/oauth2")
+    public JwtResponse authenticateUserByOAuth2(@Valid @RequestBody OAuth2LoginRequest request) throws CustomAuthenticationException {
+        return authenticateService.authenticateByOAuth2(request);
     }
 
     @PostMapping("/registration")

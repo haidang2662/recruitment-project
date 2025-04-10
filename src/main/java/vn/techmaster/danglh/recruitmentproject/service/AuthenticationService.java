@@ -1,10 +1,16 @@
 package vn.techmaster.danglh.recruitmentproject.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import jakarta.mail.MessagingException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,18 +21,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import vn.techmaster.danglh.recruitmentproject.constant.AccountStatus;
-import vn.techmaster.danglh.recruitmentproject.constant.Constant;
-import vn.techmaster.danglh.recruitmentproject.constant.RegistrationType;
-import vn.techmaster.danglh.recruitmentproject.constant.Role;
+import vn.techmaster.danglh.recruitmentproject.constant.*;
 import vn.techmaster.danglh.recruitmentproject.entity.Account;
 import vn.techmaster.danglh.recruitmentproject.entity.Candidate;
 import vn.techmaster.danglh.recruitmentproject.entity.Company;
 import vn.techmaster.danglh.recruitmentproject.entity.RefreshToken;
+import vn.techmaster.danglh.recruitmentproject.exception.CustomAuthenticationException;
 import vn.techmaster.danglh.recruitmentproject.exception.ExistedAccountException;
 import vn.techmaster.danglh.recruitmentproject.exception.InvalidRefreshTokenException;
 import vn.techmaster.danglh.recruitmentproject.exception.ObjectNotFoundException;
 import vn.techmaster.danglh.recruitmentproject.model.request.LoginRequest;
+import vn.techmaster.danglh.recruitmentproject.model.request.OAuth2LoginRequest;
 import vn.techmaster.danglh.recruitmentproject.model.request.RefreshTokenRequest;
 import vn.techmaster.danglh.recruitmentproject.model.request.RegistrationRequest;
 import vn.techmaster.danglh.recruitmentproject.model.response.AccountResponse;
@@ -40,10 +45,12 @@ import vn.techmaster.danglh.recruitmentproject.security.JwtService;
 import vn.techmaster.danglh.recruitmentproject.security.SecurityUtils;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -70,6 +77,9 @@ public class AuthenticationService {
 
     @Value("${application.security.refreshToken.tokenValidityMilliseconds}")
     long refreshTokenValidityMilliseconds;
+
+    @Value("${application.security.oauth2.google.client-id}")
+    String googleClientId;
 
     @Transactional(rollbackFor = Exception.class)
     public AccountResponse registerAccount(RegistrationRequest registrationRequest)
@@ -200,4 +210,89 @@ public class AuthenticationService {
         SecurityContextHolder.clearContext();
     }
 
+    @Transactional
+    public JwtResponse authenticateByOAuth2(OAuth2LoginRequest request) throws CustomAuthenticationException {
+        Oauth2Tenant tenant = request.getTenant();
+        if (tenant.equals(Oauth2Tenant.GOOGLE)) {
+            return authenticateByGoogle(request);
+        }
+        return null;
+    }
+
+    private JwtResponse authenticateByGoogle(OAuth2LoginRequest request) throws CustomAuthenticationException {
+        GoogleIdToken.Payload payload = verifyToken(request.getCredential());
+        if (payload == null) {
+            throw new CustomAuthenticationException("Invalid credential");
+        }
+
+        // kiem tra xem email vua login da ton tai trong Db chua
+        // => nêu rồi thì tạo jwt, xong
+        // => nếu chưa => tạo account mới cho nó rồi tạo jwt
+        String email = payload.getEmail();
+        if (StringUtils.isBlank(email)) {
+            throw new CustomAuthenticationException("Empty email");
+        }
+
+        Optional<Account> accountOptional = accountRepository.findByEmail(email);
+        if (accountOptional.isPresent()) {
+            Account account = accountOptional.get();
+            return buildJwt(account, null);
+        }
+
+        // Tạo tài khoản
+        Account account = Account.builder()
+                .email(email)
+                .password(null)
+                .role(Role.CANDIDATE)
+                .status(AccountStatus.CREATED)
+                .createdBy(Constant.DEFAULT_CREATOR)
+                .lastModifiedBy(Constant.DEFAULT_CREATOR)
+                .build();
+        accountRepository.save(account);
+        Candidate candidate = Candidate.builder().name(email).account(account).build();
+        candidateRepository.save(candidate);
+
+        return buildJwt(account, null);
+    }
+
+    private GoogleIdToken.Payload verifyToken(String idTokenString) {
+        try {
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
+                    GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance())
+                    .setAudience(Collections.singletonList(googleClientId))
+                    .build();
+
+            GoogleIdToken idToken = verifier.verify(idTokenString);
+            return idToken != null ? idToken.getPayload() : null;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    private JwtResponse buildJwt(Account account, Object credentials) {
+        CustomUserDetails userDetails = new CustomUserDetails(account);
+        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, credentials);
+        SecurityContextHolder.getContext().setAuthentication(authentication); // lưu trữ thông tin thành công vào SecurityContextHolder
+        String jwt = jwtService.generateJwtToken(authentication); // sinh ra jwt
+
+        Set<String> roles = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toSet());  // Lấy ra quyền của thằng vừa login
+
+        String refreshToken = jwtService.generateJwtRefreshToken(authentication);
+        RefreshToken refreshTokenEntity = RefreshToken.builder()
+                .refreshToken(refreshToken)
+                .account(account)
+                .build();
+        refreshTokenRepository.save(refreshTokenEntity);
+
+        return JwtResponse.builder()
+                .jwt(jwt)
+                .refreshToken(refreshToken)
+                .id(userDetails.getId())
+                .username(userDetails.getUsername())
+                .roles(roles)
+                .build();
+    }
 }

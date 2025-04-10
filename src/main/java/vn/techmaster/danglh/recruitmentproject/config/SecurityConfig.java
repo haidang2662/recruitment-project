@@ -92,6 +92,7 @@ public class SecurityConfig {
                         ).authenticated()
                         .requestMatchers(
                                 "/api/v1/authentications/login",
+                                "/api/v1/authentications/login/oauth2",
                                 "/api/v1/authentications/registration"
                         ).permitAll() // Allow access to log-in, register
                         // authentication end

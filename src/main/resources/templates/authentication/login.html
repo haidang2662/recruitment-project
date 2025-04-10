@@ -4,6 +4,7 @@
 
 <head th:replace="~{fragments/common/head :: my-head(pageTitle='Login')}"/>
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <body>
 
 <div class="page-wrapper">
@@ -54,14 +55,31 @@
                         <div class="text">Don't have an account? <a href="/register">Signup</a></div>
                         <div class="divider"><span>or</span></div>
                         <div class="btn-box row">
-                            <div class="col-lg-6 col-md-12">
-                                <a href="#" class="theme-btn social-btn-two facebook-btn"><i
-                                        class="fab fa-facebook-f"></i> Log In via Facebook</a>
+<!--                            <div class="col-lg-6 col-md-12">-->
+<!--                                <a href="#" class="theme-btn social-btn-two facebook-btn"><i-->
+<!--                                        class="fab fa-facebook-f"></i> Log In via Facebook</a>-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-6 col-md-12">-->
+<!--                                <a href="#" class="theme-btn social-btn-two google-btn"-->
+<!--                                ><i class="fab fa-google"></i>-->
+<!--                                    Log In via Gmail</a>-->
+<!--                            </div>-->
+
+                            <div id="g_id_onload"
+                                 data-client_id="839148955879-g9eols25hpqj2tpol60bl4qk4n762efu.apps.googleusercontent.com"
+                                 data-callback="handleCredentialResponse"
+                                 data-auto_prompt="false">
                             </div>
-                            <div class="col-lg-6 col-md-12">
-                                <a href="#" class="theme-btn social-btn-two google-btn"><i class="fab fa-google"></i>
-                                    Log In via Gmail</a>
+
+                            <div class="g_id_signin"
+                                 data-type="standard"
+                                 data-size="large"
+                                 data-theme="outline"
+                                 data-text="sign_in_with"
+                                 data-shape="rectangular"
+                                 data-logo_alignment="left">
                             </div>
+
                         </div>
                     </div>
                 </div>
