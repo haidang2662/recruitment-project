@@ -186,7 +186,7 @@ $(document).ready(async function () {
         });
     }
 
-    $("#search-interview-btn").click(async function () {
+    $("#search-candidate-btn").click(async function () {
 
         // Lấy dữ liệu từ form
         const formData = $("#search-interview-form").serializeArray();
@@ -195,11 +195,12 @@ $(document).ready(async function () {
             searchInterview[formData[i].name] = formData[i].value;
         }
 
+        pageIndex = 0;
         await getCandidatesData(searchInterview);
 
     });
 
-    $("#reset-search-interview-btn").click(async function () {
+    $("#reset-search-candidate-btn").click(async function () {
         // Reset form
         $("#search-interview-form").trigger("reset");
 

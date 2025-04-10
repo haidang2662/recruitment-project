@@ -321,6 +321,7 @@ $(document).ready(async function () {
             searchJob[formData[i].name] = formData[i].value;
         }
 
+        pageIndex = 0;
         await getApplications(searchJob);
     });
 

@@ -183,6 +183,7 @@ $(document).ready(async function () {
     }
 
     $(".favorite-job-search-btn").click(async function () {
+        pageIndex = 0;
         await getJobs();
     });
 

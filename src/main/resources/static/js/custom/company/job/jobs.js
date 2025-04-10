@@ -273,7 +273,7 @@ $(document).ready(async function () {
         for (let i = 0; i < formData.length; i++) {
             searchJob[formData[i].name] = formData[i].value;
         }
-
+        pageIndex = 0;
         await getJobData(searchJob);
 
     });

@@ -247,6 +247,7 @@ $(document).ready(async function () {
             searchInterview[formData[i].name] = formData[i].value;
         }
 
+        pageIndex = 0;
         await getInterviewsData(searchInterview);
 
     });

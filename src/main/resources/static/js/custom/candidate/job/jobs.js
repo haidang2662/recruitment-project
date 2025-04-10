@@ -287,50 +287,60 @@ $(document).ready(async function () {
     // bắt sự kiện khi ngươi dùng thay đổi bất kỳ thành phần nào ở cột filter => đi search
     $("input[name='name']").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0; // tránh trường hợp search ở các page 2 , 3 ,4 .... bị sót dữ liệu ở page đầu
         await getJobs(filterValues);
     });
     $("select[name='locationIds']").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
     $("select[name='categoryId']").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
     $("#workingType-ONLINE").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
     $("#workingType-OFFLINE").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
     $("#workingTimeType-FULL_TIME").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
     $("#workingTimeType-PART_TIME").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
     $("input[name='yearOfExperience']").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
     $("input[name='salaryFrom']").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
 
     $("input[name='salaryTo']").change(async function () {
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
 
     $("input[name='salaryFrom'], input[name='salaryTo']").change(async function () {
         if (!validateSalaryRange()) return;
-
         const filterValues = getFilterValues();
+        pageIndex = 0;
         await getJobs(filterValues);
     });
 

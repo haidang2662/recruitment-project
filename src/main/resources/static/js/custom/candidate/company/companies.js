@@ -170,7 +170,7 @@ $(document).ready(async function () {
             searchCompany[formData[i].name] = formData[i].value;
         }
 
-        pageIndex = 0;
+        pageIndex = 0; // tránh trường hợp search ở các page 2 , 3 ,4 .... bị sót dữ liệu ở page đầu
         await getCompanies(searchCompany);
 
     });
