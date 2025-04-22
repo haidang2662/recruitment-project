@@ -20,10 +20,6 @@ public interface FavoriteJobRepository extends JpaRepository<FavouriteJob, Long>
 
     Optional<FavouriteJob> findByCandidateAndJob(Candidate candidate, Job job);
 
-    List<FavouriteJob> findByJob(Job job);
-
-    List<Job> findByStatusAndExpiredDateBetween(JobStatus status, LocalDate fromDate, LocalDate toDate);
-
     List<FavouriteJob> findByJobIdIn(List<Long> ids);
 
 }

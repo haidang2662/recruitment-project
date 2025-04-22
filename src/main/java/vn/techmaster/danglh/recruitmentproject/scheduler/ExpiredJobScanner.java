@@ -2,7 +2,9 @@ package vn.techmaster.danglh.recruitmentproject.scheduler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -21,18 +23,19 @@ import java.util.Optional;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ExpiredJobScanner {
 
     @Value("${application.account.admin.username}")
     String adminUsername;
 
-    JobRepository jobRepository;
-    FavoriteJobRepository favoriteJobRepository;
-    NotificationRepository notificationRepository;
-    NotificationTargetRepository notificationTargetRepository;
-    ObjectMapper objectMapper;
-    SimpMessagingTemplate messagingTemplate;
-    AccountRepository accountRepository;
+    final JobRepository jobRepository;
+    final FavoriteJobRepository favoriteJobRepository;
+    final NotificationRepository notificationRepository;
+    final NotificationTargetRepository notificationTargetRepository;
+    final ObjectMapper objectMapper;
+    final SimpMessagingTemplate messagingTemplate;
+    final AccountRepository accountRepository;
 
     //    @Scheduled(fixedDelay = 1800000, initialDelay = 10000) // => cứ 30p chạy 1 phát (phát đầu tiên đợi chương trình khởi động xong 10s mới chạy)
     @Scheduled(cron = "0 0 0 * * *") // chạy lúc 0h hằng ngày => quét các job hết hạn

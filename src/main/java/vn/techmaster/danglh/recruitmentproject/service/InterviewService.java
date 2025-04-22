@@ -33,21 +33,21 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class InterviewService {
 
     @Value("${application.account.admin.username}")
     String adminUsername;
 
-    ApplicationRepository applicationRepository;
-    InterviewRepository interviewRepository;
-    ObjectMapper objectMapper;
-    EmailService emailService;
-    CompanyRepository companyRepository;
-    InterviewCustomRepository interviewCustomRepository;
-    NotificationService notificationService;
-    JobRepository jobRepository;
-    AccountRepository accountRepository;
+    final ApplicationRepository applicationRepository;
+    final InterviewRepository interviewRepository;
+    final ObjectMapper objectMapper;
+    final EmailService emailService;
+    final CompanyRepository companyRepository;
+    final InterviewCustomRepository interviewCustomRepository;
+    final NotificationService notificationService;
+    final JobRepository jobRepository;
+    final AccountRepository accountRepository;
 
     @Transactional
     public InterviewResponse createInterview(InterviewRequest request) throws ObjectNotFoundException, MessagingException, JsonProcessingException {
