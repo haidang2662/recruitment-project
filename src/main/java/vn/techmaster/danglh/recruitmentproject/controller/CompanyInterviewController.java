@@ -24,4 +24,11 @@ public class CompanyInterviewController {
         return "company/interview/interview-details";
     }
 
+    @GetMapping("/acceptance/{id}")
+    public String acceptInterview(@PathVariable String id){return "company/interview/interview-participant-acceptance";}
+
+    @GetMapping("/refusal/{id}")
+    public String refuseInterview(@PathVariable String id){return "company/interview/interview-participant-acceptance";}
+
+
 }

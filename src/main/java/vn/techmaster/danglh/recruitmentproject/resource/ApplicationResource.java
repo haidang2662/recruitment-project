@@ -1,5 +1,6 @@
 package vn.techmaster.danglh.recruitmentproject.resource;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -48,7 +49,7 @@ public class ApplicationResource {
     }
 
     @PatchMapping ("/{applicationId}/status")
-    public ApplicationResponse changeStatus(@PathVariable Long applicationId , @RequestBody ApplicationRequest request) throws ObjectNotFoundException {
+    public ApplicationResponse changeStatus(@PathVariable Long applicationId , @RequestBody ApplicationRequest request) throws ObjectNotFoundException, JsonProcessingException {
         return applicationService.changeStatus(applicationId , request);
     }
 

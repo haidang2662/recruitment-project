@@ -61,6 +61,7 @@ public class JobService {
                 .orElseThrow(() -> new ObjectNotFoundException("Category not found"));
         job.setCategory(category);
 
+        job.setPassedQuantity(0);
         jobRepository.save(job);
         return objectMapper.convertValue(job, JobResponse.class);
     }

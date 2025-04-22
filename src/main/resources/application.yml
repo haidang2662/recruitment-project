@@ -49,8 +49,8 @@ application:
 
   account:
     admin:
-      username: admin
-      password: admin123
+      username: danglehuu.dev@gmail.com
+      password: aA123456
     activation:
       activationUrl: http://localhost:8080/accounts/{id}/activations
       expiredDurationInMilliseconds: 1800000 # 30 phut
@@ -58,5 +58,9 @@ application:
     passwordForgotten:
       url: http://localhost:8080/accounts/{id}/password_forgotten
       expiredDurationInMilliseconds: 1800000 # 30 phut
+
+interview:
+  acceptUrl: http://localhost:8080/companies/interviews/acceptance/{id}
+  refuseUrl: http://localhost:8080/companies/interviews/refusal/{id}
 #      maxResendTimes: 3
 

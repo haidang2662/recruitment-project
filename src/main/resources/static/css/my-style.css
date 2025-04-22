@@ -70,3 +70,50 @@
     text-overflow: ellipsis; /* Thêm dấu ba chấm nếu văn bản quá dài */
     overflow: hidden; /* Ẩn phần thừa nếu văn bản quá dài */
 }
+
+.notification-icon .notification-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-icon .notification-icon-wrapper .la-bell{
+    color: #495057;
+    font-size: 28px;
+    padding-top: 8px;
+}
+
+.notification-icon .notification-icon-wrapper #notification-badge{
+    position: absolute;
+    top: 2px;
+    right: -6px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    line-height: 1;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Không cần padding thêm vì đã có width + height cố định */
+
+}
+
+.outer-box #notification-btn::after {
+    display: none !important;
+}
+
+.dropdown-menu {
+    position: absolute;
+    left: 0;
+    right: -15px; /* Kéo rộng về bên phải */
+}
+
+.dropdown-menu .dropdown-item {
+    white-space: normal;
+    word-break: break-word;
+}
+

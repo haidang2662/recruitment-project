@@ -23,7 +23,7 @@ public class JobCustomRepository extends BaseRepository {
                 "       j.working_type workingType, j.working_time_type workingTimeType, " +
                 "       j.working_address workingAddress, j.literacy, j.level, j.recruiting_quantity recruitingQuantity, " +
                 "       j.expired_date expiredDate, j.salary_from salaryFrom, j.salary_to salaryTo, j.status,\n" +
-                "       j.created_at createdAt, c.avatar_url companyAvatarUrl, j.urgent,\n" +
+                "       j.created_at createdAt, j.passed_quantity passedQuantity, c.avatar_url companyAvatarUrl, j.urgent,\n" +
                 "       c.name companyName, c.alias, a.email companyEmail, c.created_at companyCreatedAt,\n" +
                 "       c.head_quarter_address headQuarterAddress, c.website, l.name workingCity\n" +
                 "       {{favorite_job_select_fields}}\n" +
@@ -42,6 +42,7 @@ public class JobCustomRepository extends BaseRepository {
                 "from raw_data r, count_data c\n" +
                 "limit :p_page_size\n" +
                 "offset :p_offset";
+
 
         Map<String, Object> parameters = new HashMap<>();
         String searchCondition = "";

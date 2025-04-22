@@ -10,4 +10,5 @@ public class ApplicationRequest {
     @NotNull(message = "Application status cannot be null")
     ApplicationStatus status;
 
+
 }

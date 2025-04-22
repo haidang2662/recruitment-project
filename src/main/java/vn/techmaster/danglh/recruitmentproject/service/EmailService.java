@@ -31,6 +31,12 @@ public class EmailService {
     @Value("${application.account.passwordForgotten.url}")
     String passwordForgottenLink;
 
+    @Value("${interview.acceptUrl}")
+    String acceptLink;
+
+    @Value("${interview.refuseUrl}")
+    String refuseLink;
+
     final JavaMailSender javaMailSender;
 
     final InterviewRepository interviewRepository;
@@ -84,13 +90,18 @@ public class EmailService {
         String interviewAtDate = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(interviewAt);
         String interviewAtTime = DateTimeFormatter.ofPattern("HH:mm").format(interviewAt);
 
+//        String acceptLink = "http://localhost:8080/companies/interviews/acceptance/" + interview.getId();
+//        String refuseLink = "http://localhost:8080/companies/interviews/refusal/" + interview.getId();
+
+        String acceptUrl = acceptLink.replace("{id}" , interview.getId().toString());
+        String refuseUrl = refuseLink.replace("{id}" , interview.getId().toString());
+
         String content = "<div>" +
                 "<h2> Dear Mr./Ms. <b>" + candidate.getName() + "</b>, </h2>" +
                 "<div><b>" + company.getName() + "</b> is very pleased and honored to receive your application for the position <b>" + application.getJob().getName() + "</b><br>. " +
                 "We have received your CV and would like to have an interview to discuss directly about your knowledge and the job you have applied for.</div><br><br>" +
                 "<div>The expected interview time is at " + interviewAtTime + " on " + interviewAtDate + " " +
-                "(we will send you the link after you confirm your agreement to the interview by replying to this email).</div><br>" +
-                "<div>We hope for your early response and hope that we will be able to cooperate together in the future.</div><br><br><br>" +
+                "<div>If you agree to participate in our interview, please <a href='" + acceptUrl + "'>click here</a>. If not, please <a href='" + refuseUrl + "'>click here</a>.</div><br><br><br>" +
                 "<div>Thanks & best regards,</div><br><br>" +
                 "<div>Head office: " + company.getHeadQuarterAddress() + "</div>" +
                 "<div>Hotline: " + company.getPhone() + "</div>";

@@ -13,4 +13,5 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
 
     Optional<Application> findFirstByCandidateAndJob(Candidate candidate, Job job);
 
+
 }

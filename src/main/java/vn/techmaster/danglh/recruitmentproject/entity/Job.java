@@ -47,6 +47,7 @@ public class Job extends BaseEntity {
     JobLevel level;
 
     Integer recruitingQuantity;
+    Integer passedQuantity;
     LocalDate expiredDate;
 
     @Column(name = "skills", length = 1000)

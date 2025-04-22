@@ -79,6 +79,7 @@ public class SecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/ws/**", "/user/**").permitAll() // Cho phép WebSocket
                         .requestMatchers("/h2-console/**").permitAll() // Allow access to H2 Console
                         .requestMatchers("/swagger-ui/index.html").permitAll() // Allow access to Swagger UI
                         .requestMatchers("/api/v1/files/**").permitAll() // Allow access to Swagger UI
@@ -145,7 +146,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/interviews").hasAnyAuthority(Role.COMPANY.toString())
                         .requestMatchers(HttpMethod.GET, "/api/v1/interviews").hasAnyAuthority(Role.COMPANY.toString())
                         .requestMatchers(HttpMethod.GET, "/api/v1/interviews/{interviewId}").hasAnyAuthority(Role.COMPANY.toString())
-                        .requestMatchers(HttpMethod.PATCH, "/api/v1/interviews/{interviewId}/**").hasAnyAuthority(Role.COMPANY.toString())
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/interviews/{interviewId}/note").hasAnyAuthority(Role.COMPANY.toString())
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/interviews/{interviewId}/status").permitAll()
                         // interview - END
 
                         // candidate - START

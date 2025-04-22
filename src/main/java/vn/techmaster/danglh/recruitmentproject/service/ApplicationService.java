@@ -1,18 +1,19 @@
 package vn.techmaster.danglh.recruitmentproject.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import vn.techmaster.danglh.recruitmentproject.constant.ApplicationStatus;
-import vn.techmaster.danglh.recruitmentproject.constant.Constant;
-import vn.techmaster.danglh.recruitmentproject.constant.Role;
+import vn.techmaster.danglh.recruitmentproject.constant.*;
+import vn.techmaster.danglh.recruitmentproject.dto.NotificationDto;
 import vn.techmaster.danglh.recruitmentproject.dto.SearchApplicationDto;
 import vn.techmaster.danglh.recruitmentproject.entity.*;
 import vn.techmaster.danglh.recruitmentproject.exception.ExistedJobApplicationException;
@@ -34,6 +35,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -50,6 +52,7 @@ public class ApplicationService {
     CompanyRepository companyRepository;
     ApplicationCustomRepository applicationCustomRepository;
     InterviewRepository interviewRepository;
+    NotificationService notificationService;
 
     @Transactional
     public ApplicationResponse applyJob(JobApplicationRequest request, MultipartFile uploadedCv)
@@ -90,7 +93,6 @@ public class ApplicationService {
             throw new FileNotFoundException("CV file invalid");
         }
 
-
         String applicationDescription = StringUtils.isBlank(request.getApplicationDescription()) ? null : request.getApplicationDescription();
         Application application = Application.builder()
                 .job(job)
@@ -100,6 +102,16 @@ public class ApplicationService {
                 .status(ApplicationStatus.APPLIED)
                 .build();
         applicationRepository.save(application);
+
+        NotificationDto dto = NotificationDto.builder()
+                .sender(candidate.getAccount())
+                .title("Lượt ứng tuyển mới")
+                .content("Ứng viên " + candidate.getName() + " đã ứng tuyển vào vị trí " + job.getName() + ".")
+                .target(job.getCompany().getAccount())
+                .targetType(TargetType.COMPANY)
+                .destination(WebsocketDestination.NEW_APPLICATION_NOTIFICATION)
+                .build();
+        notificationService.pushNotification(dto);
 
         return ApplicationResponse.builder()
                 .job(objectMapper.convertValue(job, JobResponse.class))
@@ -229,7 +241,7 @@ public class ApplicationService {
         return response;
     }
 
-    public ApplicationResponse changeStatus(Long applicationId, ApplicationRequest request) throws ObjectNotFoundException {
+    public ApplicationResponse changeStatus(Long applicationId, ApplicationRequest request) throws ObjectNotFoundException, JsonProcessingException {
         Application application = applicationRepository.findById(applicationId)
                 .orElseThrow(() -> new ObjectNotFoundException("Không tìm thấy application có id : " + applicationId));
 
@@ -274,6 +286,40 @@ public class ApplicationService {
 
         application.setStatus(request.getStatus());
         applicationRepository.save(application);
+
+        Job job = application.getJob();
+        Company company = job.getCompany();
+        Candidate candidate = application.getCandidate();
+        if (request.getStatus() == ApplicationStatus.APPLICATION_ACCEPTED) {
+            NotificationDto dto = NotificationDto.builder()
+                    .sender(company.getAccount())
+                    .title("CV đã được chấp nhận")
+                    .content("CV của bạn cho công việc " + job.getName() + " đã được xét duyệt và chấp thuận bởi " + company.getName() + ".")
+                    .target(candidate.getAccount())
+                    .targetType(TargetType.CANDIDATE)
+                    .destination(WebsocketDestination.CV_ACCEPTANCE_NOTIFICATION)
+                    .build();
+            notificationService.pushNotification(dto);
+
+        }
+
+        if (request.getStatus() == ApplicationStatus.APPLICATION_REJECTED) {
+            NotificationDto dto = NotificationDto.builder()
+                    .sender(company.getAccount())
+                    .title("CV bị từ chối")
+                    .content("CV của bạn cho công việc " + job.getName() + "đã bị từ chối bởi " + company.getName() + ".")
+                    .target(candidate.getAccount())
+                    .targetType(TargetType.CANDIDATE)
+                    .destination(WebsocketDestination.CV_REFUSAL_NOTIFICATION)
+                    .build();
+            notificationService.pushNotification(dto);
+        }
+
+        if (request.getStatus() == ApplicationStatus.CANDIDATE_ACCEPTED) {
+            job.setPassedQuantity(job.getPassedQuantity() + 1);
+            jobRepository.save(job);
+        }
+
         return objectMapper.convertValue(application, ApplicationResponse.class);
     }
 }

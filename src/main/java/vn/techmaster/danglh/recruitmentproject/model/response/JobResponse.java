@@ -33,6 +33,7 @@ public class JobResponse {
     JobLevel level;
 
     Integer recruitingQuantity;
+    Integer passedQuantity;
     LocalDate expiredDate;
     String skills;
     String benefit;

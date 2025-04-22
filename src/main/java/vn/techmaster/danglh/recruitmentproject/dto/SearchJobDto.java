@@ -23,6 +23,7 @@ public class SearchJobDto {
     String position;
     JobLevel level;
     Integer recruitingQuantity;
+    Integer passedQuantity;
     String workingAddress;
     Integer salaryFrom;
     Integer salaryTo;

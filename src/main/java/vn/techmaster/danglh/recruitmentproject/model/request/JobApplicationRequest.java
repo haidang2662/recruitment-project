@@ -11,5 +11,4 @@ public class JobApplicationRequest {
     Long jobId;
     Long cvId;
     String applicationDescription;
-
 }

@@ -24,6 +24,8 @@ public class Notification extends BaseEntity {
     @ManyToOne(targetEntity = Account.class)
     Account senderId;
 
+    String topic;
+
     String title;
     String content;
 

@@ -111,7 +111,6 @@ $(document).ready(async function () {
         }
 
         const companies = data.data;
-        console.log(companies)
 
         if (!companies || companies.length === 0) {
             return;

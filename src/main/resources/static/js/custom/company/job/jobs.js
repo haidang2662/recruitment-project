@@ -81,6 +81,7 @@ $(document).ready(async function () {
             return;
         }
 
+        console.log(data.data)
         const jobs = data.data;
         totalPage = data.totalPage;
         totalRecord = data.totalRecord;
@@ -103,6 +104,7 @@ $(document).ready(async function () {
                 "<td>" + "<a href='/companies/jobs/" + job.id + "'>" + job.name + "</a></td>" +
                 "<td>" + job.position + "</td>" +
                 "<td>" + job.recruitingQuantity + "</td>" +
+                "<td>" + job.passedQuantity + "</td>" +
                 "<td>" + decodeJobLevel(job.level) + "</td>" +
                 "<td>" + (job.yearOfExperienceTo ? job.yearOfExperienceFrom + " - " + job.yearOfExperienceTo : job.yearOfExperienceFrom) + "</td>" +
                 "<td>" + job.expiredDate + "</td>" +

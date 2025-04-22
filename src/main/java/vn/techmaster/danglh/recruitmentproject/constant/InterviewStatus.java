@@ -10,5 +10,7 @@ public enum InterviewStatus {
     PASSED,
     FAILED,
     CANDIDATE_ABSENCE,
-    CANCELLED
+    CANCELLED,
+    INTERVIEW_ACCEPTED,
+    INTERVIEW_REFUSED
 }

@@ -1,5 +1,6 @@
 package vn.techmaster.danglh.recruitmentproject.resource;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -26,7 +27,7 @@ public class InterviewResource {
     InterviewService interviewService;
 
     @PostMapping
-    public InterviewResponse createInterview(@RequestBody @Valid InterviewRequest request) throws ObjectNotFoundException, MessagingException {
+    public InterviewResponse createInterview(@RequestBody @Valid InterviewRequest request) throws ObjectNotFoundException, MessagingException, JsonProcessingException {
         return interviewService.createInterview(request);
     }
 
@@ -41,7 +42,7 @@ public class InterviewResource {
     }
 
     @PatchMapping ("/{interviewId}/status")
-    public InterviewResponse changeStatus(@PathVariable Long interviewId , @RequestBody InterviewRequest request) throws ObjectNotFoundException {
+    public InterviewResponse changeStatus(@PathVariable Long interviewId , @RequestBody InterviewRequest request) throws ObjectNotFoundException, JsonProcessingException {
         return interviewService.changeStatus(interviewId , request);
     }
 
