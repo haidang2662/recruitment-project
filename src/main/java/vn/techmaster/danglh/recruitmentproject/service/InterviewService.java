@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.mail.MessagingException;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.techmaster.danglh.recruitmentproject.constant.*;
 import vn.techmaster.danglh.recruitmentproject.dto.NotificationDto;
+import vn.techmaster.danglh.recruitmentproject.dto.NotificationMetadataDto;
 import vn.techmaster.danglh.recruitmentproject.dto.SearchInterviewDto;
 import vn.techmaster.danglh.recruitmentproject.entity.*;
 import vn.techmaster.danglh.recruitmentproject.exception.ObjectNotFoundException;
@@ -24,7 +24,6 @@ import vn.techmaster.danglh.recruitmentproject.repository.*;
 import vn.techmaster.danglh.recruitmentproject.repository.custom.InterviewCustomRepository;
 import vn.techmaster.danglh.recruitmentproject.security.CustomUserDetails;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -69,6 +68,7 @@ public class InterviewService {
                 .build();
         interviewRepository.save(interview);
 
+
         application.setStatus(ApplicationStatus.WAIT_FOR_INTERVIEW);
         applicationRepository.save(application);
 
@@ -80,13 +80,17 @@ public class InterviewService {
         Candidate candidate = application.getCandidate();
 
 //        // bắn noti
+        NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                .applicationId(application.getId())
+                .build();
         NotificationDto dto = NotificationDto.builder()
                 .sender(company.getAccount())
                 .title("Thư mời tham gia phỏng vấn")
-                .content("Bạn có lời mời phỏng vấn từ công ty " + company.getName() + "cho vị trí " + job.getName() + ".")
+                .content("Bạn có lời mời phỏng vấn từ công ty " + company.getName() + "cho vị trí " + job.getName() + " mời bạn check hòm mail " + candidate.getAccount().getEmail() + ".")
                 .target(candidate.getAccount())
                 .targetType(TargetType.CANDIDATE)
                 .destination(WebsocketDestination.NEW_INTERVIEW_NOTIFICATION)
+                .metadata(objectMapper.writeValueAsString(metadata))
                 .build();
 
         notificationService.pushNotification(dto);
@@ -170,7 +174,10 @@ public class InterviewService {
         Job job = application.getJob();
         Candidate candidate = application.getCandidate();
         if (request.getStatus() == InterviewStatus.INTERVIEW_ACCEPTED) {
-            // bắn noti
+            NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                    .interviewId(interviewId)
+                    .applicationId(application.getId())
+                    .build();
             NotificationDto dto = NotificationDto.builder()
                     .sender(candidate.getAccount())
                     .title("Ứng viên tham gia phỏng vấn")
@@ -178,12 +185,15 @@ public class InterviewService {
                     .target(job.getCompany().getAccount())
                     .targetType(TargetType.COMPANY)
                     .destination(WebsocketDestination.INTERVIEW_ACCEPTANCE_NOTIFICATION)
+                    .metadata(objectMapper.writeValueAsString(metadata))
                     .build();
             notificationService.pushNotification(dto);
         }
 
         if (request.getStatus() == InterviewStatus.INTERVIEW_REFUSED) {
-            // bắn noti
+            NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                    .applicationId(application.getId())
+                    .build();
             NotificationDto dto = NotificationDto.builder()
                     .sender(candidate.getAccount())
                     .title("Ứng viên từ chối tham gia phỏng vấn")
@@ -191,6 +201,7 @@ public class InterviewService {
                     .target(job.getCompany().getAccount())
                     .targetType(TargetType.COMPANY)
                     .destination(WebsocketDestination.INTERVIEW_REFUSAL_NOTIFICATION)
+                    .metadata(objectMapper.writeValueAsString(metadata))
                     .build();
             notificationService.pushNotification(dto);
         }
@@ -233,7 +244,9 @@ public class InterviewService {
         if (admin.isEmpty()) {
             return;
         }
-
+        NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                .applicationId(job.getId())
+                .build();
         NotificationDto dto = NotificationDto.builder()
                 .sender(admin.get())
                 .title("Tin tuyển dụng hoàn tất")
@@ -241,6 +254,7 @@ public class InterviewService {
                 .target(job.getCompany().getAccount())
                 .targetType(TargetType.COMPANY)
                 .destination(WebsocketDestination.ENOUGH_PASSED_CANDIDATE_NOTIFICATION)
+                .metadata(objectMapper.writeValueAsString(metadata))
                 .build();
         notificationService.pushNotification(dto);
     }

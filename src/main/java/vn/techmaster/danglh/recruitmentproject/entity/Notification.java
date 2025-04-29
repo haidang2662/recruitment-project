@@ -22,7 +22,9 @@ public class Notification extends BaseEntity {
 
     @JoinColumn(name = "account_id")
     @ManyToOne(targetEntity = Account.class)
-    Account senderId;
+    Account sender;
+
+    String metadata;
 
     String topic;
 
@@ -37,5 +39,6 @@ public class Notification extends BaseEntity {
 
     LocalDate startAt;
     LocalDate finishAt;
+
 
 }

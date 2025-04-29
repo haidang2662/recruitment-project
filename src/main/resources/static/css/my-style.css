@@ -117,3 +117,30 @@
     word-break: break-word;
 }
 
+.notification-box {
+    width: 350px;
+    right: 50px !important;
+    left: -100px !important;
+    max-height: 500px !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden;
+}
+
+.notification-box .content div {
+    font-size: 12px !important;
+    line-height: 1.5;
+}
+
+.notification-box .title div {
+    font-size: 14px !important;
+}
+
+.notification-box .buttons button {
+    font-size: 12px !important;
+}
+
+.notification-item {
+    border-bottom: 1px solid #ececec;
+    margin-left: 4px;
+    margin-right: 5px;
+}

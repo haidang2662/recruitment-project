@@ -33,29 +33,31 @@ public class NotificationService {
     @Transactional
     public void pushNotification(NotificationDto dto) throws JsonProcessingException {
         Notification notification = Notification.builder()
-                .senderId(dto.getSender())
+                .sender(dto.getSender())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .topic(dto.getDestination().getValue())
                 .status(NotificationStatus.SENT)
                 .type(NotificationType.SINGLE)
                 .startAt(LocalDate.now())
+                .metadata(dto.getMetadata())
                 .build();
 
         NotificationTarget target = NotificationTarget.builder()
                 .notification(notification)
-                .targetId(dto.getTarget())
+                .target(dto.getTarget())
                 .type(dto.getTargetType())
                 .seen(false)
                 .build();
         notificationRepository.save(notification);
         notificationTargetRepository.save(target);
 
-        String topic = "/topic/" + target.getTargetId().getEmail() + "/" + dto.getDestination().getValue();
+        String topic = "/topic/" + target.getTarget().getEmail() + "/" + dto.getDestination().getValue();
         messagingTemplate.convertAndSend(
                 topic,
-                objectMapper.writeValueAsString(notification) //TODO : Hỏi lại thầy tại sao lại có đoạn code objectMapper này
+                objectMapper.writeValueAsString(notification)
         );
     }
+
 
 }

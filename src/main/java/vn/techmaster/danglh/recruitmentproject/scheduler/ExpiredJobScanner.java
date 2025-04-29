@@ -12,7 +12,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import vn.techmaster.danglh.recruitmentproject.constant.*;
+import vn.techmaster.danglh.recruitmentproject.dto.NotificationMetadataDto;
 import vn.techmaster.danglh.recruitmentproject.entity.*;
+import vn.techmaster.danglh.recruitmentproject.exception.ExistedJobApplicationException;
 import vn.techmaster.danglh.recruitmentproject.repository.*;
 
 import java.time.LocalDate;
@@ -36,6 +38,7 @@ public class ExpiredJobScanner {
     final ObjectMapper objectMapper;
     final SimpMessagingTemplate messagingTemplate;
     final AccountRepository accountRepository;
+    final ApplicationRepository applicationRepository;
 
     //    @Scheduled(fixedDelay = 1800000, initialDelay = 10000) // => cứ 30p chạy 1 phát (phát đầu tiên đợi chương trình khởi động xong 10s mới chạy)
     @Scheduled(cron = "0 0 0 * * *") // chạy lúc 0h hằng ngày => quét các job hết hạn
@@ -56,7 +59,7 @@ public class ExpiredJobScanner {
     }
 
 
-    @Scheduled(fixedDelay = 36000000, initialDelay = 5000)
+    @Scheduled(fixedDelay = 36000000, initialDelay = 30000)
     // => cứ 30p chạy 1 phát (phát đầu tiên đợi chương trình khởi động xong 10s mới chạy)
 //    @Scheduled(cron = "0 0 0 * * *") // chạy lúc 0h hằng ngày => quét các job hết hạn
     @Transactional
@@ -95,26 +98,31 @@ public class ExpiredJobScanner {
                     continue;
                 }
 
+                NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                        .jobId(job.getId())
+                        .build();
+
                 Notification notification = Notification.builder()
-                        .senderId(company.getAccount())
+                        .sender(company.getAccount())
                         .title("Công việc yêu thích sắp hết hạn")
                         .content("Công việc " + job.getName() + " (của công ty " + company.getName() + ") mà bạn yêu thích sắp hết hạn")
                         .topic(WebsocketDestination.EXPIRED_FAVORITE_JOB_NOTIFICATION.getValue())
                         .status(NotificationStatus.SENT)
                         .type(NotificationType.SINGLE)
                         .startAt(LocalDate.now())
+                        .metadata(objectMapper.writeValueAsString(metadata))
                         .build();
                 notificationList.add(notification);
 
                 NotificationTarget target = NotificationTarget.builder()
                         .notification(notification)
-                        .targetId(candidate.getAccount())
+                        .target(candidate.getAccount())
                         .type(TargetType.CANDIDATE)
                         .seen(false)
                         .build();
                 notificationTargetList.add(target);
 
-                String topic = "/topic/" + target.getTargetId().getEmail() + "/" + WebsocketDestination.EXPIRED_FAVORITE_JOB_NOTIFICATION.getValue();
+                String topic = "/topic/" + target.getTarget().getEmail() + "/" + WebsocketDestination.EXPIRED_FAVORITE_JOB_NOTIFICATION.getValue();
                 log.info("Send websocket to topic: " + topic);
 
                 messagingTemplate.convertAndSend(
@@ -134,7 +142,7 @@ public class ExpiredJobScanner {
     }
 
 
-    @Scheduled(fixedDelay = 36000000, initialDelay = 5000)
+    @Scheduled(fixedDelay = 36000000, initialDelay = 30000)
 //    @Scheduled(cron = "0 0 0 * * *") // chạy lúc 0h hằng ngày => quét các job hết hạn
     @Transactional
     public void sendNotificationExpiredJob() throws JsonProcessingException {
@@ -163,21 +171,24 @@ public class ExpiredJobScanner {
         for (Job job : jobs) {
             try {
                 Company company = job.getCompany();
-
+                NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                        .jobId(job.getId())
+                        .build();
                 Notification notification = Notification.builder()
-                        .senderId(admin.get())
+                        .sender(admin.get())
                         .title("Tin tuyển dụng chưa hoàn thành sắp hết hạn")
                         .content("Tin tuyển dụng " + job.getName() + " cho vị trí " + job.getPosition() + " sắp hết hạn.")
                         .topic(WebsocketDestination.EXPIRED_JOB_NOTIFICATION.getValue())
                         .status(NotificationStatus.SENT)
                         .type(NotificationType.SINGLE)
                         .startAt(LocalDate.now())
+                        .metadata(objectMapper.writeValueAsString(metadata))
                         .build();
                 notificationList.add(notification);
 
                 NotificationTarget target = NotificationTarget.builder()
                         .notification(notification)
-                        .targetId(company.getAccount())
+                        .target(company.getAccount())
                         .type(TargetType.COMPANY)
                         .seen(false)
                         .build();
@@ -185,7 +196,7 @@ public class ExpiredJobScanner {
 
 //            // bắn noti
                 messagingTemplate.convertAndSend(
-                        "/topic/" + target.getTargetId().getEmail() + "/" + WebsocketDestination.EXPIRED_JOB_NOTIFICATION.getValue(),
+                        "/topic/" + target.getTarget().getEmail() + "/" + WebsocketDestination.EXPIRED_JOB_NOTIFICATION.getValue(),
                         objectMapper.writeValueAsString(notification)
                 );
             } catch (Exception e) {

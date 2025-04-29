@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum WebsocketDestination {
 
-    NEW_APPLICATION_NOTIFICATION("new-application"),
+    NEW_APPLICATION_NOTIFICATION("new-application"), // down cv, accept cv, reject cv
     INTERVIEW_ACCEPTANCE_NOTIFICATION("interview-acceptance"),
     INTERVIEW_REFUSAL_NOTIFICATION("interview-refusal"),
     NEW_INTERVIEW_NOTIFICATION("new-interview"),

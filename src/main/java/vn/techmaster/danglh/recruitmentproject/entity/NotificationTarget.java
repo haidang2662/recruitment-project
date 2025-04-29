@@ -19,7 +19,7 @@ public class NotificationTarget extends BaseEntity {
 
     @JoinColumn(name = "account_id")
     @ManyToOne(targetEntity = Account.class)
-    Account targetId;
+    Account target;
 
     @JoinColumn(name = "notification_id")
     @ManyToOne(targetEntity = Notification.class)

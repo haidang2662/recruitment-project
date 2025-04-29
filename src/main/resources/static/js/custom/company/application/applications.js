@@ -165,7 +165,7 @@ $(document).ready(async function () {
                     showToast("ApplicationId ID not found", ERROR_TOAST);
                     return;
                 }
-                await changeApplicationStatus(applicationId, "CANDIDATE_REJECTED", "Are you sure to reject this candidate after interview?");
+                await changeApplicationStatus(applicationId, "APPLICATION_REJECTED", "Are you sure to reject this candidate after interview?");
             });
 
             $(".btn-interview-accept").off("click").click(async function (event) {

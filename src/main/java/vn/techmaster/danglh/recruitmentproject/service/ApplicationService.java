@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import vn.techmaster.danglh.recruitmentproject.constant.*;
 import vn.techmaster.danglh.recruitmentproject.dto.NotificationDto;
+import vn.techmaster.danglh.recruitmentproject.dto.NotificationMetadataDto;
 import vn.techmaster.danglh.recruitmentproject.dto.SearchApplicationDto;
 import vn.techmaster.danglh.recruitmentproject.entity.*;
 import vn.techmaster.danglh.recruitmentproject.exception.ExistedJobApplicationException;
@@ -67,7 +68,8 @@ public class ApplicationService {
         Job job = jobRepository.findById(request.getJobId())
                 .orElseThrow(() -> new ObjectNotFoundException("Job not found"));
 
-        Optional<Application> applicationOptional = applicationRepository.findFirstByCandidateAndJob(candidate, job);
+        Optional<Application> applicationOptional = applicationRepository.findFirstByCandidateAndJobAndStatus(
+                candidate, job, ApplicationStatus.APPLIED);
         if (applicationOptional.isPresent()) {
             throw new ExistedJobApplicationException("Candidate had applied for this job already");
         }
@@ -103,6 +105,11 @@ public class ApplicationService {
                 .build();
         applicationRepository.save(application);
 
+        NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                .applicationId(application.getId())
+                .cvId(cv.getId())
+                .build();
+
         NotificationDto dto = NotificationDto.builder()
                 .sender(candidate.getAccount())
                 .title("Lượt ứng tuyển mới")
@@ -110,6 +117,7 @@ public class ApplicationService {
                 .target(job.getCompany().getAccount())
                 .targetType(TargetType.COMPANY)
                 .destination(WebsocketDestination.NEW_APPLICATION_NOTIFICATION)
+                .metadata(objectMapper.writeValueAsString(metadata))
                 .build();
         notificationService.pushNotification(dto);
 
@@ -291,6 +299,9 @@ public class ApplicationService {
         Company company = job.getCompany();
         Candidate candidate = application.getCandidate();
         if (request.getStatus() == ApplicationStatus.APPLICATION_ACCEPTED) {
+            NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                    .applicationId(application.getId())
+                    .build();
             NotificationDto dto = NotificationDto.builder()
                     .sender(company.getAccount())
                     .title("CV đã được chấp nhận")
@@ -298,6 +309,7 @@ public class ApplicationService {
                     .target(candidate.getAccount())
                     .targetType(TargetType.CANDIDATE)
                     .destination(WebsocketDestination.CV_ACCEPTANCE_NOTIFICATION)
+                    .metadata(objectMapper.writeValueAsString(metadata))
                     .build();
             notificationService.pushNotification(dto);
 

@@ -19,5 +19,6 @@ public class NotificationDto {
     Account target;
     TargetType targetType;
     WebsocketDestination destination;
+    String metadata;
 
 }
