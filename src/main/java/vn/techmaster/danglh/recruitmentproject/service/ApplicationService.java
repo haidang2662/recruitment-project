@@ -54,6 +54,7 @@ public class ApplicationService {
     ApplicationCustomRepository applicationCustomRepository;
     InterviewRepository interviewRepository;
     NotificationService notificationService;
+    InterviewService interviewService;
 
     @Transactional
     public ApplicationResponse applyJob(JobApplicationRequest request, MultipartFile uploadedCv)
@@ -280,16 +281,16 @@ public class ApplicationService {
                     throw new IllegalArgumentException("Invalid status");
                 }
                 break;
-            case CANDIDATE_ACCEPTED:
-                if (!ApplicationStatus.CANDIDATE_REJECTED.equals(request.getStatus())) {
-                    throw new IllegalArgumentException("Invalid status");
-                }
-                break;
-            case CANDIDATE_REJECTED:
-                if (!ApplicationStatus.CANDIDATE_ACCEPTED.equals(request.getStatus())) {
-                    throw new IllegalArgumentException("Invalid status");
-                }
-                break;
+//            case CANDIDATE_ACCEPTED:
+//                if (!ApplicationStatus.CANDIDATE_REJECTED.equals(request.getStatus())) {
+//                    throw new IllegalArgumentException("Invalid status");
+//                }
+//                break;
+//            case CANDIDATE_REJECTED:
+//                if (!ApplicationStatus.CANDIDATE_ACCEPTED.equals(request.getStatus())) {
+//                    throw new IllegalArgumentException("Invalid status");
+//                }
+//                break;
         }
 
         application.setStatus(request.getStatus());
@@ -300,6 +301,7 @@ public class ApplicationService {
         Candidate candidate = application.getCandidate();
         if (request.getStatus() == ApplicationStatus.APPLICATION_ACCEPTED) {
             NotificationMetadataDto metadata = NotificationMetadataDto.builder()
+                    .jobId(job.getId())
                     .applicationId(application.getId())
                     .build();
             NotificationDto dto = NotificationDto.builder()
@@ -312,10 +314,12 @@ public class ApplicationService {
                     .metadata(objectMapper.writeValueAsString(metadata))
                     .build();
             notificationService.pushNotification(dto);
-
         }
 
         if (request.getStatus() == ApplicationStatus.APPLICATION_REJECTED) {
+            NotificationMetadataDto metadataDto = NotificationMetadataDto.builder()
+                    .jobId(job.getId())
+                    .build();
             NotificationDto dto = NotificationDto.builder()
                     .sender(company.getAccount())
                     .title("CV bị từ chối")
@@ -323,13 +327,9 @@ public class ApplicationService {
                     .target(candidate.getAccount())
                     .targetType(TargetType.CANDIDATE)
                     .destination(WebsocketDestination.CV_REFUSAL_NOTIFICATION)
+                    .metadata(objectMapper.writeValueAsString(metadataDto))
                     .build();
             notificationService.pushNotification(dto);
-        }
-
-        if (request.getStatus() == ApplicationStatus.CANDIDATE_ACCEPTED) {
-            job.setPassedQuantity(job.getPassedQuantity() + 1);
-            jobRepository.save(job);
         }
 
         return objectMapper.convertValue(application, ApplicationResponse.class);

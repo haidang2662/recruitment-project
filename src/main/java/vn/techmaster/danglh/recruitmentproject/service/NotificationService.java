@@ -14,6 +14,8 @@ import vn.techmaster.danglh.recruitmentproject.constant.NotificationType;
 import vn.techmaster.danglh.recruitmentproject.dto.NotificationDto;
 import vn.techmaster.danglh.recruitmentproject.entity.Notification;
 import vn.techmaster.danglh.recruitmentproject.entity.NotificationTarget;
+import vn.techmaster.danglh.recruitmentproject.model.request.NotificationStatisticalQuantityRequest;
+import vn.techmaster.danglh.recruitmentproject.model.response.NotificationStatisticalQuantityResponse;
 import vn.techmaster.danglh.recruitmentproject.repository.NotificationRepository;
 import vn.techmaster.danglh.recruitmentproject.repository.NotificationTargetRepository;
 
@@ -58,6 +60,5 @@ public class NotificationService {
                 objectMapper.writeValueAsString(notification)
         );
     }
-
 
 }

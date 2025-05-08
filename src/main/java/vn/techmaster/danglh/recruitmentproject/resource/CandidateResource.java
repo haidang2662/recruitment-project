@@ -35,4 +35,5 @@ public class CandidateResource {
         return candidateService.getCandidateDetails(idCandidate);
     }
 
+
 }

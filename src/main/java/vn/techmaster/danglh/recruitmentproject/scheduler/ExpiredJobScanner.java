@@ -142,7 +142,7 @@ public class ExpiredJobScanner {
     }
 
 
-    @Scheduled(fixedDelay = 36000000, initialDelay = 30000)
+    @Scheduled(fixedDelay = 36000000, initialDelay = 30000000)
 //    @Scheduled(cron = "0 0 0 * * *") // chạy lúc 0h hằng ngày => quét các job hết hạn
     @Transactional
     public void sendNotificationExpiredJob() throws JsonProcessingException {

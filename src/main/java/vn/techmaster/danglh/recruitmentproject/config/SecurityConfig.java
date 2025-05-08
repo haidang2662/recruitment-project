@@ -160,6 +160,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/companies/{id}").permitAll()
                         // company - END
 
+                        //notification - start
+                        .requestMatchers(HttpMethod.GET, "/api/v1/notifications").authenticated()
+                        //notification - end
+
                         .requestMatchers("/api/**").authenticated() // all other apis need authentication
                         .anyRequest().permitAll() // all thymeleaf, html page don't have to authenticate
                 )

@@ -300,12 +300,12 @@ $(document).ready(async function () {
             case "WAIT_FOR_INTERVIEW":
                 buttons += ACCEPT_CANDIDATE_BUTTON + REJECT_AFTER_APPOINTMENT_BUTTON;
                 break;
-            case "CANDIDATE_ACCEPTED":
-                buttons += REJECT_AFTER_APPOINTMENT_BUTTON;
-                break;
-            case "CANDIDATE_REJECTED":
-                buttons += ACCEPT_CANDIDATE_BUTTON;
-                break;
+            // case "CANDIDATE_ACCEPTED":
+            //     buttons += REJECT_AFTER_APPOINTMENT_BUTTON;
+            //     break;
+            // case "CANDIDATE_REJECTED":
+            //     buttons += ACCEPT_CANDIDATE_BUTTON;
+            //     break;
         }
 
         return buttons;

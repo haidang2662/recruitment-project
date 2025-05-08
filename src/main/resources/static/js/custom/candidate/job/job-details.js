@@ -78,7 +78,7 @@ function renderJobDetails(job) {
     const alias = company.alias ? " (" + company.alias + ")" : "";
     $(".company-widget .company-logo img").attr("src", company.avatarUrl ? "/api/v1/files/avatar/" + company.avatarUrl : DEFAULT_AVATAR_URL);
     $(".company-widget .company-name").text(company?.name + alias);
-    $(".company-widget .profile-link").attr("href", "/companies/" + company.id);
+    $(".company-widget .profile-link").attr("href", "/public/companies/" + company.id);
     $(".company-widget .company-info .company-size span").text(company.employeeQuantity);
     $(".company-widget .company-info .company-created-at span").text(new Date(company.createdAt).getFullYear());
     $(".company-widget .company-info .phone span").text(company.phone);

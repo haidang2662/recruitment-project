@@ -51,13 +51,13 @@ const JOB_STATUS = {
 }
 
 const WEBSOCKET_DESTINATIONS = {
-    NEW_APPLICATION_NOTIFICATION: "new-application", // download cv , accept cv , reject cv (company)
-    INTERVIEW_ACCEPTANCE_NOTIFICATION: "interview-acceptance", // xem lại thông tin buổi phỏng vấn , accept camdidate , reject candidate (company)
-    INTERVIEW_REFUSAL_NOTIFICATION: "interview-refusal", // để nguyên k cần làm gì cả vì đã chuyển sang status interview_refuse
-    NEW_INTERVIEW_NOTIFICATION: "new-interview", // xem lại thông tin job đã ứng tuyển và thông báo check mail (candidate)
-    CV_ACCEPTANCE_NOTIFICATION: "cv-acceptance", // xem lại thông tin job đã ứng tuyển (candidate)
-    CV_REFUSAL_NOTIFICATION: "cv-refusal", // để im (candidate)
-    EXPIRED_FAVORITE_JOB_NOTIFICATION:"expired-favorite-job",
-    EXPIRED_JOB_NOTIFICATION:"expired-job", // có nút update job  , close job (company)
-    ENOUGH_PASSED_CANDIDATE_NOTIFICATION:"enough-passed-candidate" // có nút update job , close job (company)
+    NEW_APPLICATION_NOTIFICATION: "new-application", // download cv , accept cv , reject cv (company) ok ++
+    INTERVIEW_ACCEPTANCE_NOTIFICATION: "interview-acceptance", // xem lại thông tin buổi phỏng vấn , accept camdidate , reject candidate (company) ok ++
+    INTERVIEW_REFUSAL_NOTIFICATION: "interview-refusal", // để nguyên k cần làm gì cả vì đã chuyển sang status interview_refuse ok ++
+    NEW_INTERVIEW_NOTIFICATION: "new-interview", // xem lại thông tin job đã ứng tuyển và thông báo check mail (candidate) ok ++
+    CV_ACCEPTANCE_NOTIFICATION: "cv-acceptance", // xem lại thông tin job đã ứng tuyển (candidate) ok ++
+    CV_REFUSAL_NOTIFICATION: "cv-refusal", // xem lại thông tin job đã ứng tuyển  (candidate) ok ++
+    EXPIRED_FAVORITE_JOB_NOTIFICATION:"expired-favorite-job", // xem lại thông tin job đã ứng tuyển ok ++
+    EXPIRED_JOB_NOTIFICATION:"expired-job", // có nút update job  , unPublish job (company) ok có sửa lại bên scheldule hỏi lại thầy ok+
+    ENOUGH_PASSED_CANDIDATE_NOTIFICATION:"enough-passed-candidate" // có nút update job , unPublish job (company) // logic đoạn này bị thiếu bên application đã chỉnh lại và hỏi thầy . xem lại logic lúc accept candidate khi ở bên application và interview . VD : Nguyen van bao - tester
 }

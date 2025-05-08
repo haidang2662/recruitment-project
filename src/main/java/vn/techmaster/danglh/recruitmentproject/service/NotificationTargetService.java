@@ -12,12 +12,15 @@ import vn.techmaster.danglh.recruitmentproject.entity.Account;
 import vn.techmaster.danglh.recruitmentproject.entity.NotificationTarget;
 import vn.techmaster.danglh.recruitmentproject.exception.ObjectNotFoundException;
 import vn.techmaster.danglh.recruitmentproject.model.request.BaseSearchRequest;
+import vn.techmaster.danglh.recruitmentproject.model.request.NotificationStatisticalQuantityRequest;
 import vn.techmaster.danglh.recruitmentproject.model.response.CommonSearchResponse;
 import vn.techmaster.danglh.recruitmentproject.model.response.NotificationResponse;
+import vn.techmaster.danglh.recruitmentproject.model.response.NotificationStatisticalQuantityResponse;
 import vn.techmaster.danglh.recruitmentproject.repository.AccountRepository;
 import vn.techmaster.danglh.recruitmentproject.repository.NotificationTargetRepository;
 import vn.techmaster.danglh.recruitmentproject.security.SecurityUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -62,4 +65,23 @@ public class NotificationTargetService {
                 .pageInfo(new CommonSearchResponse.CommonPagingResponse(request.getPageSize(), request.getPageIndex()))
                 .build();
     }
+
+    public void markAsSeen(Long id) throws ObjectNotFoundException {
+        NotificationTarget notificationTarget = notificationTargetRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Không tìm thấy NotificationTarget có id là : " + id));
+        notificationTarget.setSeen(true);
+        notificationTargetRepository.save(notificationTarget);
+    }
+
+    public NotificationStatisticalQuantityResponse statisticQuantity(NotificationStatisticalQuantityRequest request)
+            throws ObjectNotFoundException {
+        Long accountId = SecurityUtils.getCurrentUserLoginId()
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() -> new ObjectNotFoundException("Account is not found"));
+
+        Long quantity = notificationTargetRepository.countBySeenAndTarget(request.isSeen(), account);
+        return new NotificationStatisticalQuantityResponse(quantity);
+    }
+
 }

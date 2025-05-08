@@ -10,4 +10,6 @@ public interface NotificationTargetRepository extends JpaRepository<Notification
 
     Page<NotificationTarget> findByTarget(Account target, Pageable pageable);
 
+    Long countBySeenAndTarget(boolean seen, Account target);
+
 }

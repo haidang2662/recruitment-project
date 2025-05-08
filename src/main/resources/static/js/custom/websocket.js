@@ -26,6 +26,8 @@ stompClient.connect({}, function (frame) {
             let notificationData = JSON.parse(notification.body);
             console.log("Notification Data : ", notificationData);
             let message = notificationData?.content
+
+            incrementNotificationBadge();
             showNotification(message)
         });
     }
@@ -47,4 +49,12 @@ function showNotification(message) {
 
     // Tự động ẩn toast sau 5 giây
     setTimeout(() => toast.remove(), 5000);
+}
+
+function incrementNotificationBadge() {
+    const badge = $("#notification-badge");
+    let currentValue = parseInt(badge.text()) || 0;
+    currentValue += 1;
+    badge.text(currentValue);
+    badge.show();
 }

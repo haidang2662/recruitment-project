@@ -4,7 +4,7 @@ $(document).ready(async function () {
     const interviewId = pathParts[pathParts.length - 1]; // Lấy phần tử cuối cùng
     const status = pathParts[pathParts.length - 2]; // Lấy phần tử gần cuối cùng
 
-    const content = status === "" ?
+    const content = status === "acceptance" ?
         "Congratulations on successfully registering for the interview. We look forward to meeting you soon."
         : "We deeply regret that you have declined to participate in our interview. Have a wonderful day !";
     await $.ajax({

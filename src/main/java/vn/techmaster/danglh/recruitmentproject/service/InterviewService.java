@@ -82,11 +82,12 @@ public class InterviewService {
 //        // bắn noti
         NotificationMetadataDto metadata = NotificationMetadataDto.builder()
                 .applicationId(application.getId())
+                .jobId(job.getId())
                 .build();
         NotificationDto dto = NotificationDto.builder()
                 .sender(company.getAccount())
                 .title("Thư mời tham gia phỏng vấn")
-                .content("Bạn có lời mời phỏng vấn từ công ty " + company.getName() + "cho vị trí " + job.getName() + " mời bạn check hòm mail " + candidate.getAccount().getEmail() + ".")
+                .content("Bạn có lời mời phỏng vấn từ công ty " + company.getName() + " cho vị trí " + job.getName() + " mời bạn check hòm mail " + candidate.getAccount().getEmail() + " để xem lich hẹn phỏng vấn .")
                 .target(candidate.getAccount())
                 .targetType(TargetType.CANDIDATE)
                 .destination(WebsocketDestination.NEW_INTERVIEW_NOTIFICATION)
@@ -170,6 +171,24 @@ public class InterviewService {
             throw new IllegalArgumentException("Status could not be null");
         }
 
+        // Logic chuyển trạng thái
+        switch (interview.getStatus()) {
+            case PASSED:
+                if (!InterviewStatus.FAILED.equals(request.getStatus())) {
+                    throw new IllegalArgumentException("Invalid status");
+                }
+                break;
+            case FAILED:
+                if (!InterviewStatus.PASSED.equals(request.getStatus())) {
+                    throw new IllegalArgumentException("Invalid status");
+                }
+                break;
+            case CANDIDATE_ABSENCE:
+                throw new IllegalArgumentException("Cannot change status of CANDIDATE_ABSENCE");
+            case CANCELLED:
+                throw new IllegalArgumentException("Cannot change status of CANCELLED");
+        }
+
         Application application = interview.getApplication();
         Job job = application.getJob();
         Candidate candidate = application.getCandidate();
@@ -210,42 +229,33 @@ public class InterviewService {
             job.setPassedQuantity(job.getPassedQuantity() + 1);
             jobRepository.save(job);
 
+            application.setStatus(ApplicationStatus.CANDIDATE_ACCEPTED);
+            applicationRepository.save(application);
+
             // check xem tuyển đủ chưa
             if (job.getPassedQuantity() >= job.getRecruitingQuantity()) {
                 sendCompletedRecruitmentJob(job);
             }
         }
 
-        // Logic chuyển trạng thái
-        switch (interview.getStatus()) {
-            case PASSED:
-                if (!InterviewStatus.FAILED.equals(request.getStatus())) {
-                    throw new IllegalArgumentException("Invalid status");
-                }
-                break;
-            case FAILED:
-                if (!InterviewStatus.PASSED.equals(request.getStatus())) {
-                    throw new IllegalArgumentException("Invalid status");
-                }
-                break;
-            case CANDIDATE_ABSENCE:
-                throw new IllegalArgumentException("Cannot change status of CANDIDATE_ABSENCE");
-            case CANCELLED:
-                throw new IllegalArgumentException("Cannot change status of CANCELLED");
+        if (request.getStatus() == InterviewStatus.FAILED) {
+            application.setStatus(ApplicationStatus.CANDIDATE_REJECTED);
+            applicationRepository.save(application);
         }
+
         interview.setStatus(request.getStatus());
         interviewRepository.save(interview);
         return objectMapper.convertValue(interview, InterviewResponse.class);
     }
 
-    private void sendCompletedRecruitmentJob(Job job) throws JsonProcessingException {
+    public void sendCompletedRecruitmentJob(Job job) throws JsonProcessingException {
         Optional<Account> admin = accountRepository.findByEmail(adminUsername);
 
         if (admin.isEmpty()) {
             return;
         }
         NotificationMetadataDto metadata = NotificationMetadataDto.builder()
-                .applicationId(job.getId())
+                .jobId(job.getId())
                 .build();
         NotificationDto dto = NotificationDto.builder()
                 .sender(admin.get())
