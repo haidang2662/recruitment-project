@@ -20,6 +20,7 @@
 - Xem thông tin
 - Đăng xuất
 - Quên Password
+- Đăng nhập bằng gmail
 #### 1.2.2 Ứng viên
 ##### 1.2.2.1 Các chức năng về tin tuyển dụng
 - Tm kiếm và xem danh sách tin tuyển dụng
@@ -38,6 +39,11 @@
 - Download Cv
 - Xóa Cv
 - Đặt làm CV chính
+##### 1.2.2.4 Các dạng thông báo của ứng viên
+- Khi nhà tuyển dụng chấp nhận CV (có nút bấm để xem lại nhanh tin tuyển dụng đó)
+- Khi nhà tuyển dụng từ chối CV (có nút bấm để xem lại nhanh tin tuyển dụng đó)
+- Khi nhà tuyển dụng mời tham gia buổi phỏng vấn (có nút bấm để xem lại nhanh tin tuyển dụng đó và thông báo check lại email)
+- Khi tin tuyển dụng yêu thích sắp hết hạn (có nút bấm để xem lại nhanh tin tuyển dụng đó)
 #### 1.2.3 Nhà tuyển dụng
 ##### 1.2.3.1 Quản lý tin tuyển dụng
 - Tìm kiếm và xem danh sách tin tuyển dụng
@@ -63,6 +69,20 @@
 ##### 1.2.3.5 Xem thông tin các công ty/doanh nghiệp khác
 - Tìm kiếm và xem danh sách
 - Xem chi tiết
+##### 1.2.3.6 Các dạng thông báo của nhà tuyển dụng
+- Khi có ứng viên nộp đơn ứng tuyển (có nút bấm nhanh để download cv , chấp nhận cv và từ chối cv)
+- Khi ứng viên chấp nhận tham gia buổi phỏng vấn (có nút bấm nhanh để xem lại thông tin buổi phỏng vấn , chấp nhận ứng viên 
+  và từ chối ứng viên )
+- Khi ứng viên từ chối tham gia buổi phỏng vấn
+- Khi tin tuyển dụng sắp hết hạn (có nút bấm nhanh cập nhật tin tuyển dụng , không đăng tin tuyển dụng đó nữa)
+- Khi tin tuyển dụng có số người đỗ ứng tuyển lớn hơn hoặc bằng yêu cầu số người cần tuyển ban đầu (có nút bấm nhanh cập nhật
+  tin tuyển dụng , không đăng tin tuyển dụng đó nữa)
+##### 1.2.3.7 Các biểu đô , số liệu thể hiện mức độ hoàn thành của thông tin tuyển dụng
+- Biểu đồ đường : Thể hiện số lượng ứng viên đỗ ứng tuyển theo các mốc 6 tháng , 9 tháng , 12 tháng gần nhất
+- Biểu đồ hình tròn : Thể hiện tỷ lệ thông tin tuyển dụng đã đạt đủ số ứng viên đạt chỉ tiêu so với thông tin tuyển dụng chưa
+  đạt đủ theo các mốc tháng hiện tại , 1 tháng , 2 tháng , 3 tháng
+- Thông tin số liệu tổng quát về tổng số thông tin tuyển dụng đang công bố , số đơn xin việc của các ứng viên , số lượng các
+  cuộc phỏng vấn , thông báo từ ưng viên và admin
 
 ## 2. Phân tích thiết kế
 ### 2.1 Công nghệ sử dụng
@@ -842,16 +862,17 @@ Nằm trong `recruitment-project/src/main/java` bao gồm các thư mục sau:
   + Role company: `contact@vinamilk.vn`/`aA123456`
 
 ## 3. Thành quả và hướng phát triển tương lai
-### 3.1 Thành quả 
+### 3.1 Thành quả
 - Giao diện thân thiện , tối ưu trải nghiệm người dùng
 - Website đã đáp ứng được yêu cầu xử lý nghiệp vụ cơ bản của quá trình tìm kiếm việc làm cũng như tuyển dụng nhân sự của các công ty
+- Các ứng viên có thể đăng nhập thông qua gmail
+- Ưng viên và nhà tuyển dụng sẽ nhận được các thông báo khác nhau để phục vụ công việc của mình . Trong các thông báo này có các nút bẫm xử lý nhanh để công việc được thuận tiện hơn
 - Các thông tin được lưu trữ khoa học, xử lý một cách dễ dàng, chính xác
 - Các vùng nhập liệu được kiểm soát, tránh việc sai sót thông tin trong quá trình nhập dữ liệu.
 ### 3.2 Hướng phát triển tương lai
 - Tích hợp với các nền tảng tuyển dụng khác
 - Cải thiện thêm chức năng cho tìm kiếm nâng cao
 - Thêm tính năng đánh giá doanh nghiệp
-- Thông báo và cảnh báo công việc mới
 - Phân tích dữ liệu và báo cáo cho nhà tuyển dụng
 - Tính năng bảo mật và bảo vệ dữ liệu mạnh mẽ hơn
 - Mở rộng thị trường quốc tế và hỗ trợ đa ngôn ngữ 

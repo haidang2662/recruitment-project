@@ -9,6 +9,7 @@ import org.springframework.objenesis.ObjenesisException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 import vn.techmaster.danglh.recruitmentproject.constant.JobStatus;
 import vn.techmaster.danglh.recruitmentproject.constant.Role;
 import vn.techmaster.danglh.recruitmentproject.dto.SearchJobDto;
@@ -95,16 +96,17 @@ public class JobService {
                     response.setFavorite(true);
                 }
 
-                Optional<Application> applicationOptional = applicationRepository.findFirstByCandidateAndJob(candidateOptional.get(), job);
-                if (applicationOptional.isPresent()) {
-                    Application application = applicationOptional.get();
-                    ApplicationResponse applicationResponse = ApplicationResponse.builder()
-                            .id(application.getId())
-                            .candidate(objectMapper.convertValue(application.getCandidate(), CandidateResponse.class))
-                            .cv(objectMapper.convertValue(application.getCv(), CvResponse.class))
-                            .status(application.getStatus())
-                            .build();
-                    response.setApplication(applicationResponse);
+                List<Application> applications = applicationRepository.findByCandidateAndJob(candidateOptional.get(), job);
+                if (!CollectionUtils.isEmpty(applications)) {
+                    List<ApplicationResponse> applicationResponses = applications.stream()
+                            .map(application -> ApplicationResponse.builder()
+                                    .id(application.getId())
+                                    .candidate(objectMapper.convertValue(application.getCandidate(), CandidateResponse.class))
+                                    .cv(objectMapper.convertValue(application.getCv(), CvResponse.class))
+                                    .status(application.getStatus())
+                                    .build())
+                            .toList();
+                    response.setApplications(applicationResponses);
                 }
             }
         }
@@ -143,7 +145,7 @@ public class JobService {
         Long creatorId = null;
         Long candidateId = null;
         try {
-            CustomUserDetails authentication = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            CustomUserDetails authentication = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // TODO : Cần hiểu kỹ hơn về đoạn code này
             role = authentication.getAccount().getRole();
             if (role == Role.COMPANY) {
                 Optional<Company> companyOptional = companyRepository.findByAccount(authentication.getAccount());

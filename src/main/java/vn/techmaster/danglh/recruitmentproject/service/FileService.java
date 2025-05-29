@@ -27,8 +27,11 @@ public class FileService {
         if (!dir.exists()) {
             dir.mkdirs();
         }
+        // Tạo 1 tên file duy nhất và an toàn
         String fileName = System.currentTimeMillis() + "_" + vn.techmaster.danglh.recruitmentproject.util.StringUtils.convertToLatin(file.getOriginalFilename()).replaceAll(" ", "_");
+        // Tạo đường dẫn đầy đủ đến file cần lưu
         Path filePath = Paths.get(folderPath + File.separator + fileName);
+        // Ghi nội dung từ MultipartFile vào đường dẫn vừa tạo.
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
         return fileName;
     }

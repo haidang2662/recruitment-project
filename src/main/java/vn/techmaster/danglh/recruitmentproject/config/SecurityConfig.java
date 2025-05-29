@@ -39,12 +39,12 @@ public class SecurityConfig {
     AuthenticationEntryPointJwt unauthorizedHandler;
 
     @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
+    public AuthTokenFilter authenticationJwtTokenFilter() { // Bean custom filter dùng để kiểm tra JWT từ Authorization header trước khi vào controller
         return new AuthTokenFilter();
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() { // cho phép front end gọi API
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of("http://localhost:8080"));
@@ -60,7 +60,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
-    }
+    } // Dùng để xác thực tài khoản từ username/password khi login
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -71,12 +71,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() { // Mã hóa mật khẩu bằng BCryptPasswordEncoder (chuẩn hiện đại)
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception { // cấu hình chuỗi bảo mật chính
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/ws/**", "/user/**").permitAll() // Cho phép WebSocket
@@ -163,6 +163,10 @@ public class SecurityConfig {
                         //notification - start
                         .requestMatchers(HttpMethod.GET, "/api/v1/notifications").authenticated()
                         //notification - end
+
+                        //dashboard - start
+                        .requestMatchers(HttpMethod.GET, "/api/v1/dashboards").hasAnyAuthority(Role.COMPANY.toString())
+                        //dashboard - end
 
                         .requestMatchers("/api/**").authenticated() // all other apis need authentication
                         .anyRequest().permitAll() // all thymeleaf, html page don't have to authenticate

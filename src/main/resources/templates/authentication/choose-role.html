@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head th:replace="~{fragments/common/head :: my-head(pageTitle='Choose Role')}"/>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader"></div>
+
+    <!-- Info Section -->
+    <div class="login-section">
+        <div class="image-layer" style="background-image: url('/images/background/12.jpg');"></div>
+        <div class="outer-box">
+            <!-- Login Form -->
+            <div class="login-form default-form">
+                <div class="form-inner">
+                    <h3>Choose your role</h3>
+                    <!--Login Form-->
+                    <!-- Dropdown chọn role -->
+                    <div class="form-group">
+                        <select id="oauth2-role" class="form-control">
+                            <option value="CANDIDATE">Candidate</option>
+                            <option value="COMPANY">Company</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button id="confirm-role-btn" class="theme-btn btn-style-one" type="button">
+                            Confirm
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--End Login Form -->
+        </div>
+    </div>
+    <!-- End Info Section -->
+
+
+</div><!-- End Page Wrapper -->
+
+
+<th:block th:replace="~{fragments/common/embedded-js :: embedded-js}"/>
+<script src="/js/custom/authentication/choose-role.js"></script>
+
+</body>
+
+</html>

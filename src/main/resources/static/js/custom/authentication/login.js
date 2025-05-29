@@ -77,7 +77,9 @@ $(document).ready(function () {
                 localStorage.setItem("account", JSON.stringify(accountInfo));
 
                 const id = data?.id;
-
+                if(!accountInfo){
+                    location.href = "/login/choose-role"
+                }
                 if (accountInfo.role === CANDIDATE_ROLE) {
                     location.href = "/";
                 } else if (accountInfo.role === COMPANY_ROLE) {
@@ -104,37 +106,87 @@ $(document).ready(function () {
 
 });
 
-function handleCredentialResponse(response) {
+async function handleCredentialResponse(response) {
     $("#login-btn").prop("disabled", true);
     $("#spinner").toggleClass('d-none');
 
-    $.ajax({
-        url: "/api/v1/authentications/login/oauth2",
-        type: "POST",
-        data: JSON.stringify({
-            tenant: "GOOGLE",
-            credential: response.credential
-        }),
-        contentType: "application/json; charset=utf-8",
-        success: async function (data) {
-            localStorage.setItem("accessToken", data?.jwt);
-            localStorage.setItem("refreshToken", data?.refreshToken);
+    try {
+        const res = await $.ajax({
+            url: "/api/v1/authentications/login/oauth2",
+            type: "POST",
+            data: JSON.stringify({
+                tenant: "GOOGLE",
+                credential: response.credential,
+            }),
+            contentType: "application/json; charset=utf-8"
+        });
 
-            // lấy thông tin chi tiết account
-            const accountInfo = await getAccountDetail(data?.id);
-            localStorage.setItem("account", JSON.stringify(accountInfo));
+        console.log(res)
 
-            if (accountInfo.role === CANDIDATE_ROLE) {
-                location.href = "/";
-            } else if (accountInfo.role === COMPANY_ROLE) {
-                location.href = `/companies/dashboard`;
-            }
-        },
-        error: function (err) {
-            handleResponseError(err, "Login failed");
+        if (res?.newAccount) {
+            // Lưu credential tạm để dùng tiếp sau khi chọn role
+            localStorage.setItem("oauth2Credential", response.credential);
+            location.href = "/login/choose-role";
+            return;
         }
-    });
+
+        // Đã có tài khoản, xử lý tiếp
+        localStorage.setItem("accessToken", res?.jwt);
+        localStorage.setItem("refreshToken", res?.refreshToken);
+
+        const accountInfo = await getAccountDetail(res?.id);
+        localStorage.setItem("account", JSON.stringify(accountInfo));
+
+        if (accountInfo.role === CANDIDATE_ROLE) {
+            location.href = "/";
+        } else if (accountInfo.role === COMPANY_ROLE) {
+            location.href = `/companies/dashboard`;
+        }
+
+    } catch (err) {
+        console.error("OAuth2 Login Error:", err.responseText || err);
+        handleResponseError(err, "Login failed");
+    }
 
     $("#login-btn").prop("disabled", false);
     $("#spinner").toggleClass('d-none');
 }
+
+
+// function handleCredentialResponse(response) {
+//     $("#login-btn").prop("disabled", true);
+//     $("#spinner").toggleClass('d-none');
+//
+//     const selectedRole = $('#oauth2-role').val();
+//
+//     $.ajax({
+//         url: "/api/v1/authentications/login/oauth2",
+//         type: "POST",
+//         data: JSON.stringify({
+//             tenant: "GOOGLE",
+//             credential: response.credential,
+//             role: selectedRole
+//         }),
+//         contentType: "application/json; charset=utf-8",
+//         success: async function (data) {
+//             localStorage.setItem("accessToken", data?.jwt);
+//             localStorage.setItem("refreshToken", data?.refreshToken);
+//
+//             // lấy thông tin chi tiết account
+//             const accountInfo = await getAccountDetail(data?.id);
+//             localStorage.setItem("account", JSON.stringify(accountInfo));
+//
+//             if (accountInfo.role === CANDIDATE_ROLE) {
+//                 location.href = "/";
+//             } else if (accountInfo.role === COMPANY_ROLE) {
+//                 location.href = `/companies/dashboard`;
+//             }
+//         },
+//         error: function (err) {
+//             handleResponseError(err, "Login failed");
+//         }
+//     });
+//
+//     $("#login-btn").prop("disabled", false);
+//     $("#spinner").toggleClass('d-none');
+// }

@@ -23,4 +23,6 @@ public class JwtResponse {
 
     Set<String> roles;
 
+    boolean isNewAccount;
+
 }

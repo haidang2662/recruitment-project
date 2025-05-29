@@ -298,7 +298,6 @@ $(document).ready(async function () {
                 buttons += ACCEPT_CV_BUTTON;
                 break;
             case "WAIT_FOR_INTERVIEW":
-                buttons += ACCEPT_CANDIDATE_BUTTON + REJECT_AFTER_APPOINTMENT_BUTTON;
                 break;
             // case "CANDIDATE_ACCEPTED":
             //     buttons += REJECT_AFTER_APPOINTMENT_BUTTON;

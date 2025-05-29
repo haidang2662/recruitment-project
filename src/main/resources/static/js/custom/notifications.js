@@ -32,9 +32,28 @@ $(document).ready(function () {
 
     function renderNotificationTarget(data) {
         const notifications = data.data;
+        const notificationList = $(".dropdown .notification-box");
         totalPage = data.totalPage;
         totalRecord = data.totalRecord;
         $(".load-more-block").remove();
+
+        if (!notifications || notifications.length === 0) {
+            if (pageIndex === 0) {
+                notificationList.append(
+                    `<div style="
+                text-align: center; 
+                padding: 20px; 
+                color: #666; 
+                font-size: 16px; 
+                font-weight: 500;
+                font-family: Arial, sans-serif;
+            ">
+                No notifications 
+            </div>`
+                );
+            }
+            return;
+        }
 
         // Duyệt qua các thông báo và tạo các thẻ a bằng vòng lặp for
         for (let i = 0; i < notifications.length; i++) {
@@ -269,7 +288,6 @@ $(document).ready(function () {
                 target.closest('.dropdown-item').find('.seen-icon').hide();
                 $(".btn-accept-cv").hide();
                 $(".btn-reject-cv").hide();
-
 
                 await changeApplicationStatus(applicationId, "APPLICATION_ACCEPTED", "Are you sure to accept this cv?");
             });
@@ -521,7 +539,7 @@ $(document).ready(function () {
     $container.on('load.infiniteScroll', function (event, response) {
         renderNotificationTarget(response);
     });
-    
+
     updateNotificationBadge(); // goi lan dau
     setInterval(() => {
         updateNotificationBadge();

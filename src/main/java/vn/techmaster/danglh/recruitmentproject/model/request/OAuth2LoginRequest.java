@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import vn.techmaster.danglh.recruitmentproject.constant.Oauth2Tenant;
+import vn.techmaster.danglh.recruitmentproject.constant.Role;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -16,5 +17,7 @@ public class OAuth2LoginRequest {
 
     @NotBlank(message = "Credential is required.")
     String credential;
+
+    private Role role;
 
 }

@@ -86,8 +86,8 @@ public class InterviewService {
                 .build();
         NotificationDto dto = NotificationDto.builder()
                 .sender(company.getAccount())
-                .title("Thư mời tham gia phỏng vấn")
-                .content("Bạn có lời mời phỏng vấn từ công ty " + company.getName() + " cho vị trí " + job.getName() + " mời bạn check hòm mail " + candidate.getAccount().getEmail() + " để xem lich hẹn phỏng vấn .")
+                .title("Interview Invitation")
+                .content("You have received an interview invitation from " + company.getName() + " for the position of " + job.getName() + ". Please check your email inbox at " + candidate.getAccount().getEmail() + " to view the interview schedule.")
                 .target(candidate.getAccount())
                 .targetType(TargetType.CANDIDATE)
                 .destination(WebsocketDestination.NEW_INTERVIEW_NOTIFICATION)
@@ -199,8 +199,8 @@ public class InterviewService {
                     .build();
             NotificationDto dto = NotificationDto.builder()
                     .sender(candidate.getAccount())
-                    .title("Ứng viên tham gia phỏng vấn")
-                    .content("ứng viên " + candidate.getName() + " đã chấp nhận tham gia phỏng vấn cho vị trí " + job.getName() + " vào thời gian " + interview.getInterviewAt() + " . ")
+                    .title("Candidate attends the interview")
+                    .content("Candidate " + candidate.getName() + " has agreed to attend an interview for the position of " + job.getName() + " at " + interview.getInterviewAt() + ".")
                     .target(job.getCompany().getAccount())
                     .targetType(TargetType.COMPANY)
                     .destination(WebsocketDestination.INTERVIEW_ACCEPTANCE_NOTIFICATION)
@@ -215,8 +215,8 @@ public class InterviewService {
                     .build();
             NotificationDto dto = NotificationDto.builder()
                     .sender(candidate.getAccount())
-                    .title("Ứng viên từ chối tham gia phỏng vấn")
-                    .content("Ứng viên " + candidate.getName() + " đã từ chối tham gia phỏng vấn cho vị trí " + job.getName() + " vào thời gian " + interview.getInterviewAt() + ".")
+                    .title("Candidate declined interview")
+                    .content("Candidate " + candidate.getName() + " has declined to attend the interview for the position of " + job.getName() + " at " + interview.getInterviewAt() + ".")
                     .target(job.getCompany().getAccount())
                     .targetType(TargetType.COMPANY)
                     .destination(WebsocketDestination.INTERVIEW_REFUSAL_NOTIFICATION)
@@ -259,8 +259,8 @@ public class InterviewService {
                 .build();
         NotificationDto dto = NotificationDto.builder()
                 .sender(admin.get())
-                .title("Tin tuyển dụng hoàn tất")
-                .content("Tin tuyển dụng " + job.getName() + " cho vị trí " + job.getPosition() + " đã tuyển đủ người.")
+                .title("Job Posting Completed")
+                .content("The job posting '" + job.getName() + "' for the position of " + job.getPosition() + " has been filled.")
                 .target(job.getCompany().getAccount())
                 .targetType(TargetType.COMPANY)
                 .destination(WebsocketDestination.ENOUGH_PASSED_CANDIDATE_NOTIFICATION)

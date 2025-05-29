@@ -12,19 +12,17 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChartResponse {
+public class PieChartResponse {
 
-    List<ChartDetailResponse> data;
+    List<PieChartDetailResponse> data;
 
     @Data
     @FieldDefaults(level = AccessLevel.PRIVATE)
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class ChartDetailResponse {
+    public static class PieChartDetailResponse {
         String title;
-        Integer quantity;
-
-        String subtitle; // dùng để sắp xếp thời gian các tháng trong biểu đồ theo thứ tự thời gian . VD : 06-2025 -> 202506 .
+        Integer finishedJob;
+        Integer unFinishedJob;
     }
-
 }

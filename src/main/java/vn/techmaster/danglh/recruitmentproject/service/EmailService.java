@@ -41,7 +41,7 @@ public class EmailService {
 
     final InterviewRepository interviewRepository;
 
-    @Async
+    @Async // nôm na là cho phép chạy bất đồng bộ dẫn đến nhiều trường hợp giúp tăng hiệu năng
     public void sendActivationMail(Account account) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);

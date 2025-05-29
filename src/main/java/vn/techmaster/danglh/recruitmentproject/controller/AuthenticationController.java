@@ -13,6 +13,11 @@ public class AuthenticationController {
         return "authentication/login";
     }
 
+    @GetMapping("/login/choose-role")
+    public String chooseRole() {
+        return "authentication/choose-role";
+    }
+
     @GetMapping("/register")
     public String register() {
         return "authentication/register";

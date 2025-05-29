@@ -65,6 +65,7 @@ public class AccountService {
     @Value("${application.account.activation.maxResendTimes}")
     int activationMailMaxSentCount;
 
+    //  đường dẫn tuyệt đối trên máy chủ (server) đến thư mục nơi lưu trữ ảnh đại diện (avatar) mà người dùng tải lên.
     static final String AVATAR_PATH = System.getProperty("user.dir") + File.separator + Constant.FOLDER_NAME.FILE_FOLDER_NAME + File.separator + Constant.FOLDER_NAME.AVATAR_FOLDER_NAME;
     static final String COVER_PATH = System.getProperty("user.dir") + File.separator + Constant.FOLDER_NAME.FILE_FOLDER_NAME + File.separator + Constant.FOLDER_NAME.COVER_FOLDER_NAME;
 
@@ -269,7 +270,7 @@ public class AccountService {
             throws ObjectNotFoundException, IOException, InvalidFileExtensionException {
         if (!fileService.validateMultipartFile(avatar, Constant.ALLOWED_FILE_EXTENSION.IMAGE_FILE_EXTENSIONS)) {
             throw new InvalidFileExtensionException("Avatar extension not allowed");
-        }
+        } // kiểm tra xem avatar có đuôi hợp lệ không
 
         Candidate candidate = candidateRepository.findByAccount(account)
                 .orElseThrow(() -> new ObjectNotFoundException("Candidate not found"));

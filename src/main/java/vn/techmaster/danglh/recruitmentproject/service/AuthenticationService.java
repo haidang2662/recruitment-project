@@ -135,9 +135,9 @@ public class AuthenticationService {
         SecurityContextHolder.getContext().setAuthentication(authentication); // lưu trữ thông tin thành công vào SecurityContextHolder
         String jwt = jwtService.generateJwtToken(authentication); // sinh ra jwt
 
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        Set<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal(); // Lấy thông tin người dùng sau khi đăng nhập
+        Set<String> roles = userDetails.getAuthorities().stream() // Trích danh sách các role (quyền) của người dùng, dạng chuỗi, cho frontend
+                .map(GrantedAuthority::getAuthority) // chuyển đổi mỗi phần tử trong danh sách quyền (authorities) từ đối tượng → thành chuỗi role.
                 .collect(Collectors.toSet());  // Lấy ra quyền của thằng vừa login
 
         Account account = accountRepository.findById(userDetails.getId())
@@ -160,13 +160,13 @@ public class AuthenticationService {
                 .build();
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class) // “Hễ có bất kỳ exception nào (Runtime hoặc Checked) được ném ra, thì rollback toàn bộ transaction.”
     public JwtResponse refreshToken(RefreshTokenRequest request) throws InvalidRefreshTokenException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
         JwtResponse response = accountRepository.findById(userDetails.getId())
                 .flatMap(user -> refreshTokenRepository
-                        .findByAccountAndRefreshTokenAndInvalidated(user, request.getRefreshToken(), false)
+                        .findByAccountAndRefreshTokenAndInvalidated(user, request.getRefreshToken(), false) // chỉ lấy token chưa bị vô hiệu hóa
                         .map(oldRefreshToken -> {
                             LocalDateTime createdDateTime = oldRefreshToken.getCreatedAt();
                             LocalDateTime expiryTime = createdDateTime.plusSeconds(refreshTokenValidityMilliseconds / 1000);
@@ -174,16 +174,16 @@ public class AuthenticationService {
                                 oldRefreshToken.setInvalidated(true);
                                 refreshTokenRepository.save(oldRefreshToken);
                                 return null;
-                            }
-                            String jwtToken = jwtService.generateJwtToken(authentication);
-                            String refreshToken = jwtService.generateJwtRefreshToken(authentication);
+                            } // kiểm tra hạn token . Nếu token hết hạn đánh dấu invaliated bằng true
+                            String jwtToken = jwtService.generateJwtToken(authentication); // tạo mới jwt
+                            String refreshToken = jwtService.generateJwtRefreshToken(authentication); // tạo mới refreshToken
                             RefreshToken refreshTokenEntity = RefreshToken.builder()
                                     .refreshToken(refreshToken)
                                     .account(user)
                                     .build();
-                            refreshTokenRepository.save(refreshTokenEntity);
+                            refreshTokenRepository.save(refreshTokenEntity); // lưu refreshToken mới
                             oldRefreshToken.setInvalidated(true);
-                            refreshTokenRepository.save(oldRefreshToken);
+                            refreshTokenRepository.save(oldRefreshToken); // vô hiệu hóa cái cũ
                             return JwtResponse.builder()
                                     .jwt(jwtToken)
                                     .refreshToken(refreshToken)
@@ -191,7 +191,7 @@ public class AuthenticationService {
                                     .username(userDetails.getUsername())
                                     .roles(userDetails.getAuthorities().stream()
                                             .map(GrantedAuthority::getAuthority)
-                                            .collect(Collectors.toSet()))
+                                            .collect(Collectors.toSet())) // danh sách vai trò
                                     .build();
                         }))
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -219,41 +219,111 @@ public class AuthenticationService {
         return null;
     }
 
+//    private JwtResponse authenticateByGoogle(OAuth2LoginRequest request) throws CustomAuthenticationException {
+//        GoogleIdToken.Payload payload = verifyToken(request.getCredential());
+//        if (payload == null) {
+//            throw new CustomAuthenticationException("Invalid credential");
+//        }
+//
+//        // kiem tra xem email vua login da ton tai trong Db chua
+//        // => nêu rồi thì tạo jwt, xong
+//        // => nếu chưa => tạo account mới cho nó rồi tạo jwt
+//        String email = payload.getEmail();
+//        if (StringUtils.isBlank(email)) {
+//            throw new CustomAuthenticationException("Empty email");
+//        }
+//
+//        Optional<Account> accountOptional = accountRepository.findByEmail(email);
+//
+//        if (accountOptional.isPresent()) {
+//            Account account = accountOptional.get();
+//            return buildJwt(account, null , false);
+//        }
+//
+//        // Tạo tài khoản
+//        Account account = Account.builder()
+//                .email(email)
+//                .password(null)
+//                .role(request.getRole())
+//                .status(AccountStatus.ACTIVE)
+//                .createdBy(Constant.DEFAULT_CREATOR)
+//                .lastModifiedBy(Constant.DEFAULT_CREATOR)
+//                .build();
+//        accountRepository.save(account);
+//        if (request.getRole() == Role.CANDIDATE) {
+//            Candidate candidate = Candidate.builder().name(email).account(account).build();
+//            candidateRepository.save(candidate);
+//        } else if (request.getRole() == Role.COMPANY) {
+//            Company company = Company.builder()
+//                    .name("New Company")
+//                    .account(account)
+//                    .build();
+//            companyRepository.save(company);
+//        }
+//
+//        return buildJwt(account, null , true);
+//    }
+
     private JwtResponse authenticateByGoogle(OAuth2LoginRequest request) throws CustomAuthenticationException {
         GoogleIdToken.Payload payload = verifyToken(request.getCredential());
         if (payload == null) {
             throw new CustomAuthenticationException("Invalid credential");
         }
 
-        // kiem tra xem email vua login da ton tai trong Db chua
-        // => nêu rồi thì tạo jwt, xong
-        // => nếu chưa => tạo account mới cho nó rồi tạo jwt
         String email = payload.getEmail();
         if (StringUtils.isBlank(email)) {
             throw new CustomAuthenticationException("Empty email");
         }
 
         Optional<Account> accountOptional = accountRepository.findByEmail(email);
+
+        // Case 1: Account đã tồn tại → đăng nhập bình thường
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
-            return buildJwt(account, null);
+            return buildJwt(account, null, false);
         }
 
-        // Tạo tài khoản
+        // Case 2: Account chưa tồn tại → Kiểm tra đã có role chưa
+        if (request.getRole() == null) {
+            // Chưa có role → frontend cần chuyển đến choose-role.html
+            return JwtResponse.builder()
+                    .isNewAccount(true)
+                    .build();
+        }
+
+        // Case 3: Account chưa có → đã chọn role → tạo account mới
+        Role role = request.getRole();
+//        if (role != Role.CANDIDATE && role != Role.COMPANY) {
+//            throw new CustomAuthenticationException("Invalid role provided");
+//        }
+
         Account account = Account.builder()
                 .email(email)
                 .password(null)
-                .role(Role.CANDIDATE)
-                .status(AccountStatus.CREATED)
+                .role(role)
+                .status(AccountStatus.ACTIVE)
                 .createdBy(Constant.DEFAULT_CREATOR)
                 .lastModifiedBy(Constant.DEFAULT_CREATOR)
                 .build();
         accountRepository.save(account);
-        Candidate candidate = Candidate.builder().name(email).account(account).build();
-        candidateRepository.save(candidate);
 
-        return buildJwt(account, null);
+        if (role == Role.CANDIDATE) {
+            Candidate candidate = Candidate.builder()
+                    .name("New Candidate") // hoặc payload.get("name") nếu bạn lấy được tên từ Google
+                    .account(account)
+                    .build();
+            candidateRepository.save(candidate);
+        } else if (role == Role.COMPANY) {
+            Company company = Company.builder()
+                    .name("New Company") // Có thể yêu cầu frontend cập nhật sau
+                    .account(account)
+                    .build();
+            companyRepository.save(company);
+        }
+
+        return buildJwt(account, null, false); // account đã đầy đủ → sinh JWT
     }
+
 
     private GoogleIdToken.Payload verifyToken(String idTokenString) {
         try {
@@ -270,7 +340,7 @@ public class AuthenticationService {
         return null;
     }
 
-    private JwtResponse buildJwt(Account account, Object credentials) {
+    private JwtResponse buildJwt(Account account, Object credentials , boolean isNewAccount) {
         CustomUserDetails userDetails = new CustomUserDetails(account);
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, credentials);
         SecurityContextHolder.getContext().setAuthentication(authentication); // lưu trữ thông tin thành công vào SecurityContextHolder
@@ -293,6 +363,7 @@ public class AuthenticationService {
                 .id(userDetails.getId())
                 .username(userDetails.getUsername())
                 .roles(roles)
+                .isNewAccount(isNewAccount)
                 .build();
     }
 }

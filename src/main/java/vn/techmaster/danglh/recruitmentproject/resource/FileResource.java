@@ -38,19 +38,23 @@ public class FileResource {
 
         File file = new File(basePath + fileName);
 
-        HttpHeaders headers = new HttpHeaders();
-        List<String> customHeaders = new ArrayList<>();
-        customHeaders.add(HttpHeaders.CONTENT_DISPOSITION);
-        customHeaders.add("Content-Response");
-        headers.setAccessControlExposeHeaders(customHeaders);
-        headers.set("Content-Disposition", "attachment;filename=" + file.getName());
-        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        HttpHeaders headers = new HttpHeaders(); // dùng để cấu hình các header trong reponse
+        List<String> customHeaders = new ArrayList<>(); // tạo 1 danh sách chứa tên các header
+        customHeaders.add(HttpHeaders.CONTENT_DISPOSITION); // để chỉ định cách trình duyệt xử lý file (tải về hoặc hiển thị trực tiếp).
+        customHeaders.add("Content-Response"); //là header tuỳ chỉnh (không bắt buộc), có thể bạn muốn frontend đọc nó sau này
+        headers.setAccessControlExposeHeaders(customHeaders); // Cấu hình để các header được khai báo ở trên có thể được frontend JavaScript đọc khi gọi từ một domain khác
+        headers.set("Content-Disposition", "attachment;filename=" + file.getName()); // "Content-Disposition" nói với trình duyệt đây là file đính kèm. attachment;filename=xxx.jpg sẽ buộc trình duyệt hiển thị nút "Tải về" với tên file đúng
 
-        byte[] imageData = Files.readAllBytes(file.toPath());
+        headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+        // Thiết lập bộ nhớ đệm (cache):
+        // must-revalidate: trình duyệt phải kiểm tra lại với server trước khi dùng bản đã cache.
+        // post-check=0, pre-check=0: thuộc HTTP/1.1, ít dùng nhưng cho biết không delay việc kiểm tra.
+
+        byte[] imageData = Files.readAllBytes(file.toPath()); // Đọc toàn bộ nội dung file thành một mảng byte[]. Đây là phần dữ liệu nhị phân thực sự của ảnh/CV,…
         if (ObjectUtils.isEmpty(imageData)) {
             return ResponseEntity.noContent().build();
         }
-        ByteArrayResource resource = new ByteArrayResource(imageData);
+        ByteArrayResource resource = new ByteArrayResource(imageData); // Tạo ByteArrayResource – một dạng InputStreamResource dùng để đóng gói mảng byte thành một tài nguyên HTTP.
 
         return ResponseEntity.ok()
                 .headers(headers)

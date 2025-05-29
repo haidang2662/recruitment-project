@@ -131,7 +131,7 @@ $(document).ready(async function () {
         const candidateInfo = accountInfo.candidateModel;
 
         for (let prop in candidateInfo) {
-            $("#candidate-info-form [name='" + prop + "']").val(candidateInfo[prop]);
+            $("#candidate-info-form [name='" + prop + "']").val(candidateInfo[prop]); // lặp qua các thuộc tính trong candidateInfo rồi điền vào form
         }
         $(".img-avatar").attr("src", candidateInfo.avatarUrl ? "/api/v1/files/avatar/" + candidateInfo.avatarUrl : DEFAULT_AVATAR_URL);
 
@@ -283,9 +283,9 @@ $(document).ready(async function () {
             return;
         }
         chosenFile = file;
-        const imageBlob = new Blob([chosenFile], {type: chosenFile.type});
-        const imageUrl = URL.createObjectURL(imageBlob);
-        $(".img-avatar").attr("src", imageUrl);
+        const imageBlob = new Blob([chosenFile], {type: chosenFile.type}); // Tạo một Blob (binary large object) từ file đã chọn . Blob là đại diện nhị phân của file, dùng để tạo link hiển thị ảnh mà không cần upload lên server trước .
+        const imageUrl = URL.createObjectURL(imageBlob); // Tạo URL tạm thời từ Blob để hiển thị ảnh ngay lập tức trong trình duyệt (ảnh xem trước).
+        $(".img-avatar").attr("src", imageUrl); // thêm thuộc tinh src vào thẻ img giúp người dùng xem trước ảnh đại diện của họ
     });
 
     $("#avatar-company-input").change(event => {
@@ -345,7 +345,6 @@ $(document).ready(async function () {
             formData.append('cover', chosenFileCover, chosenFileCover.name);
         }
 
-
         $.ajax({
             url: `/api/v1/accounts/${account.id}`,
             type: 'PUT',
@@ -378,7 +377,7 @@ $(document).ready(async function () {
         const accountObj = {};
         formValues.forEach(input => {
             accountObj[input.name] = input.value;
-        });
+        }); // giúp chuyển dữ liệu tử mảng sang Json . VD mảng : { name: "name", value: "Nguyen Van A" } . Json : name: "Nguyen Van A"
         return accountObj;
     }
 

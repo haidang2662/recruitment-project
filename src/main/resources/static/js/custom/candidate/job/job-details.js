@@ -87,11 +87,20 @@ function renderJobDetails(job) {
     $(".company-widget .company-website a").attr("href", company.website);
     $(".company-widget .company-website a").text(company.website);
 
-    const application = job?.application;
-    if (application) {
-        $(".apply-btn").toggleClass("d-none");
-        if (application?.status === 'APPLIED') {
+    const applications = job?.applications;
+    if (applications) {
+        const applied = applications.filter(application => application?.status === 'APPLIED')?.length > 0;
+        const hideApplicationButton = applications.filter(application =>
+            application?.status === 'APPLIED'
+            || application?.status === 'APPLICATION_ACCEPTED'
+            || application?.status === 'WAIT_FOR_INTERVIEW'
+            || application?.status === 'CANDIDATE_ACCEPTED'
+        )?.length > 0;
+        if (applied) {
             $(".cancel-application-btn").toggleClass("d-none");
+        }
+        if (hideApplicationButton) {
+            $(".apply-btn").toggleClass("d-none");
         }
     }
 
@@ -106,7 +115,7 @@ function renderJobDetails(job) {
             location.href = "/login";
             return;
         }
-        const applicationId = job?.application.id;
+        const applicationId = job?.applications.filter(application => application?.status === 'APPLIED')[0]?.id;
         try {
             await $.ajax({
                 url: `/api/v1/applications/${applicationId}/status`,

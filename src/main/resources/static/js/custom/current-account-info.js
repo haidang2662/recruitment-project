@@ -24,10 +24,16 @@ $(document).ready(function () {
             $("#nav-mobile #job-header").hide();
             $("#nav-mobile #has-mega-menu").hide();
             $(".main-box").addClass("py-2");
-            $("#header-account-info #avatar-image-header").attr("src", `/api/v1/files/avatar/${account.companyModel.avatarUrl}`);
+            const companyAvatarUrl = account.companyModel?.avatarUrl
+                ? `/api/v1/files/avatar/${account.companyModel.avatarUrl}`
+                : DEFAULT_AVATAR_URL;
+            $("#header-account-info #avatar-image-header").attr("src", companyAvatarUrl);
         } else {
             $("#header-job-posting-btn").hide();
-            $("#header-account-info #avatar-image-header").attr("src", `/api/v1/files/avatar/${account.candidateModel.avatarUrl}`);
+            const candidateAvatarUrl = account.candidateModel?.avatarUrl
+                ? `/api/v1/files/avatar/${account.candidateModel.avatarUrl}`
+                : DEFAULT_AVATAR_URL;
+            $("#header-account-info #avatar-image-header").attr("src", candidateAvatarUrl);
         }
 
         $("#header-account-info .dropdown-toggle .name").text(`${account.name || "My account"}`);
@@ -69,11 +75,14 @@ $(document).ready(function () {
     // Hàm giải mã JWT (token) để lấy payload
     function parseJwt(token) {
         if (!token) return null;
-        const base64Url = token.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+        const base64Url = token.split('.')[1]; // Cắt chuỗi token thành 3 phần bằng ., rồi lấy phần thứ 2 (payload) – đó là phần bạn cần giải mã.
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Mục đích dòng này là chuyển từ Base64Url về Base64 chuẩn, để dùng atob() giải mã.
+        const jsonPayload = decodeURIComponent( // giải mã lại chuỗi vừa mã hóa (có dạng %7B%22sub%22...) thành chuỗi JSON gốc
+            atob(base64) // giải mã base64 thành chuỗi dạng ký tự gốc (ví dụ như {"sub":"123456","exp":1716909871})
+                .split('')
+                .map(function (c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join('')); // chuyển từng ký tự thành mã UTF-8 để đảm bảo an toàn ký tự unicode (tránh lỗi với ký tự đặc biệt như tiếng Việt, emoji, v.v.)
         return JSON.parse(jsonPayload);
     }
 

@@ -87,7 +87,7 @@ public class AccountResource {
             @RequestPart(value = "cover", required = false) MultipartFile cover
     ) throws ObjectNotFoundException, IOException, InvalidFileExtensionException {
         try {
-            UpdateAccountRequest request = objectMapper.readValue(updateAccountRequest, UpdateAccountRequest.class);
+            UpdateAccountRequest request = objectMapper.readValue(updateAccountRequest, UpdateAccountRequest.class); //  chuyển đổi dữ liệu JSON thô (dưới dạng String) thành một object Java cụ thể
             return accountService.updateAccount(id, avatar, cover, request);
         } catch (JsonProcessingException e) {
             throw new IllegalArgumentException("Dữ liệu JSON không hợp lệ", e);

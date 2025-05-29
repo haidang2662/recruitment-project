@@ -7,6 +7,7 @@ import vn.techmaster.danglh.recruitmentproject.entity.JobCategory;
 import vn.techmaster.danglh.recruitmentproject.entity.Location;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Builder
@@ -54,6 +55,6 @@ public class JobResponse {
 
     CompanyResponse company;
 
-    ApplicationResponse application;
+    List<ApplicationResponse> applications;
 
 }

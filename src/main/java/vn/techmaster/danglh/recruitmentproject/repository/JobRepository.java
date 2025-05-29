@@ -22,8 +22,26 @@ public interface JobRepository extends JpaRepository<Job, Long> {
             "and j.passedQuantity < j.recruitingQuantity")
     List<Job> findExpiredRecruitingJobs(JobStatus status, LocalDate fromDate, LocalDate toDate);
 
-    @Query("SELECT SUM(j.passedQuantity) FROM Job j WHERE j.createdAt BETWEEN :startDate AND :endDate")
-    Long getPassedCandidatesByMonth(@Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    @Query("SELECT COUNT(j) FROM Job j " +
+            "WHERE j.company.account.id = :accountId " +
+            "AND j.createdAt BETWEEN :startDate AND :endDate " +
+            "AND j.passedQuantity >= j.recruitingQuantity")
+    int countFinishedJobsByAccountIdAndDateRange(@Param("accountId") Long accountId,
+                                                 @Param("startDate") LocalDateTime startDate,
+                                                 @Param("endDate") LocalDateTime endDate);
+
+    @Query("SELECT COUNT(j) FROM Job j " +
+            "WHERE j.company.account.id = :accountId " +
+            "AND j.createdAt BETWEEN :startDate AND :endDate " +
+            "AND j.passedQuantity < j.recruitingQuantity")
+    int countUnfinishedJobsByAccountIdAndDateRange(@Param("accountId") Long accountId,
+                                                   @Param("startDate") LocalDateTime startDate,
+                                                   @Param("endDate") LocalDateTime endDate);
+
+    @Query("SELECT COUNT(j) FROM Job j " +
+            "WHERE j.company.account.id = :accountId " +
+            "AND j.status = 'PUBLISH'")
+    int countPublishedJobsByAccountId(@Param("accountId") Long accountId);
 
 
 }

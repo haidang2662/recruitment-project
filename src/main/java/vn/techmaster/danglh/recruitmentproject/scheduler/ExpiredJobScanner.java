@@ -59,7 +59,7 @@ public class ExpiredJobScanner {
     }
 
 
-    @Scheduled(fixedDelay = 36000000, initialDelay = 30000)
+    @Scheduled(fixedDelay = 36000000, initialDelay = 30000000)
     // => cứ 30p chạy 1 phát (phát đầu tiên đợi chương trình khởi động xong 10s mới chạy)
 //    @Scheduled(cron = "0 0 0 * * *") // chạy lúc 0h hằng ngày => quét các job hết hạn
     @Transactional
@@ -104,8 +104,8 @@ public class ExpiredJobScanner {
 
                 Notification notification = Notification.builder()
                         .sender(company.getAccount())
-                        .title("Công việc yêu thích sắp hết hạn")
-                        .content("Công việc " + job.getName() + " (của công ty " + company.getName() + ") mà bạn yêu thích sắp hết hạn")
+                        .title("Your favorite job is about to expire")
+                        .content("The job '" + job.getName() + "' (at " + company.getName() + ") that you marked as favorite is about to expire.")
                         .topic(WebsocketDestination.EXPIRED_FAVORITE_JOB_NOTIFICATION.getValue())
                         .status(NotificationStatus.SENT)
                         .type(NotificationType.SINGLE)
@@ -176,8 +176,8 @@ public class ExpiredJobScanner {
                         .build();
                 Notification notification = Notification.builder()
                         .sender(admin.get())
-                        .title("Tin tuyển dụng chưa hoàn thành sắp hết hạn")
-                        .content("Tin tuyển dụng " + job.getName() + " cho vị trí " + job.getPosition() + " sắp hết hạn.")
+                        .title("Incomplete Job Posting Is About to Expire")
+                        .content("The job posting '" + job.getName() + "' for the position of " + job.getPosition() + " is about to expire.")
                         .topic(WebsocketDestination.EXPIRED_JOB_NOTIFICATION.getValue())
                         .status(NotificationStatus.SENT)
                         .type(NotificationType.SINGLE)

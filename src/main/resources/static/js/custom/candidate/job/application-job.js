@@ -29,7 +29,7 @@ $(document).ready(async function () {
                 let mainCV = null;
                 for (let i = 0; i < cvList.length; i++) {
                     const cv = cvList[i];
-                    mainCV = !mainCV && cv.main ? cv : mainCV;
+                    mainCV = !mainCV && cv.main ? cv : mainCV; // chỉ lấy CV đầu tiên được đánh dấu là main, và giữ nguyên giá trị mainCV sau khi đã gán lần đầu tiên
                     $(".cv-list").append(`
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="radio" name="flexRadioDefault"
@@ -42,7 +42,7 @@ $(document).ready(async function () {
                     `);
                 }
                 if (mainCV) {
-                    $("#" + mainCV.id).prop("checked", true);
+                    $("#" + mainCV.id).prop("checked", true); // đánh dấu radio mặc định
                 }
             },
             error: function () {

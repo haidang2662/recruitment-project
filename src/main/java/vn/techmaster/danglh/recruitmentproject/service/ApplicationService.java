@@ -113,8 +113,8 @@ public class ApplicationService {
 
         NotificationDto dto = NotificationDto.builder()
                 .sender(candidate.getAccount())
-                .title("Lượt ứng tuyển mới")
-                .content("Ứng viên " + candidate.getName() + " đã ứng tuyển vào vị trí " + job.getName() + ".")
+                .title("New job applications")
+                .content("Candidate " + candidate.getName() + " has applied for the position of " + job.getName() + ".")
                 .target(job.getCompany().getAccount())
                 .targetType(TargetType.COMPANY)
                 .destination(WebsocketDestination.NEW_APPLICATION_NOTIFICATION)
@@ -306,8 +306,8 @@ public class ApplicationService {
                     .build();
             NotificationDto dto = NotificationDto.builder()
                     .sender(company.getAccount())
-                    .title("CV đã được chấp nhận")
-                    .content("CV của bạn cho công việc " + job.getName() + " đã được xét duyệt và chấp thuận bởi " + company.getName() + ".")
+                    .title("Your CV Has Been Accepted")
+                    .content("Your CV for the position of " + job.getName() + " has been reviewed and accepted by " + company.getName() + ".")
                     .target(candidate.getAccount())
                     .targetType(TargetType.CANDIDATE)
                     .destination(WebsocketDestination.CV_ACCEPTANCE_NOTIFICATION)
@@ -322,8 +322,8 @@ public class ApplicationService {
                     .build();
             NotificationDto dto = NotificationDto.builder()
                     .sender(company.getAccount())
-                    .title("CV bị từ chối")
-                    .content("CV của bạn cho công việc " + job.getName() + "đã bị từ chối bởi " + company.getName() + ".")
+                    .title("Your CV Has Been Rejected")
+                    .content("Your CV for the position of " + job.getName() + " has been rejected by " + company.getName() + ".")
                     .target(candidate.getAccount())
                     .targetType(TargetType.CANDIDATE)
                     .destination(WebsocketDestination.CV_REFUSAL_NOTIFICATION)
