@@ -9,7 +9,8 @@
     79,1% .
   + Việc tuyển dụng nhân sự và tìm kiếm công việc thông qua 
     website việc làm là xu hướng tất yếu của ngành Human 
-    Resources .
+    Resources.
+- Slide: [file slide](./bao-ao-do-an-tot-nghiep-150529102617-lva1-app6892.pptx)
 ### 1.2 Các role, chức năng có trong hệ thống
 #### 1.2.1 Nhóm chức năng quản lý tài khoản và quyền truy cập 
 - Đăng ký
