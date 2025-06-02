@@ -115,7 +115,6 @@ public class AccountService {
     }
 
     public void sendForgotPasswordEmail(@Valid ForgotPasswordEmailRequest request) throws MessagingException {
-        // TODO - cần check so lần gửi tối đa trong 1 khoag thơi gian (vi du chi duoc gui toi da 3 mail trong vong 1h)
 
         // cần check xem email có tồn tại trong hệ thống không
         Account account = accountRepository.findByEmail(request.getEmail())
@@ -178,8 +177,8 @@ public class AccountService {
 
         Account account = Account.builder()
                 .email(request.getEmail())
-                .password(passwordEncoder.encode("123")) // TODO: change to random password
-                .role(Role.CANDIDATE) // TODO : Đoạn này chưa hiểu lắm làm thế nào để chọn candidate hay company
+                .password(passwordEncoder.encode("123"))
+                .role(Role.CANDIDATE)
                 .status(AccountStatus.ACTIVE)
                 .build();
         accountRepository.save(account);

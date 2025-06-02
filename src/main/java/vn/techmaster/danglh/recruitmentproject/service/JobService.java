@@ -145,7 +145,7 @@ public class JobService {
         Long creatorId = null;
         Long candidateId = null;
         try {
-            CustomUserDetails authentication = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // TODO : Cần hiểu kỹ hơn về đoạn code này
+            CustomUserDetails authentication = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             role = authentication.getAccount().getRole();
             if (role == Role.COMPANY) {
                 Optional<Company> companyOptional = companyRepository.findByAccount(authentication.getAccount());
