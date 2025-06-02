@@ -200,7 +200,7 @@ $(document).ready(function () {
             $container.infiniteScroll('appendItems', $(element));
 
             $(".dropdown-item").off("click").click(async function (event) {
-                event.stopPropagation();
+                event.stopPropagation(); // giúp chặn sự kiện không lan ra ngoài, đảm bảo hành động chỉ xảy ra tại phần tử cụ thể bạn xử lý.
 
                 // đánh dấu đã đọc
                 const target = $(event.currentTarget);
