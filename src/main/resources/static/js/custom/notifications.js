@@ -206,7 +206,6 @@ $(document).ready(function () {
                 const target = $(event.currentTarget);
                 const notificationTargetId = target.attr("notification-target-id");
                 markAsSeen(notificationTargetId);
-
                 // chuyển trang
                 location.href = target.attr("data-href");
             });
@@ -546,4 +545,25 @@ $(document).ready(function () {
     }, 30000); // 30s goi 1 lan
 
     $container.infiniteScroll('loadNextPage'); // load lần đầu;
+
+    // cập nhật notification mới
+    $("#notification-btn").on("click", function () {
+        // Reset lại page index và xóa nội dung cũ
+        pageIndex = 0;
+        $(".notification-box").empty(); // hoặc .html("") đều được
+
+        // Gọi lại API để load danh sách notification mới nhất
+        $.ajax({
+            url: `/api/v1/notifications?pageIndex=0&pageSize=${pageSize}`,
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                renderNotificationTarget(response); // Render lại toàn bộ
+            },
+            error: function () {
+                console.error("❌ Không thể tải danh sách notification khi nhấn chuông.");
+            }
+        });
+    });
+
 });

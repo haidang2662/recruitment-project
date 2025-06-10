@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
         if (
                 ex instanceof ExistedAccountException
                         || ex instanceof PasswordNotMatchedException
-                        || ex instanceof IllegalArgumentException
+                        || ex instanceof IllegalArgumentException // dùng để bảo vệ logic chương trình
                         || ex instanceof InvalidFileExtensionException
         ) {
             errorResponse.setCode(String.valueOf(HttpStatus.BAD_REQUEST.value()));
@@ -47,8 +47,8 @@ public class GlobalExceptionHandler {
         } else if (
                 ex instanceof ExpiredEmailActivationUrlException
                         || ex instanceof ExpiredPasswordForgottenUrlException
-                        || ex instanceof MessagingException
-                        || ex instanceof UnprocessableEntityException
+                        || ex instanceof MessagingException // Lỗi xảy ra trong quá trình gửi mail
+                        || ex instanceof UnprocessableEntityException // Không được xóa khi status của job khác draft
                         || ex instanceof ExistedJobApplicationException
         ) {
             errorResponse.setCode(String.valueOf(HttpStatus.UNPROCESSABLE_ENTITY.value()));

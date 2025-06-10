@@ -49,6 +49,7 @@ function showNotification(message) {
 
     // Tự động ẩn toast sau 5 giây
     setTimeout(() => toast.remove(), 5000);
+
 }
 
 function incrementNotificationBadge() {

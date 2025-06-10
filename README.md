@@ -863,14 +863,18 @@ Nằm trong `recruitment-project/src/main/java` bao gồm các thư mục sau:
   + Role company: `contact@vinamilk.vn`/`aA123456`
 
 ## 3. Thành quả và hướng phát triển tương lai
-### 3.1 Thành quả
+### 3.1 Điểm nổi bật của đồ án 
+- Ứng viên và nhà tuyển dụng có thể đăng nhập thông qua gmail giúp thuận tiện hơn trong quá trình đăng ký thành viên cũng như đăng nhập tài khoản
+- Ứng viên và nhà tuyển dụng sẽ nhận được các thông báo khác nhau như ứng viên nhận được thông báo khi nhà tuyển dụng tạo buổi phỏng vấn , nhà tuyển dụng sẽ nhận được thông báo khi có ứng viên nộp CV cho tin tuyển dụng v.v… Điều này sẽ giúp ứng viên cũng như nhà tuyển dụng quản lý , nắm rõ hơn mục tiêu của mình 
+- Nhà tuyển dụng sẽ có biểu đồ thống kê chi tiết số ứng viên đỗ phỏng vấn và tỷ lệ tin tuyển dụng tuyển đủ người trên tổng số tin theo mốc thời gian 6 tháng , 9 tháng , 12 tháng gần nhất .
+### 3.2 Thành quả
 - Giao diện thân thiện , tối ưu trải nghiệm người dùng
 - Website đã đáp ứng được yêu cầu xử lý nghiệp vụ cơ bản của quá trình tìm kiếm việc làm cũng như tuyển dụng nhân sự của các công ty
 - Các ứng viên có thể đăng nhập thông qua gmail
 - Ưng viên và nhà tuyển dụng sẽ nhận được các thông báo khác nhau để phục vụ công việc của mình . Trong các thông báo này có các nút bẫm xử lý nhanh để công việc được thuận tiện hơn
 - Các thông tin được lưu trữ khoa học, xử lý một cách dễ dàng, chính xác
 - Các vùng nhập liệu được kiểm soát, tránh việc sai sót thông tin trong quá trình nhập dữ liệu.
-### 3.2 Hướng phát triển tương lai
+### 3.3 Hướng phát triển tương lai
 - Tích hợp với các nền tảng tuyển dụng khác
 - Cải thiện thêm chức năng cho tìm kiếm nâng cao
 - Thêm tính năng đánh giá doanh nghiệp

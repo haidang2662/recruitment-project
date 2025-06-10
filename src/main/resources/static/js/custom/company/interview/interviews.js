@@ -234,6 +234,12 @@ $(document).ready(async function () {
             case "CANCELLED":
                 buttons += "";
                 break;
+            case "INTERVIEW_ACCEPTED":
+                buttons += ACCEPT_CANDIDATE_BUTTON + REJECT_CANDIDATE_BUTTON;
+                break;
+            case "INTERVIEW_REFUSED":
+                buttons += "";
+                break;
         }
         return buttons;
     }
@@ -272,6 +278,10 @@ $(document).ready(async function () {
                 return "Candidate absence";
             case "CANCELLED":
                 return "Cancelled";
+            case "INTERVIEW_ACCEPTED":
+                return "Interview accepted";
+            case "INTERVIEW_REFUSED":
+                return "Interview refused";
         }
     }
 

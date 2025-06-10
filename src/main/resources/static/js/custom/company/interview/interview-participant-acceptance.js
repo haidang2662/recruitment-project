@@ -3,6 +3,7 @@ $(document).ready(async function () {
     const pathParts = window.location.pathname.split('/'); // Tách URL thành các phần
     const interviewId = pathParts[pathParts.length - 1]; // Lấy phần tử cuối cùng
     const status = pathParts[pathParts.length - 2]; // Lấy phần tử gần cuối cùng
+    console.log(status)
 
     const content = status === "acceptance" ?
         "Congratulations on successfully registering for the interview. We look forward to meeting you soon."
@@ -16,9 +17,11 @@ $(document).ready(async function () {
         contentType: "application/json; charset=utf-8",
         success: function () {
             $(".content").text(content);
+            console.log("success" , status)
         },
         error: function () {
             showToast("Failed", ERROR_TOAST);
+            console.log("Failed" , status)
         }
     });
 })
